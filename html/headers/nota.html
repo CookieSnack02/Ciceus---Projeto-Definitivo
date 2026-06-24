@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Notas</title>
+    <link rel="stylesheet" href="../css/headers/nota.css"> <!-- link do css das notas -->
+    
+    <link rel="stylesheet" href="../../richtexteditor/richtexteditor/rte_theme_default.css" />
+    <script type="text/javascript" src="../../richtexteditor/richtexteditor/rte.js"></script>
+    <script type="text/javascript" src="../../richtexteditor/richtexteditor/plugins/all_plugins.js"></script>
+
+</head>
+<body>
+    <h1>Notas</h1>
+    <p>Aqui você pode acessar suas notas de estudo, organizá-las e revisá-las para melhorar seu aprendizado. Use esta seção para manter suas anotações e informações importantes sempre à mão.</p> 
+
+    <div id="div_editor1">
+	<p>Hello world!</p>
+	<p><img src='../../richtexteditor/images/editor-image.png' /></p>
+</div>
+
+<script>
+	var editor1cfg = {}
+	editor1cfg.toolbar = "basic";
+	var editor1 = new RichTextEditor("#div_editor1", editor1cfg);
+</script>
+
+
+</body>
+</html>
