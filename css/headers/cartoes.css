@@ -1,0 +1,118 @@
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=SN+Pro:ital,wght@0,200..900;1,200..900&display=swap');
+
+body{ 
+    font-family: 'Nunito', sans-serif;
+    background-color: #efede3;
+}
+
+.titulo{
+    font-family: 'SN Pro', sans-serif;
+    font-size: 20px;
+    font-weight: 900;
+}
+
+ul{ 
+    list-style-type: none;
+    margin: 0;
+    padding: 0; 
+    width: 250px; 
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+
+}
+
+li a{ 
+    display: block;
+    color: #1c1c1c;
+    padding: 8px 16px;
+    text-decoration: none;
+
+}
+
+li a:hover{ 
+    background-color: #a27b5b;
+    border-radius: 25px;
+    transition: 0.35s ease;
+    color: white; 
+}
+
+.cartao {
+  width: 320px;
+  background: #fff;
+  color: black;
+  position: relative;
+  border-radius: 2.5em;
+  padding: 2em;
+  transition: transform 0.4s ease;
+}
+
+.cartao .cartao-conteudo {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 5em;
+  height: 100%;
+  transition: transform 0.4s ease;
+}
+
+.cartao .topo.cartao,
+.cartao .cartao-rodape {
+  display: flex;
+  justify-content: space-between;
+}
+
+.cartao .topo-cartao p,
+.cartao .topo-cartao .cartao-titulo,
+.cartao .cartao-rodape p,
+.cartao .cartao-rodape .cartao-titulo {
+  margin: 0;
+}
+
+.cartao .cartao-titulo {
+  font-weight: bold;
+}
+
+.cartao .topo-cartao p,
+.cartao .cartao-rodape p {
+  font-weight: 600;
+}
+
+.cartao .cartao-rodape {
+  align-items: flex-end;
+}
+
+.cartao .cartao-image {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+}
+
+.cartao .cartao-image svg {
+  width: 4em;
+  height: 4em;
+  transition: transform 0.4s ease;
+}
+
+.cartao:hover {
+  cursor: pointer;
+  transform: scale(0.97);
+}
+
+.cartao:hover .cartao-conteudo {
+  transform: scale(0.96);
+}
+
+.cartao:hover .cartao-image svg {
+  transform: scale(1.05);
+}
+
+.cartao:active {
+  transform: scale(0.9);
+}
