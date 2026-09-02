@@ -38,6 +38,12 @@ li a:hover{
     color: white; 
 }
 
+.conteudos{
+    margin-left: 260px;
+    padding: 1px 16px;
+    height: 1000px;
+}
+
 .cartao {
   width: 320px;
   background: #fff;
@@ -115,4 +121,13 @@ li a:hover{
 
 .cartao:active {
   transform: scale(0.9);
+}
+
+.cartoes-container {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding-top: 40px;
 }
