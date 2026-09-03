@@ -32,7 +32,7 @@ Uma ferramenta focada no aprendizado ativo e organizado do estudante. O intuito 
 
 * [Dia 02.09.2026](./docs/dia1/dia1.md) 
 Hoje começou a ser criado o banco de dados. Clique aqui para verificar a imagem da criação no MySQL Workbench 
-  [![Diagrama do Banco](./docs/dia1/images/criacaoBancoDeDados.png)]
+  ![Diagrama do Banco](./docs/dia1/images/criacaoBancoDeDados.png)
 
 
 
