@@ -27,16 +27,12 @@ Uma ferramenta focada no aprendizado ativo e organizado do estudante. O intuito 
 
 * MySQL 
 
-<<<<<<< HEAD
+
 # Diário de Desenvolvimento 
 
 * [Dia 02.09.2026](./docs/dia1/dia1.md) 
 Hoje começou a ser criado o banco de dados. Clique aqui para verificar a imagem da criação no MySQL Workbench 
   [![Diagrama do Banco](./docs/dia1/images/criacaoBancoDeDados.png)]
-=======
-# Diário de Desenvolvimento
 
-
->>>>>>> e72fe1081fb7099f8fa4ee6d20eb46fd602d2cdc
 
 
