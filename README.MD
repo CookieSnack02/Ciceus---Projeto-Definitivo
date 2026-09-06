@@ -27,7 +27,7 @@ Uma ferramenta focada no aprendizado ativo e organizado do estudante. O intuito 
 
 * MySQL 
 
-<<<<<<< HEAD
+
 # Diário de Desenvolvimento 
 
 * [Dia 02.09.2026](./docs/dia1/dia1.md) 
