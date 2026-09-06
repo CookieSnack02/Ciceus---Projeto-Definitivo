@@ -164,7 +164,7 @@ formularioCadastro.addEventListener('submit', (e) => {
         valido = false;
     }
 
-    if (senha.length < 8) {
+    if (senha.length < 8) { //Melhorar o campo de senha, ela precisa ter 8 caracteres ou mais, com letras maiúsculas, minúsculas, números e símbolos.
         mostrarErro(formularioCadastro, 'senha', 'A senha precisa de 8 caracteres ou mais.');
         valido = false;
     }

@@ -33,7 +33,7 @@ li a{
 }
 
 li a:hover{ 
-    background-color: #a27b5b;
+    background-color: #C08552;
     border-radius: 25px;
     transition: 0.35s ease;
     color: white; 
@@ -78,7 +78,7 @@ li a:hover{
 }
 
 .controls button {
-    background-color: #a27b5b;
+    background-color: #C08552;
     color: white;
     border: none;
     padding: 12px 24px;

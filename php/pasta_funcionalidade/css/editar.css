@@ -1,0 +1,58 @@
+.edit-box {
+  max-width: 450px;
+  background: #fff;
+  padding: 30px;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+  margin-top: 30px;
+}
+.edit-box h2 {
+  margin-top: 0;
+  color: #333;
+}
+.edit-box .form-group {
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.edit-box label {
+  font-weight: bold;
+  font-size: 14px;
+}
+.edit-box input[type="text"] {
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 15px;
+}
+.edit-box input[type="color"] {
+  width: 60px;
+  height: 40px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.edit-actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 25px;
+}
+.btn-salvar {
+  background-color: #a27b5b;
+  color: #fff;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.btn-cancelar {
+  display: inline-block;
+  background-color: #ddd;
+  color: #333;
+  padding: 10px 20px;
+  border-radius: 20px;
+  text-decoration: none;
+  font-weight: bold;
+}
