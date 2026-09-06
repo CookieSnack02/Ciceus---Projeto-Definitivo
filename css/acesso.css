@@ -1,0 +1,270 @@
+@import url('https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap');
+
+html, body{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: 'DM Sans', Helvetica, sans-serif;
+    background-color: #FAF9F5;
+    color: #2b2620;
+}
+
+a{
+    color: #C08552;
+    text-decoration: none;
+}
+
+a:hover{
+    color: #a06d41;
+    text-decoration: underline;
+}
+
+/* estrutura da página */
+
+.acesso{
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 40px 20px;
+    box-sizing: border-box;
+    gap: 28px;
+}
+
+/* cabeçalho com a marca */
+
+.acesso-cabecalho{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 6px;
+}
+
+.acesso-logo{
+    fill: #C08552;
+    margin-bottom: 2px;
+}
+
+.acesso-marca{
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 27px;
+    line-height: 1;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: #C08552;
+}
+
+.acesso-titulo{
+    font-family: 'Instrument Serif', Georgia, serif;
+    font-size: 34px;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+    margin: 10px 0 0 0;
+}
+
+.acesso-subtitulo{
+    font-size: 14px;
+    color: #7d766b;
+    text-align: center;
+    max-width: 340px;
+    margin: 0;
+}
+
+/* cartão do formulário */
+
+.acesso-cartao{
+    width: 100%;
+    max-width: 440px;
+    background-color: #ffffff;
+    border: 1px solid #ebe6da;
+    border-radius: 14px;
+    padding: 28px;
+    box-sizing: border-box;
+    overflow: hidden;
+    box-shadow: 0 1px 2px rgba(43, 38, 32, 0.04);
+}
+
+/* abas de entrar e criar conta */
+
+.acesso-abas{
+    display: flex;
+    gap: 4px;
+    padding: 4px;
+    background-color: #f4f1ea;
+    border-radius: 10px;
+    margin-bottom: 24px;
+}
+
+.aba{
+    flex: 1;
+    padding: 9px 10px;
+    font-family: inherit;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: #8b8478;
+    background-color: transparent;
+    border: none;
+    border-radius: 7px;
+    cursor: pointer;
+    transition: 0.35s ease;
+}
+
+.aba.ativa{
+    color: #2b2620;
+    background-color: #ffffff;
+    box-shadow: 0 1px 2px rgba(43, 38, 32, 0.06);
+}
+
+/* formulários */
+
+.acesso-formulario{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.entrada-esquerda{
+    animation: deslizaEsquerda 260ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+.entrada-direita{
+    animation: deslizaDireita 260ms cubic-bezier(0.22, 0.61, 0.36, 1) both;
+}
+
+@keyframes deslizaEsquerda{
+    from { opacity: 0; transform: translateX(-18px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes deslizaDireita{
+    from { opacity: 0; transform: translateX(18px); }
+    to { opacity: 1; transform: translateX(0); }
+}
+
+/* campos */
+
+.campo{
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+    min-width: 0;
+}
+
+.campo-rotulo{
+    font-size: 12.5px;
+    font-weight: 500;
+    letter-spacing: 0.02em;
+    color: #4a443b;
+}
+
+.campo-rotulo-senha{
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.campo-opcional{
+    font-weight: 400;
+    color: #a09889;
+}
+
+.mostrar-senha{
+    font-size: 11.5px;
+    font-weight: 400;
+    color: #C08552;
+    cursor: pointer;
+}
+
+.campo-entrada{
+    padding: 12px 13px;
+    font-family: inherit;
+    font-size: 15px;
+    color: #2b2620;
+    background-color: #FAF9F5;
+    border: 1px solid #e2dcd0;
+    border-radius: 9px;
+    min-width: 0;
+    transition: border-color 140ms ease;
+}
+
+.campo-entrada::placeholder{
+    color: #b8b2a6;
+}
+
+.campo-entrada:focus{
+    outline: none;
+    border-color: #C08552;
+}
+
+select.campo-entrada{
+    appearance: none;
+    cursor: pointer;
+}
+
+.campo-erro{
+    font-size: 12px;
+    color: #b4462f;
+}
+
+.campo-duplo{
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 16px;
+}
+
+.esqueci-senha{
+    display: flex;
+    justify-content: flex-end;
+    margin-top: -4px;
+    font-size: 12.5px;
+}
+
+/* botão de envio e textos de apoio */
+
+.acesso-botao{
+    margin-top: 4px;
+    padding: 13px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 500;
+    color: #ffffff;
+    background-color: #C08552;
+    border: none;
+    border-radius: 9px;
+    cursor: pointer;
+    transition: 0.35s ease;
+}
+
+.acesso-botao:hover{
+    background-color: #a97244;
+}
+
+.acesso-termos{
+    font-size: 12px;
+    color: #8b8478;
+    text-align: center;
+}
+
+.acesso-aviso{
+    margin-top: 18px;
+    padding: 13px 14px;
+    background-color: #f5efe6;
+    border: 1px solid #e6d7c2;
+    border-radius: 9px;
+    font-size: 13.5px;
+    color: #6b5636;
+}
+
+.acesso-rodape{
+    font-size: 12.5px;
+    color: #9c9488;
+}
+
+.oculto{
+    display: none;
+}
