@@ -1,9 +1,9 @@
 <?php 
 
 $host = "localhost"; 
-$bancoDeDados = "mydb";
-$usuario = "root";
-$senha = "";
+$bancoDeDados = "u448312900_ciceus";
+$usuario = "u448312900_ciceusSuperUs";
+$senha = "^Uq++l9yU3";
 
 try{
     $pdo = new PDO("mysql:host=$host;dbname=$bancoDeDados", $usuario, $senha);
