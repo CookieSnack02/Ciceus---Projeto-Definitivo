@@ -39,8 +39,7 @@
         <p>Aqui você pode acessar suas notas de estudo, organizá-las e revisá-las para melhorar seu aprendizado. Use esta seção para manter suas anotações e informações importantes sempre à mão.</p>
 
         <div class="editor-wrapper">
-            <div id="editor-container" style="height: 300px; background-color: white;">
-                <p>Hello world!</p>
+            <div id="editor-texto" style="height: 300px; background-color: white;">
             </div>
         </div>
     </div>

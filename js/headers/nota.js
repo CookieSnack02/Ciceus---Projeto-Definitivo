@@ -2,8 +2,9 @@ var configuracaoBarra = [
         ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
         ['blockquote', 'code-block'],
 
-        [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+        [{ 'header': [1, 2, 3, 4, false] }],               // custom button values
         [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+         ['link', 'image', 'video'],                         // link and image, video
         [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
         [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
         [{ 'direction': 'rtl' }],                         // text direction
@@ -18,7 +19,7 @@ var configuracaoBarra = [
         ['clean']                                         // remove formatting button
     ];
 
-	var quill = new Quill('#editor-container', {
+	var quill = new Quill('#editor-texto', {
 		modules: {
             toolbar: configuracaoBarra
         },
