@@ -4,6 +4,7 @@
 body{ 
     font-family: 'Nunito', sans-serif;
     background-color: #efede3;
+    margin: 0;
 }
 
 .titulo{
@@ -32,15 +33,127 @@ li a{
 }
 
 li a:hover{ 
-    background-color: #a27b5b;
+    background-color: #C08552;
     border-radius: 25px;
     transition: 0.35s ease;
     color: white; 
 }
 
-.conteudos{
+.pastas{
     margin-left: 260px;
-    padding: 1px 16px;
-    height: 1000px;
+    padding: 20px 30px;
+    min-height: 100vh;
 }
 
+/* Formulário de criação de pasta */
+.form-pasta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 25px 0 35px 0;
+    flex-wrap: wrap;
+}
+
+.form-pasta input[type="text"] {
+    padding: 10px 16px;
+    border: 1px solid #ccc;
+    border-radius: 25px;
+    font-size: 15px;
+    outline: none;
+    min-width: 250px;
+    background: #fff;
+    font-family: 'Nunito', sans-serif;
+}
+
+.form-pasta input[type="text"]:focus {
+    border-color: #a27b5b;
+}
+
+.form-pasta input[type="color"] {
+    width: 44px;
+    height: 40px;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    background: transparent;
+}
+
+.form-pasta button {
+    background-color: #a27b5b;
+    color: white;
+    border: none;
+    padding: 10px 22px;
+    border-radius: 25px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: 0.25s ease;
+    font-family: 'Nunito', sans-serif;
+}
+
+.form-pasta button:hover {
+    background-color: #8a6446;
+    transform: scale(1.02);
+}
+
+/* Grade de pastas */
+.lista-pastas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.pasta-card {
+    background: #fff;
+    border-radius: 12px;
+    padding: 18px 22px;
+    min-width: 230px;
+    max-width: 280px;
+    flex: 1 1 230px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pasta-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.1);
+}
+
+.pasta-info {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.pasta-info h2 {
+    font-size: 18px;
+    margin: 0;
+    color: #2b2b2b;
+    font-weight: 700;
+}
+
+.acoes {
+    display: flex;
+    gap: 10px;
+}
+
+.acoes a {
+    color: #888;
+    text-decoration: none;
+    font-size: 16px;
+    transition: color 0.2s ease;
+}
+
+.acoes a:hover {
+    color: #333;
+}
+
+.acoes a[title="Excluir"]:hover {
+    color: #d9534f;
+}
