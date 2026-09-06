@@ -36,5 +36,5 @@ Hoje começou a ser criado o banco de dados. Clique aqui para verificar a imagem
 
 * [Dia 05.09.2026](./docs/dia1/dia2.md)
 O diagrama do banco de dados no MySQL Workbench foi finalizado juntamente com o código MySQL. Clique aqui para verificar a imagem do diagrama completo:
-  ![Diagrama do Banco](./docs/dia1/images/diagramaBancoDeDados.png)]
+  ![Diagrama do Banco](./docs/dia2/images/diagramaBancoDeDados.png)]
 
