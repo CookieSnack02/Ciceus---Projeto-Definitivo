@@ -1,0 +1,445 @@
+/* ============================================================
+   Ciceus — base do sistema (protótipo minimalista)
+   Único arquivo com tokens, tipografia e o shell (barra lateral).
+   Todos os CSS de página importam este arquivo.
+   ============================================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght,SOFT,WONK@9..144,100..900,0..100,0..1&display=swap');
+
+/* ---------- tokens ---------- */
+:root {
+    /* cores — paleta quente da identidade, dessaturada */
+    --fundo:         #FBFAF7;
+    --barra:         #F5F2EC;
+    --superficie:    #FFFFFF;
+    --linha:         #E8E3D9;
+    --linha-forte:   #DAD3C6;
+
+    --tinta:         #1C1A17;
+    --tinta-2:       #6B655C;
+    --tinta-3:       #9A948A;
+
+    --acento:        #A27B5B;
+    --acento-forte:  #8A6446;
+    --acento-suave:  rgba(162, 123, 91, 0.10);
+    --acento-linha:  rgba(162, 123, 91, 0.28);
+
+    --perigo:        #B4443F;
+
+    /* tipografia */
+    --fonte-corpo:   'DM Sans', Helvetica, sans-serif;
+    --fonte-titulo:  'Fraunces', Georgia, serif;
+
+    /* forma */
+    --raio-p:        8px;
+    --raio:          12px;
+    --raio-g:        18px;
+
+    /* medidas */
+    --barra-largura: 248px;
+    --transicao:     0.22s cubic-bezier(0.4, 0, 0.2, 1);
+    --pop:           0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ---------- reset enxuto ---------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+    margin: 0;
+    background-color: var(--fundo);
+    color: var(--tinta);
+    font-family: var(--fonte-corpo);
+    font-size: 15px;
+    line-height: 1.6;
+    letter-spacing: -0.005em;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+}
+
+/* títulos — Fraunces com eixo SOFT alto (formas arredondadas, suaves) */
+h1, h2, h3, h4 {
+    font-family: var(--fonte-titulo);
+    font-variation-settings: 'SOFT' 70, 'WONK' 0;
+    font-weight: 500;
+    letter-spacing: -0.015em;
+    line-height: 1.18;
+    color: var(--tinta);
+    margin: 0;
+}
+
+p { margin: 0; }
+
+img, svg { display: block; max-width: 100%; }
+
+button,
+input,
+textarea,
+select {
+    font: inherit;
+    color: inherit;
+}
+
+/* ============================================================
+   BARRA LATERAL — fixa, não acompanha o scroll da página
+   ============================================================ */
+.barra-lateral {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: var(--barra-largura);
+    z-index: 40;
+
+    display: flex;
+    flex-direction: column;
+    padding: 22px 14px 16px;
+
+    background-color: var(--barra);
+    border-right: 1px solid var(--linha);
+}
+
+/* marca */
+.marca {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px 10px 0;
+    margin-bottom: 26px;
+    text-decoration: none;
+    color: var(--tinta);
+}
+
+.marca-simbolo {
+    display: grid;
+    place-items: center;
+    width: 26px;
+    height: 26px;
+    color: var(--acento);
+}
+
+.marca-simbolo img,
+.marca-simbolo svg {
+    width: 24px;
+    height: 24px;
+}
+
+.marca-nome {
+    font-family: var(--fonte-titulo);
+    font-variation-settings: 'SOFT' 70, 'WONK' 0;
+    font-weight: 600;
+    font-size: 19px;
+    letter-spacing: -0.02em;
+}
+
+/* navegação — única área rolável da barra */
+.navegacao {
+    flex: 1 1 auto;
+    overflow-y: auto;
+    overscroll-behavior: contain;
+}
+
+.navegacao-rotulo {
+    padding: 0 12px;
+    margin-bottom: 6px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--tinta-3);
+}
+
+.navegacao ul {
+    list-style: none;
+    margin: 0 0 18px;
+    padding: 0;
+}
+
+.navegacao li + li { margin-top: 2px; }
+
+.navegacao a {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+
+    padding: 8px 12px;
+    border-radius: var(--raio-p);
+
+    color: var(--tinta-2);
+    font-size: 14px;
+    font-weight: 500;
+    text-decoration: none;
+
+    transition: background-color var(--transicao), color var(--transicao);
+}
+
+.navegacao a i {
+    width: 17px;
+    font-size: 15px;
+    text-align: center;
+    color: var(--tinta-3);
+    transition: color var(--transicao);
+}
+
+.navegacao a:hover {
+    background-color: rgba(28, 26, 23, 0.045);
+    color: var(--tinta);
+}
+
+.navegacao a:hover i { color: var(--tinta-2); }
+
+.navegacao a.ativo {
+    background-color: var(--superficie);
+    color: var(--tinta);
+    font-weight: 600;
+    box-shadow: 0 1px 2px rgba(28, 26, 23, 0.05);
+}
+
+.navegacao a.ativo i { color: var(--acento); }
+
+/* ---------- conta (canto inferior esquerdo) ---------- */
+.conta {
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    width: 100%;
+
+    margin-top: auto;
+    padding: 9px 10px;
+
+    background: none;
+    border: none;
+    border-top: 1px solid var(--linha-forte);
+    border-radius: 0;
+    padding-top: 15px;
+    margin-bottom: 0;
+
+    text-align: left;
+    cursor: pointer;
+}
+
+/* a caixa do ícone empilha os dois ícones no mesmo ponto */
+.conta-icone {
+    position: relative;
+    flex: 0 0 auto;
+    width: 26px;
+    height: 26px;
+}
+
+.conta-icone i {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+
+    font-size: 24px;
+    line-height: 1;
+
+    transition: opacity 0.24s ease, transform var(--pop);
+    will-change: transform, opacity;
+}
+
+/* estado de repouso: fa-slab-press */
+.conta-icone .icone-repouso {
+    opacity: 1;
+    transform: scale(1);
+    color: var(--tinta-2);
+}
+
+/* estado de hover: fa-slab, entra com "pop" */
+.conta-icone .icone-ativo {
+    opacity: 0;
+    transform: scale(0.7);
+    color: var(--acento);
+}
+
+.conta:hover .icone-repouso,
+.conta:focus-visible .icone-repouso {
+    opacity: 0;
+    transform: scale(0.7);
+}
+
+.conta:hover .icone-ativo,
+.conta:focus-visible .icone-ativo {
+    opacity: 1;
+    transform: scale(1.12);
+}
+
+.conta:active .icone-ativo { transform: scale(0.96); }
+
+.conta-texto {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.25;
+    min-width: 0;
+}
+
+.conta-texto strong {
+    font-size: 13.5px;
+    font-weight: 600;
+    color: var(--tinta);
+    transition: color var(--transicao);
+}
+
+.conta-texto small {
+    font-size: 11.5px;
+    color: var(--tinta-3);
+}
+
+.conta:hover .conta-texto strong { color: var(--acento-forte); }
+
+.conta:focus-visible {
+    outline: 2px solid var(--acento-linha);
+    outline-offset: 2px;
+    border-radius: var(--raio-p);
+}
+
+/* ============================================================
+   ÁREA DE CONTEÚDO
+   ============================================================ */
+.pagina {
+    margin-left: var(--barra-largura);
+    padding: 54px 48px 88px;
+}
+
+.pagina-interna {
+    max-width: 920px;
+    margin: 0 auto;
+}
+
+/* cabeçalho de página */
+.pagina-cabecalho { margin-bottom: 36px; }
+
+.pagina-etiqueta {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--tinta-3);
+}
+
+.pagina-cabecalho h1 {
+    font-size: 34px;
+    margin-bottom: 10px;
+}
+
+.pagina-resumo {
+    max-width: 58ch;
+    color: var(--tinta-2);
+    font-size: 15px;
+}
+
+/* ---------- peças reutilizáveis ---------- */
+.cartao-base {
+    background-color: var(--superficie);
+    border: 1px solid var(--linha);
+    border-radius: var(--raio);
+}
+
+.botao {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+
+    padding: 9px 18px;
+    border: 1px solid transparent;
+    border-radius: var(--raio-p);
+
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+
+    transition: background-color var(--transicao), border-color var(--transicao),
+                color var(--transicao);
+}
+
+.botao-primario {
+    background-color: var(--acento);
+    color: #FFFFFF;
+}
+
+.botao-primario:hover { background-color: var(--acento-forte); }
+
+.botao-neutro {
+    background-color: var(--superficie);
+    border-color: var(--linha-forte);
+    color: var(--tinta-2);
+}
+
+.botao-neutro:hover {
+    border-color: var(--tinta-3);
+    color: var(--tinta);
+}
+
+.botao:focus-visible {
+    outline: 2px solid var(--acento-linha);
+    outline-offset: 2px;
+}
+
+.campo {
+    padding: 9px 14px;
+    background-color: var(--superficie);
+    border: 1px solid var(--linha-forte);
+    border-radius: var(--raio-p);
+    font-size: 14px;
+    outline: none;
+    transition: border-color var(--transicao);
+}
+
+.campo::placeholder { color: var(--tinta-3); }
+
+.campo:focus { border-color: var(--acento); }
+
+/* estado vazio */
+.vazio {
+    padding: 44px 28px;
+    border: 1px dashed var(--linha-forte);
+    border-radius: var(--raio);
+    text-align: center;
+    color: var(--tinta-3);
+    font-size: 14px;
+}
+
+.vazio i {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 22px;
+    color: var(--linha-forte);
+}
+
+/* ---------- responsivo ---------- */
+@media (max-width: 860px) {
+    .barra-lateral {
+        width: 68px;
+        padding: 20px 10px 14px;
+        align-items: stretch;
+    }
+
+    .marca { justify-content: center; padding: 4px 0 0; }
+    .marca-nome,
+    .navegacao-rotulo,
+    .conta-texto { display: none; }
+
+    .navegacao a { justify-content: center; padding: 10px 0; }
+    .conta { justify-content: center; padding-left: 0; padding-right: 0; }
+
+    .pagina {
+        margin-left: 68px;
+        padding: 36px 24px 64px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        transition-duration: 0.01ms !important;
+        animation-duration: 0.01ms !important;
+    }
+}
