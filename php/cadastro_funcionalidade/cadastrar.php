@@ -51,8 +51,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 exit; 
             } else {
                 header("Location: ../../html/acesso.php?erro=banco");
-                exit; 
+
             }
+            exit; 
         }
 
     } else{

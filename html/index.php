@@ -10,13 +10,15 @@
 </head>
 <body>
     <!-- <svg width="64px" height="64px" viewBox="-20 0 190 190" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M79.43 86C76.6635 79.0001 72.5528 72.6098 67.3301 67.19L91 65.58C85.7145 71.4716 81.7673 78.4379 79.43 86ZM76.77 98.11L82.6501 97.3C82.6501 84.21 93.8901 64.5 105.65 60.54C105.65 64.7 105.44 87.29 105.44 99.69C105.44 133.17 87.84 145.92 47.5 146.36C52.73 141.28 60.35 133.1 60.35 122.11C60.35 109.43 56.6701 100.45 44.7401 99.58L44.3 60.63H46.76C63.33 64.67 76.77 83.93 76.77 98.11ZM96.0801 81.56C89.16 81.56 88.83 92.09 96.2 92.09C102.93 92.09 103 81.56 96.0801 81.56ZM94.5801 109.42L87.84 109.79L89.53 118.87L91.96 119.34L94.5801 109.42ZM85.74 132.53L87.74 133.53L90.2601 124.92L83.71 124.61L85.74 132.53ZM83.3301 110L76.53 110.37L78.34 118.84L81.0801 118.99L83.3301 110ZM75.3301 132.86L77.74 133.08L79.52 124.39L73.18 124.1L75.3301 132.86ZM67.5101 119L70.2901 118.48L72.1601 110.66L66.1601 110.98L67.5101 119ZM60.3 79.17C49.3 79.17 48.7701 95.92 60.4901 95.92C71.2001 95.92 71.2701 79.17 60.3 79.17ZM55.53 122.55C55.53 132.16 49.1201 137.8 45.3101 141.43L44.85 104.69C53.33 105.35 55.53 112.62 55.53 122.55Z" fill="#000000"></path> </g></svg> -->
-    <svg fill="#000000" height="64px" width="64px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M460.994,200.379c11.845-22.438,14.678-52.681,8.38-90.043c-4.739-28.113-13.077-50.284-13.43-51.214l-5.564-14.676 l-15.64,1.357c-0.988,0.084-24.503,2.192-51.819,10.261c-27.22,8.041-48.625,19.048-63.996,32.834 c-20.823-6.88-42.001-10.493-62.926-10.493c-20.926,0-42.103,3.613-62.926,10.492c-15.371-13.787-36.775-24.792-63.996-32.834 c-27.316-8.069-50.831-10.176-51.819-10.261l-15.638-1.358l-5.564,14.678c-0.353,0.93-8.69,23.1-13.43,51.214 c-6.298,37.362-3.465,67.606,8.38,90.043C18.64,247.221,0,300.363,0,348.243v13.901l256,105.411l256-105.411v-13.901 C512,300.363,493.36,247.221,460.994,200.379z M422.144,89.39c5.543,19.659,11.341,49.214,7.903,72.711 c-20.584-21.867-43.329-39.878-67.203-53.516C381.462,98.451,404.874,92.434,422.144,89.39z M256,119.919 c44.278,0,90.657,20.589,130.26,57.192c-57.491,5.184-106.619,39.792-132.178,88.611c-27.53-46.995-77.489-79.324-135.081-82.173 C160.019,142.923,209.185,119.919,256,119.919z M89.802,89.46c7.799,1.38,17.728,3.488,28.188,6.616 c12.011,3.59,22.428,7.805,31.123,12.533c-23.884,13.648-46.635,31.672-67.221,53.552C78.369,138.741,84.129,109.392,89.802,89.46 z M256,422.662l-213.88-88.07c3.028-34.691,17.289-72.182,40.192-106.486c9.255-2.156,18.783-3.252,28.392-3.252 c59.162,0,108.818,41.469,121.437,96.865h46.357c9.912-58.826,61.202-103.784,122.801-103.784c7.674,0,15.316,0.708,22.798,2.089 c26.174,36.434,42.52,77.129,45.787,114.568L256,422.662z"></path> </g> </g> <g> <g> <circle cx="359.784" cy="300.959" r="20.757"></circle> </g> </g> <g> <g> <circle cx="152.216" cy="300.959" r="20.757"></circle> </g> </g> <g> <g> <path d="M269.838,349.394H256h-13.838c-7.643,0-13.838,6.195-13.838,13.838c0,13.838,27.676,27.676,27.676,27.676 s27.676-13.838,27.676-27.676C283.676,355.59,277.48,349.394,269.838,349.394z"></path> </g> </g> </g></svg>
-    <div class = "titulo">
-        <h1>Ciceus</h1>
-    </div>
-    
+    <!-- <svg fill="#000000" height="64px" width="64px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M460.994,200.379c11.845-22.438,14.678-52.681,8.38-90.043c-4.739-28.113-13.077-50.284-13.43-51.214l-5.564-14.676 l-15.64,1.357c-0.988,0.084-24.503,2.192-51.819,10.261c-27.22,8.041-48.625,19.048-63.996,32.834 c-20.823-6.88-42.001-10.493-62.926-10.493c-20.926,0-42.103,3.613-62.926,10.492c-15.371-13.787-36.775-24.792-63.996-32.834 c-27.316-8.069-50.831-10.176-51.819-10.261l-15.638-1.358l-5.564,14.678c-0.353,0.93-8.69,23.1-13.43,51.214 c-6.298,37.362-3.465,67.606,8.38,90.043C18.64,247.221,0,300.363,0,348.243v13.901l256,105.411l256-105.411v-13.901 C512,300.363,493.36,247.221,460.994,200.379z M422.144,89.39c5.543,19.659,11.341,49.214,7.903,72.711 c-20.584-21.867-43.329-39.878-67.203-53.516C381.462,98.451,404.874,92.434,422.144,89.39z M256,119.919 c44.278,0,90.657,20.589,130.26,57.192c-57.491,5.184-106.619,39.792-132.178,88.611c-27.53-46.995-77.489-79.324-135.081-82.173 C160.019,142.923,209.185,119.919,256,119.919z M89.802,89.46c7.799,1.38,17.728,3.488,28.188,6.616 c12.011,3.59,22.428,7.805,31.123,12.533c-23.884,13.648-46.635,31.672-67.221,53.552C78.369,138.741,84.129,109.392,89.802,89.46 z M256,422.662l-213.88-88.07c3.028-34.691,17.289-72.182,40.192-106.486c9.255-2.156,18.783-3.252,28.392-3.252 c59.162,0,108.818,41.469,121.437,96.865h46.357c9.912-58.826,61.202-103.784,122.801-103.784c7.674,0,15.316,0.708,22.798,2.089 c26.174,36.434,42.52,77.129,45.787,114.568L256,422.662z"></path> </g> </g> <g> <g> <circle cx="359.784" cy="300.959" r="20.757"></circle> </g> </g> <g> <g> <circle cx="152.216" cy="300.959" r="20.757"></circle> </g> </g> <g> <g> <path d="M269.838,349.394H256h-13.838c-7.643,0-13.838,6.195-13.838,13.838c0,13.838,27.676,27.676,27.676,27.676 s27.676-13.838,27.676-27.676C283.676,355.59,277.48,349.394,269.838,349.394z"></path> </g> </g> </g></svg> -->
     <!-- navbar -->
     <div class="navbar">
+        <div class="logo-ciceus">
+            <svg fill="#c08552" height="32px" width="32px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M460.994,200.379c11.845-22.438,14.678-52.681,8.38-90.043c-4.739-28.113-13.077-50.284-13.43-51.214l-5.564-14.676 l-15.64,1.357c-0.988,0.084-24.503,2.192-51.819,10.261c-27.22,8.041-48.625,19.048-63.996,32.834 c-20.823-6.88-42.001-10.493-62.926-10.493c-20.926,0-42.103,3.613-62.926,10.492c-15.371-13.787-36.775-24.792-63.996-32.834 c-27.316-8.069-50.831-10.176-51.819-10.261l-15.638-1.358l-5.564,14.678c-0.353,0.93-8.69,23.1-13.43,51.214 c-6.298,37.362-3.465,67.606,8.38,90.043C18.64,247.221,0,300.363,0,348.243v13.901l256,105.411l256-105.411v-13.901 C512,300.363,493.36,247.221,460.994,200.379z M422.144,89.39c5.543,19.659,11.341,49.214,7.903,72.711 c-20.584-21.867-43.329-39.878-67.203-53.516C381.462,98.451,404.874,92.434,422.144,89.39z M256,119.919 c44.278,0,90.657,20.589,130.26,57.192c-57.491,5.184-106.619,39.792-132.178,88.611c-27.53-46.995-77.489-79.324-135.081-82.173 C160.019,142.923,209.185,119.919,256,119.919z M89.802,89.46c7.799,1.38,17.728,3.488,28.188,6.616 c12.011,3.59,22.428,7.805,31.123,12.533c-23.884,13.648-46.635,31.672-67.221,53.552C78.369,138.741,84.129,109.392,89.802,89.46 z M256,422.662l-213.88-88.07c3.028-34.691,17.289-72.182,40.192-106.486c9.255-2.156,18.783-3.252,28.392-3.252 c59.162,0,108.818,41.469,121.437,96.865h46.357c9.912-58.826,61.202-103.784,122.801-103.784c7.674,0,15.316,0.708,22.798,2.089 c26.174,36.434,42.52,77.129,45.787,114.568L256,422.662z"></path> </g> </g> <g> <g> <circle cx="359.784" cy="300.959" r="20.757"></circle> </g> </g> <g> <g> <circle cx="152.216" cy="300.959" r="20.757"></circle> </g> </g> <g> <g> <path d="M269.838,349.394H256h-13.838c-7.643,0-13.838,6.195-13.838,13.838c0,13.838,27.676,27.676,27.676,27.676 s27.676-13.838,27.676-27.676C283.676,355.59,277.48,349.394,269.838,349.394z"></path> </g> </g> </g></svg>
+        </div>
+        <div class="titulo">
+            <h1>Ciceus</h1>
+        </div>
         <ul> 
             <!-- <li><a href="#"><svg width="32px" height="32px" viewBox="0 -0.5 25 25" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M18.867 15.8321L18.873 10.0391L14.75 5.92908C13.5057 4.69031 11.4942 4.69031 10.25 5.92908L6.13599 10.0291V15.8291C6.1393 17.5833 7.56377 19.0028 9.31799 19.0001H15.685C17.438 19.0029 18.862 17.5851 18.867 15.8321Z" stroke="#000000" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"></path> <path d="M19.624 6.01807C19.624 5.60385 19.2882 5.26807 18.874 5.26807C18.4598 5.26807 18.124 5.60385 18.124 6.01807H19.624ZM18.874 10.0391H18.124C18.124 10.2384 18.2033 10.4295 18.3445 10.5702L18.874 10.0391ZM19.9705 12.1912C20.2638 12.4837 20.7387 12.4829 21.0311 12.1896C21.3236 11.8962 21.3229 11.4214 21.0295 11.1289L19.9705 12.1912ZM6.66552 10.5602C6.95886 10.2678 6.95959 9.79289 6.66714 9.49955C6.3747 9.20621 5.89982 9.20548 5.60648 9.49793L6.66552 10.5602ZM3.97048 11.1289C3.67714 11.4214 3.67641 11.8962 3.96886 12.1896C4.2613 12.4829 4.73618 12.4837 5.02952 12.1912L3.97048 11.1289ZM13.75 19.0001C13.75 19.4143 14.0858 19.7501 14.5 19.7501C14.9142 19.7501 15.25 19.4143 15.25 19.0001H13.75ZM9.75 19.0001C9.75 19.4143 10.0858 19.7501 10.5 19.7501C10.9142 19.7501 11.25 19.4143 11.25 19.0001H9.75ZM18.124 6.01807V10.0391H19.624V6.01807H18.124ZM18.3445 10.5702L19.9705 12.1912L21.0295 11.1289L19.4035 9.50792L18.3445 10.5702ZM5.60648 9.49793L3.97048 11.1289L5.02952 12.1912L6.66552 10.5602L5.60648 9.49793ZM15.25 19.0001V17.2201H13.75V19.0001H15.25ZM15.25 17.2201C15.25 15.7013 14.0188 14.4701 12.5 14.4701V15.9701C13.1904 15.9701 13.75 16.5297 13.75 17.2201H15.25ZM12.5 14.4701C10.9812 14.4701 9.75 15.7013 9.75 17.2201H11.25C11.25 16.5297 11.8096 15.9701 12.5 15.9701V14.4701ZM9.75 17.2201V19.0001H11.25V17.2201H9.75Z" fill="#000000"></path> </g></svg>Inicial</a></li> -->
             <!-- <li><a href="#"><svg width="32px" height="32px" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g clip-path="url(#clip0_429_11177)"> <path d="M19 10V19C19 20.1046 18.1046 21 17 21H7C5.89543 21 5 20.1046 5 19V10M21 12L12 3L3 12" stroke="#292929" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"></path> </g> <defs> <clipPath id="clip0_429_11177"> <rect width="24" height="24" fill="white"></rect> </clipPath> </defs> </g></svg>Inicial</a></li>
@@ -28,13 +30,13 @@
             <li><a href="headers/tempo.php"><svg height="32px" width="32px" version="1.1" id="Capa_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 26.001 26.001" xml:space="preserve" fill="#000000"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path style="fill:#030104;" d="M11.002,12.998C11,14.102,11.894,14.999,12.998,15c1.104,0,2-0.895,2.002-1.997 c0.002-1.106-0.893-2.001-1.996-2.001C11.898,11,11.002,11.892,11.002,12.998z"></path> </g> <g> <path style="fill:#030104;" d="M13.573,13.539c0,0,0.001-0.002,0.001-0.004c0.39-0.39,1.101-1.715,0.72-2.053 c0,0-10.61-8.467-10.929-8.148s8.116,10.96,8.116,10.96C11.822,14.673,13.184,13.927,13.573,13.539z"></path> </g> <circle style="fill:#030104;" cx="13" cy="2.001" r="2.001"></circle> <path style="fill:#030104;" d="M17.288,1.798c-0.688,1.154,0.396,1.861,0.723,2.04c3.244,1.776,5.453,5.21,5.453,9.163 c0,5.77-4.693,10.463-10.463,10.463S2.536,18.771,2.536,13.001c0-1.326,0.253-2.594,0.707-3.76C3.303,9.09,3.872,8.086,2.757,7.384 c-0.764-0.48-1.512,0.062-1.662,0.404C0.392,9.384,0,11.146,0,13.001c0,7.18,5.82,13,13,13s13-5.82,13-13 c0-5.113-2.959-9.528-7.253-11.646C18.657,1.31,17.768,0.991,17.288,1.798z"></path> </g> </g></svg>Temporizador</a></li>
              -->
 
-             <li><a href="index.php"><i class="fa-slab fa-regular fa-house"></i>Inicial</a></li>
-             <li><a href="headers/nota.php"><i class="fa-slab fa-regular fa-clipboard"></i>Notas</a></li>
-             <li><a href="headers/questao.php"><i class="fa-slab fa-regular fa-question"></i>Questões</a></li>
-             <li><a href="headers/cartoes.php"><i class="fa-slab fa-regular fa-copy"></i>Cartões</a></li>
-             <li><a href="headers/quadro.php"><i class="fa-slab fa-regular fa-rectangle-wide"></i>Quadro</a></li>
-             <li><a href="headers/pasta.php"><i class="fa-slab fa-regular fa-folders"></i>Pastas</a></li>
-             <li><a href="headers/tempo.php"><i class="fa-slab fa-regular fa-stopwatch"></i>Temporizador</a></li>
+             <li><a href="index.php"><span class="icone"><i class="fa-slab-press fa-regular fa-house icone-padrao"></i><i class="fa-slab fa-regular fa-house icone-hover"></i></span>Inicial</a></li>
+             <li><a href="headers/nota.php"><span class="icone"><i class="fa-slab-press fa-regular fa-clipboard icone-padrao"></i><i class="fa-slab fa-regular fa-clipboard icone-hover"></i></span>Notas</a></li>
+             <li><a href="headers/questao.php"><span class="icone"><i class="fa-slab-press fa-regular fa-question icone-padrao"></i><i class="fa-slab fa-regular fa-question icone-hover"></i></span>Questões</a></li>
+             <li><a href="headers/cartoes.php"><span class="icone"><i class="fa-slab-press fa-regular fa-copy icone-padrao"></i><i class="fa-slab fa-regular fa-copy icone-hover"></i></span>Cartões</a></li>
+             <li><a href="headers/quadro.php"><span class="icone"><i class="fa-slab-press fa-regular fa-rectangle-wide icone-padrao"></i><i class="fa-slab fa-regular fa-rectangle-wide icone-hover"></i></span>Quadro</a></li>
+             <li><a href="headers/pasta.php"><span class="icone"><i class="fa-slab-press fa-regular fa-folders icone-padrao"></i><i class="fa-slab fa-regular fa-folders icone-hover"></i></span>Pastas</a></li>
+             <li><a href="headers/tempo.php"><span class="icone"><i class="fa-slab-press fa-regular fa-stopwatch icone-padrao"></i><i class="fa-slab fa-regular fa-stopwatch icone-hover"></i></span>Temporizador</a></li>
 
 
 
@@ -44,8 +46,55 @@
 
     <!-- conteudos -->
     <div class="conteudos">
-        <h1> Bem-vindo(a) ao Ciceus!</h1>
-        <p>O Ciceus é uma plataforma de estudo personalizada que oferece uma variedade de recursos para ajudar os estudantes a alcançarem seus objetivos acadêmicos. Com o Ciceus, você pode acessar notas, questões, cartões de estudo e um quadro de estudos para organizar seu aprendizado de forma eficiente. Além disso, o temporizador integrado ajuda a manter o foco durante as sessões de estudo. Explore nossos recursos e aproveite ao máximo sua jornada de aprendizado!</p>
+
+        <!-- texto de boas-vindas -->
+        <div class="apresentacao">
+            <h1 id="bem-vindo">Bem-vindo(a) ao Ciceus!</h1>
+            <p>O Ciceus é uma plataforma de estudo personalizada que oferece uma variedade de recursos para ajudar os estudantes a alcançarem seus objetivos acadêmicos. Com o Ciceus, você pode acessar notas, questões, cartões de estudo e um quadro de estudos para organizar seu aprendizado de forma eficiente. Além disso, o temporizador integrado ajuda a manter o foco durante as sessões de estudo. Explore nossos recursos e aproveite ao máximo sua jornada de aprendizado!</p>
+        </div>
+
+        <!-- grade de cartoes das paginas -->
+        <div class="grade-paginas">
+
+            <a class="cartao-pagina" href="headers/nota.php">
+                <span class="icone-cartao"><i class="fa-slab fa-regular fa-clipboard"></i></span>
+                <h4>Notas</h4>
+                <p>Escreva e organize suas anotações de aula em um editor simples.</p>
+            </a>
+
+            <a class="cartao-pagina" href="headers/questao.php">
+                <span class="icone-cartao"><i class="fa-slab fa-regular fa-question"></i></span>
+                <h4>Questões</h4>
+                <p>Crie e responda questões para testar o que você já aprendeu.</p>
+            </a>
+
+            <a class="cartao-pagina" href="headers/cartoes.php">
+                <span class="icone-cartao"><i class="fa-slab fa-regular fa-copy"></i></span>
+                <h4>Cartões</h4>
+                <p>Monte cartões de estudo e revise o conteúdo por repetição.</p>
+            </a>
+
+            <a class="cartao-pagina" href="headers/quadro.php">
+                <span class="icone-cartao"><i class="fa-slab fa-regular fa-rectangle-wide"></i></span>
+                <h4>Quadro</h4>
+                <p>Um quadro livre para rascunhar ideias e mapas mentais.</p>
+            </a>
+
+            <a class="cartao-pagina" href="headers/pasta.php">
+                <span class="icone-cartao"><i class="fa-slab fa-regular fa-folders"></i></span>
+                <h4>Pastas</h4>
+                <p>Agrupe seus materiais por matéria e encontre tudo rápido.</p>
+            </a>
+
+            <a class="cartao-pagina" href="headers/tempo.php">
+                <span class="icone-cartao"><i class="fa-slab fa-regular fa-stopwatch"></i></span>
+                <h4>Temporizador</h4>
+                <p>Marque sessões de foco e acompanhe seu tempo de estudo.</p>
+            </a>
+
+        </div>
+        <!-- fim da grade -->
+
     </div>
     <!-- fim dos conteudos -->
 
