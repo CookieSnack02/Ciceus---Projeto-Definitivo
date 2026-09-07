@@ -1,0 +1,8 @@
+@import url('../base.css');
+
+/* página ainda sem funcionalidade — só o shell novo aplicado */
+.questao-lista {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}

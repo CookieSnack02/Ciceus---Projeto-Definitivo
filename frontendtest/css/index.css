@@ -1,0 +1,103 @@
+@import url('base.css');
+
+/* ---------- abertura ---------- */
+.abertura {
+    padding-bottom: 34px;
+    margin-bottom: 34px;
+    border-bottom: 1px solid var(--linha);
+}
+
+.abertura h1 {
+    font-size: 42px;
+    margin-bottom: 14px;
+}
+
+.abertura h1 em {
+    font-style: normal;
+    color: var(--acento);
+}
+
+.abertura p {
+    max-width: 60ch;
+    color: var(--tinta-2);
+    font-size: 16px;
+}
+
+/* ---------- grade de atalhos ---------- */
+.secao-rotulo {
+    margin-bottom: 16px;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--tinta-3);
+}
+
+.atalhos {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+    gap: 14px;
+}
+
+.atalho {
+    display: block;
+    padding: 20px;
+
+    background-color: var(--superficie);
+    border: 1px solid var(--linha);
+    border-radius: var(--raio);
+
+    text-decoration: none;
+    color: inherit;
+
+    transition: border-color var(--transicao), transform var(--transicao);
+}
+
+.atalho:hover {
+    border-color: var(--acento-linha);
+    transform: translateY(-2px);
+}
+
+.atalho i {
+    display: block;
+    margin-bottom: 14px;
+    font-size: 19px;
+    color: var(--acento);
+}
+
+.atalho h2 {
+    font-size: 17px;
+    margin-bottom: 5px;
+}
+
+.atalho p {
+    color: var(--tinta-2);
+    font-size: 13.5px;
+    line-height: 1.5;
+}
+
+/* ---------- faixa de foco ---------- */
+.foco {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+
+    margin-top: 34px;
+    padding: 22px 24px;
+
+    background-color: var(--acento-suave);
+    border: 1px solid var(--acento-linha);
+    border-radius: var(--raio);
+}
+
+.foco h2 {
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+
+.foco p {
+    color: var(--tinta-2);
+    font-size: 13.5px;
+}
