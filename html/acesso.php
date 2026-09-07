@@ -1,3 +1,25 @@
+<?php
+$mensagemAviso = '';
+$classeAviso = 'oculto';
+
+if (isset($_GET['sucesso']) && $_GET['sucesso'] === 'cadastro') {
+    $mensagemAviso = 'Conta criada com sucesso! Faça login para continuar.';
+    $classeAviso = '';
+} elseif (isset($_GET['erro'])) {
+    $classeAviso = '';
+    if ($_GET['erro'] === 'login') {
+        $mensagemAviso = 'E-mail ou senha incorretos.';
+    } elseif ($_GET['erro'] === 'email_duplicado') {
+        $mensagemAviso = 'Este e-mail já está cadastrado.';
+    } elseif ($_GET['erro'] === 'campos'|| $_GET['erro'] === 'campos_vazios') {
+        $mensagemAviso = 'Preencha todos os campos obrigatórios.';
+    } else {
+        $mensagemAviso = 'Ocorreu um erro no servidor. Tente novamente.';
+    }
+}
+?>
+
+
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -9,6 +31,7 @@
     <script src="https://kit.fontawesome.com/5f10733ee6.js" crossorigin="anonymous"></script>  <!-- fontawesome -->
 </head>
 <body>
+
 
     <div class="acesso">
 
@@ -32,7 +55,7 @@
             <!-- fim das abas -->
 
             <!-- formulário de login -->
-            <form class="acesso-formulario entrada-esquerda" id="formulario-login" method="POST" novalidate>
+            <form action="../php/acessar_funcionalidade/acessar.php" class="acesso-formulario entrada-esquerda" id="formulario-login" method="POST" novalidate>
                 <label class="campo">
                     <span class="campo-rotulo">E-mail</span>
                     <input class="campo-entrada" type="email" name="email" autocomplete="email" placeholder="voce@email.com">
@@ -54,7 +77,7 @@
             <!-- fim do formulário de login -->
 
             <!-- formulário de cadastro -->
-            <form class="acesso-formulario oculto" id="formulario-cadastro" method="POST" novalidate>
+            <form action="../php/cadastro_funcionalidade/cadastrar.php" class="acesso-formulario oculto" id="formulario-cadastro" method="POST" novalidate>
                 <label class="campo">
                     <span class="campo-rotulo">Nome de usuário</span>
                     <input class="campo-entrada" type="text" name="usuario" autocomplete="username" placeholder="Como quer ser chamado">
@@ -100,7 +123,7 @@
             </form>
             <!-- fim do formulário de cadastro -->
 
-            <div class="acesso-aviso oculto" id="acesso-aviso"></div>
+            <div class="acesso-aviso <?php echo $classeAviso ?>" id="acesso-aviso"><?php echo htmlspecialchars($mensagemAviso) ?></div>
         </div>
         <!-- fim do cartão de acesso -->
 

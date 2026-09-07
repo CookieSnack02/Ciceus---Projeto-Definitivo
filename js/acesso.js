@@ -140,6 +140,7 @@ formularioLogin.addEventListener('submit', (e) => {
 
     if (!valido) return;
 
+    formularioLogin.submit();
     mostrarAviso('Acesso liberado. Redirecionando…');
 });
 
@@ -184,5 +185,6 @@ formularioCadastro.addEventListener('submit', (e) => {
 
     if (!valido) return;
 
+    formularioCadastro.submit();
     mostrarAviso('Conta criada com sucesso. Verifique seu e-mail.');
 });
