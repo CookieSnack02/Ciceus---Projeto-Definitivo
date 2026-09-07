@@ -1,106 +1,44 @@
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=SN+Pro:ital,wght@0,200..900;1,200..900&display=swap');
 
 body { 
-    font-family: 'DM Sans', Helvetica, sans-serif;
-    background-color: #ffffff;
-    color: #2b2620;
-    margin: 0;
-    padding: 0;
-    display: flex;
-}
-
-.sidebar {
-    width: 250px; 
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background-color: #FAF9F5;
-    border-right: 1px solid #ebe6da;
-    display: flex;
-    flex-direction: column;
+    font-family: 'Nunito', sans-serif;
+    background-color: #efede3;
 }
 
 .titulo {
-    padding: 32px 24px 24px 24px;
+    font-family: 'SN Pro', sans-serif;
+    font-size: 20px;
+    font-weight: 900;
 }
 
-.titulo h1 {
-    font-size: 22px;
-    font-weight: 500;
-    color: #C08552;
-    margin: 0;
-    letter-spacing: -0.01em;
-}
-
-.nav-links { 
+ul { 
     list-style-type: none;
     margin: 0;
-    padding: 0 16px; 
+    padding: 0; 
+    width: 250px; 
+    position: fixed;
+    height: 100%;
+    overflow: auto;
 }
 
-.nav-links li a { 
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    color: #8b8478;
-    padding: 10px 16px;
-    text-decoration: none;
-    font-size: 14.5px;
-    font-weight: 500;
-    border-radius: 8px;
-    transition: 0.25s ease;
-}
-
-.nav-links li a i {
-    font-size: 16px;
-}
-
-.nav-links li a:hover { 
-    background-color: #ebe6da;
-    color: #2b2620;
-}
-
-/* User Profile (Avatar) Styles */
-.perfil-usuario {
-    margin-top: auto;
-    padding: 24px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #8b8478;
-    cursor: pointer;
-}
-
-.perfil-usuario i {
-    font-size: 28px;
-}
-
-.perfil-usuario .icon-hover {
-    display: none;
-    color: #C08552;
-}
-
-.perfil-usuario:hover .icon-default {
-    display: none;
-}
-
-.perfil-usuario:hover .icon-hover {
+li a { 
     display: block;
-    animation: pop 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+    color: #1c1c1c;
+    padding: 8px 16px;
+    text-decoration: none;
 }
 
-@keyframes pop {
-    0% { transform: scale(0.8); }
-    100% { transform: scale(1); }
+li a:hover { 
+    background-color: #C08552;
+    border-radius: 25px;
+    transition: 0.35s ease;
+    color: white; 
 }
 
 .conteudos {
-    margin-left: 250px;
-    padding: 40px;
-    width: 100%;
-    box-sizing: border-box;
-    min-height: 100vh;
+    margin-left: 260px;
+    padding: 1px 16px;
+    height: 1000px;
 }
-
 
