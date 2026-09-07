@@ -118,7 +118,7 @@ document.querySelectorAll('.campo-entrada').forEach((entrada) => {
 function emailValido(email) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
 }
-
+/* 
 formularioLogin.addEventListener('submit', (e) => {
     limparErros(formularioLogin);
     esconderAviso();
@@ -141,8 +141,8 @@ formularioLogin.addEventListener('submit', (e) => {
 
     formularioLogin.submit();
     mostrarAviso('Acesso liberado. Redirecionando…');
-});
-
+}); */ 
+/* 
 formularioCadastro.addEventListener('submit', (e) => {
     limparErros(formularioCadastro);
     esconderAviso();
@@ -185,4 +185,4 @@ formularioCadastro.addEventListener('submit', (e) => {
 
     formularioCadastro.submit();
     mostrarAviso('Conta criada com sucesso. Verifique seu e-mail.');
-});
+}); */

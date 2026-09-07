@@ -1,41 +1,59 @@
 @import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Trocchi&display=swap');
 
 body {
     font-family: 'Nunito', sans-serif;
-    background-color: #f0f0f0;
+    background-color: #F6EEE3;
     margin: 0;
     padding: 0;
 }
 
-.titulo{
-    font-family: 'SN Pro', sans-serif;
-    font-size: 20px;
-    font-weight: 900;
+/* logo ciceus */
+
+.logo-ciceus {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 25px;
+    padding-top: 20px;
 }
 
-ul{ 
-    list-style-type: none;
-    margin: 0;
-    padding: 0; 
-    width: 250px; 
+.titulo{
+    padding-left: 16px;
+    font-family: "Trocchi", serif;
+    font-size: 20px;
+    text-align: center;
+}
+
+.navbar {
+    width: 250px;
     position: fixed;
     height: 100%;
+    top: 0;
+    left: 0;
     overflow: auto;
+}
 
+ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
 }
 
 li a{ 
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 10px;
     color: #1c1c1c;
     padding: 8px 16px;
     text-decoration: none;
+    transition: background-color 0.35s ease, color 0.35s ease;
 
 }
 
 li a:hover{ 
     background-color: #C08552;
     border-radius: 25px;
-    transition: 0.35s ease;
     color: white; 
 }
 
@@ -202,5 +220,56 @@ li a:hover{
     
     h1 {
         display: none;
+    }
+}
+
+/* icones da navbar */
+
+/* o span empilha os dois icones na MESMA celula do grid,
+   entao um fica exatamente por cima do outro */
+.icone {
+    display: inline-grid;
+    place-items: center;
+    width: 1.25em;
+    line-height: 1;
+}
+
+.icone-padrao,
+.icone-hover {
+    grid-area: 1 / 1;
+    transition: opacity 0.2s ease,
+                transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* estado de repouso: so o fa-slab-press aparece */
+.icone-hover {
+    opacity: 0;
+}
+
+/* no hover os dois trocam de lugar (cross-fade) */
+li a:hover .icone-padrao {
+    opacity: 0;
+}
+
+li a:hover .icone-hover {
+    opacity: 1;
+}
+
+/* o "pop": levanta e cresce. o cubic-bezier passa de 1 e volta,
+   e isso que da a sensacao de salto */
+li a:hover .icone-padrao,
+li a:hover .icone-hover {
+    transform: translateY(-4px) scale(1.15);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .icone-padrao,
+    .icone-hover {
+        transition-duration: 0.01ms;
+    }
+
+    li a:hover .icone-padrao,
+    li a:hover .icone-hover {
+        transform: none;
     }
 }
