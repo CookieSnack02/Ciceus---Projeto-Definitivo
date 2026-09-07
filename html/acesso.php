@@ -130,7 +130,7 @@ if (isset($_GET['sucesso']) && $_GET['sucesso'] === 'cadastro') {
         <div class="acesso-rodape">Seus dados ficam protegidos.</div>
     </div>
 
-<script src="../js/acesso.js"></script>
+<script src="../js/acesso.js?v=<?php echo time(); ?>"></script>
 
 </body>
 </html>
