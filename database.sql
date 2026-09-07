@@ -11,7 +11,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 -- -----------------------------------------------------
 -- Schema mydb
 -- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8 ;
+CREATE SCHEMA IF NOT EXISTS `mydb` DEFAULT CHARACTER SET utf8mb4 ;
 USE `mydb` ;
 
 -- -----------------------------------------------------
@@ -27,7 +27,6 @@ CREATE TABLE IF NOT EXISTS `mydb`.`ciceus` (
   `dtNasUsuario` DATE NULL,
   `dtCriacaoUsuario` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idCiceus`),
-  UNIQUE INDEX `idCiceus_UNIQUE` (`idCiceus` ASC) VISIBLE,
   UNIQUE INDEX `emailUsuario_UNIQUE` (`emailUsuario` ASC) VISIBLE)
 ENGINE = InnoDB;
 
@@ -46,7 +45,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`pasta` (
   CONSTRAINT `fk_pasta_ciceus1`
     FOREIGN KEY (`ciceus_idCiceus`)
     REFERENCES `mydb`.`ciceus` (`idCiceus`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -59,12 +58,13 @@ CREATE TABLE IF NOT EXISTS `mydb`.`nota` (
   `tituloNotas` VARCHAR(45) NULL,
   `conteudoNotas` TEXT NULL,
   `ciceus_idCiceus` INT NOT NULL,
+  `dtCriacaoNota` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idNotas`),
   INDEX `fk_nota_ciceus1_idx` (`ciceus_idCiceus` ASC) VISIBLE,
   CONSTRAINT `fk_nota_ciceus1`
     FOREIGN KEY (`ciceus_idCiceus`)
     REFERENCES `mydb`.`ciceus` (`idCiceus`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -81,7 +81,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`quadro` (
   CONSTRAINT `fk_quadro_ciceus1`
     FOREIGN KEY (`ciceus_idCiceus`)
     REFERENCES `mydb`.`ciceus` (`idCiceus`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -135,7 +135,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`timer` (
   CONSTRAINT `fk_timer_ciceus1`
     FOREIGN KEY (`ciceus_idCiceus`)
     REFERENCES `mydb`.`ciceus` (`idCiceus`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -161,7 +161,7 @@ CREATE TABLE IF NOT EXISTS `mydb`.`resposta` (
   CONSTRAINT `fk_resposta_ciceus1`
     FOREIGN KEY (`ciceus_idCiceus`)
     REFERENCES `mydb`.`ciceus` (`idCiceus`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -178,12 +178,12 @@ CREATE TABLE IF NOT EXISTS `mydb`.`quadro_has_pasta` (
   CONSTRAINT `fk_quadro_has_pasta_quadro1`
     FOREIGN KEY (`quadro_idQuadro`)
     REFERENCES `mydb`.`quadro` (`idQuadro`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_quadro_has_pasta_pasta1`
     FOREIGN KEY (`pasta_codPasta`)
     REFERENCES `mydb`.`pasta` (`codPasta`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
@@ -200,12 +200,81 @@ CREATE TABLE IF NOT EXISTS `mydb`.`nota_has_pasta` (
   CONSTRAINT `fk_nota_has_pasta_nota1`
     FOREIGN KEY (`nota_idNotas`)
     REFERENCES `mydb`.`nota` (`idNotas`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_nota_has_pasta_pasta1`
     FOREIGN KEY (`pasta_codPasta`)
     REFERENCES `mydb`.`pasta` (`codPasta`)
-    ON DELETE NO ACTION
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`cartao`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`cartao` (
+  `idCartao` INT NOT NULL AUTO_INCREMENT,
+  `frenteCartao` TEXT NOT NULL,
+  `versoCartao` TEXT NOT NULL,
+  `ciceus_idCiceus` INT NOT NULL,
+  `dtCriacaoCartao` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
+  `dtUltimaRevisao` DATE NULL,
+  `dtProximaRevisao` DATE NULL,
+  `dificuldadeUltima` ENUM('errei', 'dificil', 'bom', 'facil') NULL,
+  `intervaloCartao` INT UNSIGNED NOT NULL DEFAULT 0,
+  `facilidadeCartao` SMALLINT UNSIGNED NOT NULL DEFAULT 2500,
+  `repeticoesCartao` INT UNSIGNED NOT NULL DEFAULT 0,
+  `lapsosCartao` INT UNSIGNED NOT NULL DEFAULT 0,
+  PRIMARY KEY (`idCartao`),
+  INDEX `idx_cartao_revisao` (`ciceus_idCiceus` ASC, `dtProximaRevisao` ASC) VISIBLE,
+  CONSTRAINT `fk_cartao_ciceus1`
+    FOREIGN KEY (`ciceus_idCiceus`)
+    REFERENCES `mydb`.`ciceus` (`idCiceus`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`cartao_has_pasta`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`cartao_has_pasta` (
+  `cartao_idCartao` INT NOT NULL,
+  `pasta_codPasta` INT UNSIGNED NOT NULL,
+  PRIMARY KEY (`cartao_idCartao`, `pasta_codPasta`),
+  INDEX `fk_cartao_has_pasta_pasta1_idx` (`pasta_codPasta` ASC) VISIBLE,
+  INDEX `fk_cartao_has_pasta_cartao1_idx` (`cartao_idCartao` ASC) VISIBLE,
+  CONSTRAINT `fk_cartao_has_pasta_cartao1`
+    FOREIGN KEY (`cartao_idCartao`)
+    REFERENCES `mydb`.`cartao` (`idCartao`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cartao_has_pasta_pasta1`
+    FOREIGN KEY (`pasta_codPasta`)
+    REFERENCES `mydb`.`pasta` (`codPasta`)
+    ON DELETE CASCADE
+    ON UPDATE NO ACTION)
+ENGINE = InnoDB;
+
+
+-- -----------------------------------------------------
+-- Table `mydb`.`cartao_historico`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `mydb`.`cartao_historico` (
+  `idCartaoH` INT NOT NULL AUTO_INCREMENT,
+  `dtRevisao` TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  `dificuldadeRevisao` ENUM('errei', 'dificil', 'bom', 'facil') NOT NULL,
+  `intervaloAnterior` INT UNSIGNED NOT NULL,
+  `intervaloNovo` INT UNSIGNED NOT NULL,
+  `facilidadeNova` SMALLINT UNSIGNED NOT NULL,
+  `cartao_idCartao` INT NOT NULL,
+  PRIMARY KEY (`idCartaoH`),
+  INDEX `fk_cartao_historico_cartao1_idx` (`cartao_idCartao` ASC) VISIBLE,
+  CONSTRAINT `fk_cartao_historico_cartao1`
+    FOREIGN KEY (`cartao_idCartao`)
+    REFERENCES `mydb`.`cartao` (`idCartao`)
+    ON DELETE CASCADE
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
