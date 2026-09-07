@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Notas</title>
-    <link rel="stylesheet" href="../../css/headers/nota.css"> <!-- link do css das notas -->
+    <link rel="stylesheet" href="../../css/headers/nota.css?v=<?php echo filemtime(__DIR__ . '/../../css/headers/nota.css'); ?>"> <!-- link do css das notas -->
     <script src="https://kit.fontawesome.com/5f10733ee6.js" crossorigin="anonymous"></script>  <!-- fontawesome -->
 
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
@@ -102,7 +102,7 @@
 <!-- o katex tem que vir antes do quill, senao a formula nao registra -->
 <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
-<script src="../../js/headers/nota.js"></script>
+<script src="../../js/headers/nota.js?v=<?php echo filemtime(__DIR__ . '/../../js/headers/nota.js'); ?>"></script>
 
 
 </body>

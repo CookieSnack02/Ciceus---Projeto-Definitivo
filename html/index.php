@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ciceus</title>
 
-    <link rel="stylesheet" href="../css/style.css"> <!-- Link para o arquivo css -->
+    <link rel="stylesheet" href="../css/style.css?v=<?php echo filemtime(__DIR__ . '/../css/style.css'); ?>"> <!-- Link para o arquivo css -->
     <script src="https://kit.fontawesome.com/5f10733ee6.js" crossorigin="anonymous"></script>  <!-- fontwesome --> 
 </head>
 <body>

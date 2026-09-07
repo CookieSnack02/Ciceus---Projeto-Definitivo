@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pastas</title>
-    <link rel="stylesheet" href="../../css/headers/pasta.css"> <!-- link do css das pastas -->
+    <link rel="stylesheet" href="../../css/headers/pasta.css?v=<?php echo filemtime(__DIR__ . '/../../css/headers/pasta.css'); ?>"> <!-- link do css das pastas -->
     <script src="https://kit.fontawesome.com/5f10733ee6.js" crossorigin="anonymous"></script>  <!-- fontawesome --> 
 </head>
 <body>
@@ -90,7 +90,7 @@
     </div>
     <!-- fim das pastas -->
 
-<script src="../../js/headers/pasta.js"></script>
+<script src="../../js/headers/pasta.js?v=<?php echo filemtime(__DIR__ . '/../../js/headers/pasta.js'); ?>"></script>
 
 </body>
 </html>

@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Temporizador</title>
-    <link rel="stylesheet" href="../../css/headers/tempo.css">
+    <link rel="stylesheet" href="../../css/headers/tempo.css?v=<?php echo filemtime(__DIR__ . '/../../css/headers/tempo.css'); ?>">
     <script src="https://kit.fontawesome.com/5f10733ee6.js" crossorigin="anonymous"></script>  <!-- fontawesome -->
 </head>
 <body>
@@ -65,6 +65,6 @@
     </div>
     <!-- fim dos conteudos -->
 
-    <script src="../../js/headers/timer.js"></script>
+    <script src="../../js/headers/timer.js?v=<?php echo filemtime(__DIR__ . '/../../js/headers/timer.js'); ?>"></script>
 </body>
 </html>
