@@ -9,6 +9,9 @@
 
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 
+    <!-- katex: o botao de formula do quill depende dele para renderizar -->
+    <link href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" rel="stylesheet">
+
 </head>
 <body>
 
@@ -39,13 +42,65 @@
         <h1>Notas</h1>
         <p>Aqui você pode acessar suas notas de estudo, organizá-las e revisá-las para melhorar seu aprendizado. Use esta seção para manter suas anotações e informações importantes sempre à mão.</p>
 
-        <div class="editor-wrapper">
-            <div id="editor-texto" style="height: 300px; background-color: white;">
+        <!-- barra de acoes: modo de exibicao e pasta da nota -->
+        <div class="acoes-nota">
+
+            <label class="campo-modo">
+                <span>Modo</span>
+                <select id="modo-nota" class="seletor-modo">
+                    <option value="editor">Editor</option>
+                    <option value="visualizacao">Visualização</option>
+                </select>
+            </label>
+
+            <div class="area-pasta">
+                <button type="button" class="botao-pasta" id="botao-pasta">
+                    <i class="fa-slab fa-regular fa-folders"></i>
+                    <span id="rotulo-pasta">Adicionar Pasta</span>
+                </button>
+                <select id="lista-pastas" class="seletor-pasta" hidden>
+                    <option value="">Sem pasta</option>
+                    <option value="Matemática">Matemática</option>
+                    <option value="História">História</option>
+                    <option value="Biologia">Biologia</option>
+                    <option value="Redação">Redação</option>
+                </select>
             </div>
+
         </div>
+
+        <div class="editor-wrapper">
+            <div id="editor-texto"></div>
+        </div>
+
+        <!-- legenda dos atalhos, senao as keybinds ficam invisiveis -->
+        <details class="atalhos">
+            <summary>Atalhos de teclado</summary>
+            <ul class="lista-atalhos">
+                <li><span>Negrito</span><kbd>Ctrl + B</kbd></li>
+                <li><span>Itálico</span><kbd>Ctrl + I</kbd></li>
+                <li><span>Sublinhado</span><kbd>Ctrl + U</kbd></li>
+                <li><span>Títulos 1 a 4</span><kbd>Ctrl + Alt + 1..4</kbd></li>
+                <li><span>Texto normal</span><kbd>Ctrl + Alt + 0</kbd></li>
+                <li><span>Lista numerada</span><kbd>Ctrl + Shift + 7</kbd></li>
+                <li><span>Lista com marcadores</span><kbd>Ctrl + Shift + 8</kbd></li>
+                <li><span>Citação</span><kbd>Ctrl + Shift + 9</kbd></li>
+                <li><span>Bloco de código</span><kbd>Ctrl + Alt + C</kbd></li>
+                <li><span>Link</span><kbd>Ctrl + K</kbd></li>
+                <li><span>Fórmula matemática</span><kbd>Ctrl + Alt + F</kbd></li>
+                <li><span>Limpar formatação</span><kbd>Ctrl + \</kbd></li>
+            </ul>
+        </details>
+
+        <!-- grade visualizadora das anotacoes -->
+        <h2 class="subtitulo-notas">Minhas anotações</h2>
+        <div action="../../php/notas_funcionalidade/mostrarNota.php" class="grade-notas" id="grade-notas"></div>
+
     </div>
     <!-- fim dos conteudos -->
 
+<!-- o katex tem que vir antes do quill, senao a formula nao registra -->
+<script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
 <script src="../../js/headers/nota.js"></script>
 
