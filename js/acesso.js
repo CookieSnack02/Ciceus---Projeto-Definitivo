@@ -120,7 +120,6 @@ function emailValido(email) {
 }
 
 formularioLogin.addEventListener('submit', (e) => {
-    e.preventDefault();
     limparErros(formularioLogin);
     esconderAviso();
 
@@ -145,7 +144,6 @@ formularioLogin.addEventListener('submit', (e) => {
 });
 
 formularioCadastro.addEventListener('submit', (e) => {
-    e.preventDefault();
     limparErros(formularioCadastro);
     esconderAviso();
 
