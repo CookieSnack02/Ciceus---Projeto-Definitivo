@@ -1,0 +1,6 @@
+User-agent: *
+Disallow: /php/
+Disallow: /richtexteditor/
+Disallow: /docs/
+
+Sitemap: https://www.ciceus.com/sitemap.xml

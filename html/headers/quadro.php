@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quadro</title>
-    <link rel="stylesheet" href="../../css/headers/quadro.css">
+    <link rel="stylesheet" href="../../css/headers/quadro.css?v=<?php echo filemtime(__DIR__ . '/../../css/headers/quadro.css'); ?>">
     <script src="https://kit.fontawesome.com/5f10733ee6.js" crossorigin="anonymous"></script>  <!-- fontawesome -->
 </head>
 <body>

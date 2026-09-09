@@ -27,7 +27,7 @@ if (isset($_GET['sucesso']) && $_GET['sucesso'] === 'cadastro') {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Acesso</title>
 
-    <link rel="stylesheet" href="../css/acesso.css"> <!-- link do css do acesso -->
+    <link rel="stylesheet" href="../css/acesso.css?v=<?php echo filemtime(__DIR__ . '/../css/acesso.css'); ?>"> <!-- link do css do acesso -->
     <script src="https://kit.fontawesome.com/5f10733ee6.js" crossorigin="anonymous"></script>  <!-- fontawesome -->
 </head>
 <body>
@@ -130,7 +130,7 @@ if (isset($_GET['sucesso']) && $_GET['sucesso'] === 'cadastro') {
         <div class="acesso-rodape">Seus dados ficam protegidos.</div>
     </div>
 
-<script src="../js/acesso.js?v=<?php echo time(); ?>"></script>
+<script src="../js/acesso.js?v=<?php echo filemtime(__DIR__ . '/../js/acesso.js'); ?>"></script>
 
 </body>
 </html>

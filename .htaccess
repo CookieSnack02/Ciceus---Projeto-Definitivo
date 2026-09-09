@@ -1,0 +1,10 @@
+RewriteEngine On
+
+# Canonicalizacao de dominio: so o dominio nu vai para o www.
+#
+# A condicao e uma LISTA DE PERMISSAO ("redirecione exatamente este host")
+# e nao uma lista de exclusao ("redirecione tudo que nao for www"). Assim
+# localhost, 127.0.0.1 e qualquer ambiente de teste ficam de fora sozinhos,
+# sem precisar ser listados um a um.
+RewriteCond %{HTTP_HOST} ^ciceus\.com$ [NC]
+RewriteRule ^(.*)$ https://www.ciceus.com/$1 [R=301,L]
