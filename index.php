@@ -1,8 +1,8 @@
 <?php
     session_start();
     if(isset($_SESSION["idUsuario"])){
-        //header("Location: https://www.ciceus.com/html/index.php", true, 302);
-        header("Location: html/index.php");
+        header("Location: https://www.ciceus.com/html/index.php", true, 302);
+        //header("Location: html/index.php");
         exit;
     }
 
