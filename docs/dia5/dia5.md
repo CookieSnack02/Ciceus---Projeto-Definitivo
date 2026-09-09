@@ -1,0 +1,1 @@
+Foi realizada a implementação do site no Google Search. A criação do sitemap.xml e o .htaccess para relacionar o site com os bots de SEO do Google e ele ficar aparecendo como primeira opção, além da criação da lading page para o site ficar mais apresentável ao demais. 

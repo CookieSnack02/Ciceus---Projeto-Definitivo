@@ -268,3 +268,62 @@ select.campo-entrada{
 .oculto{
     display: none;
 }
+
+
+/* =========================================================
+   MOBILE
+
+   Esta pagina ja nascia quase responsiva: o cartao usa
+   `width: 100%` com `max-width: 440px`, entao ele encolhe
+   junto com a tela sozinho. O que faltava era o comportamento
+   de campo de formulario no celular.
+   ========================================================= */
+
+@media (max-width: 480px){
+
+    .acesso{
+        padding: 28px 16px;
+        gap: 22px;
+    }
+
+    .acesso-cartao{
+        /* 28px de padding de cada lado tiravam 56px dos ~330px
+           uteis de um celular pequeno */
+        padding: 20px 18px;
+    }
+
+    .acesso-titulo{
+        font-size: 28px;
+    }
+
+    /* 16px nao e escolha estetica: o Safari do iPhone da zoom
+       automatico ao focar um campo com fonte menor que 16px,
+       e depois do zoom a pagina fica maior que a tela */
+    .campo-entrada{
+        font-size: 16px;
+        padding: 13px 14px;
+    }
+
+    /* alvos de toque: 44px de altura minima */
+    .acesso-botao{
+        min-height: 48px;
+        font-size: 16px;
+    }
+
+    .aba{
+        min-height: 42px;
+        font-size: 14.5px;
+    }
+
+    /* "Mostrar" a senha tinha 11.5px de fonte e nenhuma area de
+       folga em volta — quase impossivel de acertar com o dedo */
+    .mostrar-senha{
+        padding: 6px 4px;
+        margin: -6px -4px;
+        font-size: 13px;
+    }
+
+    .esqueci-senha{
+        font-size: 13.5px;
+    }
+}

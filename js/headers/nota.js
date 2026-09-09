@@ -138,6 +138,81 @@ aplicarModo(seletorModo.value);
 
 
 /* ------------------------------------------------------------------
+   folha do editor no mobile
+
+   No celular o editor nao fica na pagina: ele sobe como uma folha de
+   tela cheia. Quem faz a folha subir/descer e o css (.painel-editor
+   dentro do @media do nota.css); aqui so entra e sai a classe
+   `editor-aberto` do <body>.
+
+   matchMedia e o mesmo "max-width: 900px" do css. Repetir o numero em
+   dois lugares nao e ideal, mas e a forma mais direta de o JS saber
+   em qual dos dois layouts ele esta: no desktop nenhuma dessas
+   funcoes deve fazer nada.
+   ------------------------------------------------------------------ */
+
+var telaPequena = window.matchMedia('(max-width: 900px)');
+
+var botaoNovaNota = document.getElementById('botao-nova-nota');
+var botaoVoltar = document.getElementById('botao-voltar');
+
+function abrirFolha() {
+    if (telaPequena.matches) {
+        document.body.classList.add('editor-aberto');
+    }
+}
+
+function fecharFolha() {
+    document.body.classList.remove('editor-aberto');
+}
+
+/* nova nota: editor limpo, sem pasta, em modo de edicao */
+if (botaoNovaNota) {
+    botaoNovaNota.addEventListener('click', function () {
+        quill.setContents([]);
+        definirPasta('');
+        aplicarModo('editor');
+
+        /* nenhum cartao continua marcado como aberto */
+        var marcados = gradeNotas.querySelectorAll('.cartao-nota.nota-ativa');
+        for (var i = 0; i < marcados.length; i++) {
+            marcados[i].classList.remove('nota-ativa');
+        }
+
+        abrirFolha();
+        quill.focus();
+    });
+}
+
+if (botaoVoltar) {
+    botaoVoltar.addEventListener('click', fecharFolha);
+}
+
+/* Escape fecha a folha em quem estiver num celular com teclado */
+document.addEventListener('keydown', function (evento) {
+    if (evento.key === 'Escape') {
+        fecharFolha();
+    }
+});
+
+/* ao girar o aparelho para o modo paisagem a tela pode passar dos
+   900px: ali o layout volta a ser o de desktop, e a classe deixaria
+   o body travado sem rolagem */
+function aoTrocarLarguraNota(evento) {
+    if (!evento.matches) {
+        fecharFolha();
+    }
+}
+
+if (telaPequena.addEventListener) {
+    telaPequena.addEventListener('change', aoTrocarLarguraNota);
+} else if (telaPequena.addListener) {
+    /* Safari antigo (< 14) so tem a API velha */
+    telaPequena.addListener(aoTrocarLarguraNota);
+}
+
+
+/* ------------------------------------------------------------------
    pasta da nota
    ------------------------------------------------------------------ */
 
@@ -274,7 +349,13 @@ function abrirNota(indice) {
         cartoes[i].classList.toggle('nota-ativa', i === indice);
     }
 
-    caixaEditor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (telaPequena.matches) {
+        /* no mobile a nota abre na folha de tela cheia; rolar a pagina
+           nao faria sentido porque a folha e fixa, cobre tudo */
+        abrirFolha();
+    } else {
+        caixaEditor.scrollIntoView({ behavior: 'smooth', block: 'center' });
+    }
 }
 
 carregarNotas();
