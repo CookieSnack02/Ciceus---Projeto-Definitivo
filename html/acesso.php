@@ -29,6 +29,13 @@ if (isset($_GET['sucesso']) && $_GET['sucesso'] === 'cadastro') {
 
     <link rel="stylesheet" href="../css/acesso.css?v=<?php echo filemtime(__DIR__ . '/../css/acesso.css'); ?>"> <!-- link do css do acesso -->
     <script src="https://kit.fontawesome.com/5f10733ee6.js" crossorigin="anonymous"></script>  <!-- fontawesome -->
+
+    <!-- favicon -->
+    <link rel="icon" href="/logo/favicon/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="/logo/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/logo/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/logo/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="/logo/favicon/site.webmanifest">
 </head>
 <body>
 

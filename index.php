@@ -1,8 +1,8 @@
 <?php
     session_start();
     if(isset($_SESSION["idUsuario"])){
-        //header("Location: https://www.ciceus.com/html/index.php", true, 302);
-        header("Location: html/index.php");
+        header("Location: https://www.ciceus.com/html/index.php", true, 302);
+        //header("Location: html/index.php"); //Execução em produção
         exit;
     }
 
@@ -17,6 +17,14 @@
     <meta name="description" content="Anotações, banco de questões, flashcards com repetição espaçada, videoaulas sem distração e Pomodoro em uma única ferramenta de estudo ativo.">
     <link rel="canonical" href="https://www.ciceus.com/">
     <meta name="theme-color" content="#FAF9F5">
+
+    <!-- Favicon: a barra inicial faz o caminho valer a partir da raiz do dominio,
+         entao o mesmo bloco funciona aqui, em /html/ e em /html/headers/ -->
+    <link rel="icon" href="/logo/favicon/favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="/logo/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/logo/favicon/favicon-16x16.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="/logo/favicon/apple-touch-icon.png">
+    <link rel="manifest" href="/logo/favicon/site.webmanifest">
 
     <!-- Cartao de compartilhamento no WhatsApp, LinkedIn, X, Discord... -->
     <meta property="og:type" content="website">
