@@ -122,6 +122,15 @@ li a:hover{
     color: white;
 }
 
+/* pecas que existem so no mobile: o cabecalho da folha do editor e o
+   botao flutuante de nova nota. Escondidos por padrao — o @media do
+   fim do arquivo e o unico lugar que os liga */
+
+.cabecalho-painel,
+.botao-nova-nota {
+    display: none;
+}
+
 /* editor */
 
 .editor-wrapper {
@@ -344,5 +353,292 @@ li a:hover .icone-hover {
     li a:hover .icone-padrao,
     li a:hover .icone-hover {
         transform: none;
+    }
+}
+
+
+/* =========================================================
+   MOBILE — a pagina de notas muda de forma, nao so de tamanho
+
+   No desktop a ordem e: editor grande em cima, lista de
+   anotacoes embaixo. Copiar isso no celular fica ruim porque:
+     1. a barra do Quill quebra em 4 linhas e come metade da tela;
+     2. o editor de 320px + a barra sobram ~2 dedos de texto util;
+     3. a lista de anotacoes nasce fora da primeira tela, entao
+        abrir uma nota exige rolar antes de qualquer coisa;
+     4. a legenda de atalhos (Ctrl + B, Ctrl + Alt + 1...) nao tem
+        como ser usada num aparelho sem teclado fisico.
+
+   A forma escolhida foi a de aplicativo de notas: a LISTA e a
+   tela principal, e o editor sobe como uma folha de tela cheia
+   quando o aluno toca numa nota ou no botao "Nova nota".
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    /* sem barra lateral: o conteudo usa a largura toda.
+       72px em cima = 56px da barra fixa + 16px de respiro.
+       96px embaixo = espaco para o botao flutuante nao cobrir
+       o ultimo cartao da lista */
+    .conteudos {
+        margin-left: 0;
+        padding: 72px 16px 96px;
+    }
+
+    /* 42px de titulo numa tela de 360px empurraria tudo para baixo */
+    .conteudos > h1 {
+        margin: 6px 0;
+        font-size: 27px;
+    }
+
+    .conteudos > p {
+        margin: 0;
+        font-size: 15px;
+        line-height: 1.6;
+        color: #5c5149;
+    }
+
+
+    /* ----- lista de anotacoes: agora e a tela principal ----- */
+
+    .subtitulo-notas {
+        max-width: none;
+        margin: 26px 0 0;
+        font-size: 21px;
+    }
+
+    /* uma coluna: com 328px uteis, dois cartoes ficariam
+       estreitos demais para o resumo ser legivel */
+    .grade-notas {
+        max-width: none;
+        grid-template-columns: 1fr;
+        gap: 14px;
+        margin: 14px 0 0;
+    }
+
+    .cartao-nota {
+        padding: 16px 18px;
+    }
+
+
+    /* ----- o painel do editor vira folha de tela cheia ----- */
+
+    .painel-editor {
+        position: fixed;
+        inset: 0;
+        z-index: 50;
+
+        display: flex;
+        flex-direction: column;
+        padding: 12px 14px 14px;
+        background-color: #F6EEE3;
+
+        /* fechada, a folha espera fora da tela, embaixo.
+           `visibility: hidden` tira os campos dela da ordem do Tab;
+           o atraso de 300ms no `visibility` deixa a animacao de
+           saida terminar antes de o elemento desaparecer */
+        transform: translateY(100%);
+        visibility: hidden;
+        transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1),
+                    visibility 0s linear 300ms;
+    }
+
+    /* a classe entra no <body> pelo nota.js */
+    body.editor-aberto .painel-editor {
+        transform: translateY(0);
+        visibility: visible;
+        transition-delay: 0s;
+    }
+
+    /* com a folha aberta, a pagina de tras nao deve rolar junto */
+    body.editor-aberto {
+        overflow: hidden;
+    }
+
+
+    /* ----- cabecalho da folha ----- */
+
+    .cabecalho-painel {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding-bottom: 8px;
+    }
+
+    .botao-voltar {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+
+        /* 44px e o alvo minimo confortavel para o dedo */
+        min-height: 44px;
+        padding: 8px 16px;
+
+        font-family: inherit;
+        font-size: 15px;
+        color: #8a6446;
+        background-color: rgba(192, 133, 82, 0.12);
+        border: 1px solid rgba(192, 133, 82, 0.4);
+        border-radius: 999px;
+        cursor: pointer;
+    }
+
+    .titulo-painel {
+        font-family: "Trocchi", serif;
+        font-size: 17px;
+        color: #1c1c1c;
+    }
+
+
+    /* ----- barra de acoes dentro da folha ----- */
+
+    .acoes-nota {
+        max-width: none;
+        padding-top: 0;
+        gap: 10px;
+    }
+
+    .campo-modo {
+        flex: 1 1 130px;
+    }
+
+    /* a lista de pastas aparece por baixo do botao (o botao a
+       mostra/esconde pelo nota.js). Sem o wrap, os dois
+       disputariam a mesma linha e ficariam estreitos */
+    .area-pasta {
+        flex: 1 1 150px;
+        flex-wrap: wrap;
+    }
+
+    .seletor-pasta {
+        flex: 1 1 100%;
+    }
+
+    /* 16px nao e escolha estetica: o Safari do iPhone da zoom
+       automatico ao focar campos com fonte menor que 16px, e o
+       zoom desalinha a folha inteira */
+    .seletor-modo,
+    .seletor-pasta,
+    .botao-pasta {
+        font-size: 16px;
+        min-height: 44px;
+    }
+
+    .seletor-modo,
+    .botao-pasta {
+        width: 100%;
+        justify-content: center;
+    }
+
+
+    /* ----- editor ocupando a altura que sobra ----- */
+
+    /* flex: 1 + min-height: 0 e o par que faz o editor esticar
+       ate o fim da folha. Sem o min-height: 0 o conteudo interno
+       define um piso e o flex nao consegue encolher a caixa */
+    .editor-wrapper {
+        max-width: none;
+        flex: 1;
+        min-height: 0;
+        display: flex;
+        flex-direction: column;
+        padding-top: 10px;
+    }
+
+    #editor-texto {
+        flex: 1;
+        min-height: 0;
+        height: auto;    /* no lugar dos 320px fixos do desktop */
+    }
+
+    /* a barra de formatacao em UMA faixa que rola de lado.
+       Empilhada, ela ocupava 4 linhas (~160px) do celular */
+    .editor-wrapper .ql-toolbar.ql-snow {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        overflow-y: hidden;
+        scrollbar-width: none;              /* Firefox */
+        -webkit-overflow-scrolling: touch;  /* rolagem com inercia no iOS */
+    }
+
+    .editor-wrapper .ql-toolbar.ql-snow::-webkit-scrollbar {
+        display: none;                      /* Chrome/Safari */
+    }
+
+    /* sem isso o flex comprime cada grupo de botoes em vez de
+       deixar a faixa rolar */
+    .editor-wrapper .ql-toolbar.ql-snow .ql-formats {
+        flex-shrink: 0;
+        margin-right: 12px;
+    }
+
+    /* mesmo motivo do 16px acima, agora no texto da nota */
+    .editor-wrapper .ql-editor {
+        font-size: 16px;
+    }
+
+    /* o balao de link/formula recebe `left` inline do proprio Quill,
+       calculado para tela larga; no celular ele saía pela borda */
+    .editor-wrapper .ql-snow .ql-tooltip {
+        left: 8px !important;
+        max-width: calc(100vw - 44px);
+    }
+
+    /* celular nao tem Ctrl nem Alt: a legenda seria peso morto */
+    .atalhos {
+        display: none;
+    }
+
+
+    /* ----- botao flutuante de nova nota ----- */
+
+    .botao-nova-nota {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+
+        position: fixed;
+        right: 16px;
+        bottom: 16px;
+        z-index: 25;
+
+        min-height: 52px;
+        padding: 0 20px;
+
+        font-family: inherit;
+        font-size: 15px;
+        font-weight: 700;
+        color: white;
+        background-color: #C08552;
+        border: none;
+        border-radius: 999px;
+        box-shadow: 0 10px 24px rgba(0, 0, 0, 0.22);
+        cursor: pointer;
+    }
+
+    /* dentro da folha ele nao faz sentido: o editor ja esta aberto */
+    body.editor-aberto .botao-nova-nota {
+        display: none;
+    }
+
+
+    /* ----- hover nao existe em tela de toque -----
+       o :hover do desktop "cola" no cartao depois do toque e ele
+       fica levantado ate o proximo toque em outro lugar */
+    .cartao-nota:hover {
+        transform: none;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+    }
+
+    .cartao-nota:focus-visible {
+        transform: none;
+        border-color: #C08552;
+    }
+}
+
+@media (max-width: 900px) and (prefers-reduced-motion: reduce) {
+    .painel-editor {
+        transition-duration: 0.01ms;
     }
 }

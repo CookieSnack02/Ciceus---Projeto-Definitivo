@@ -1,0 +1,264 @@
+/* =========================================================
+   Ciceus — regras de mobile compartilhadas por todas as
+   paginas internas (html/index.php e html/headers/*.php)
+
+   POR QUE UM ARQUIVO SO:
+   a navbar e o mesmo bloco de HTML repetido em 7 paginas.
+   Se as regras de mobile dela ficassem dentro de cada css
+   (style.css, nota.css, pasta.css, ...) seriam 7 copias das
+   mesmas ~120 linhas, e qualquer ajuste teria que ser feito
+   7 vezes. Aqui fica so o que e comum: a barra superior, o
+   botao hamburguer, a gaveta e o veu de fundo.
+
+   ORDEM DO <link> IMPORTA:
+   este arquivo entra DEPOIS do css da pagina. Regras dentro
+   de @media nao ganham especificidade extra — entao, quando
+   duas regras tem o mesmo peso (ex.: `.navbar` daqui contra
+   `.navbar` do nota.css), quem vence e a ultima declarada.
+   Vindo depois, as regras de mobile daqui sobrescrevem a
+   barra lateral fixa de 250px de cada pagina.
+
+   O que e especifico de cada pagina (largura do conteudo,
+   editor de notas, temporizador, cartoes...) fica no css da
+   propria pagina, para nao criar briga de cascata com este.
+   ========================================================= */
+
+
+/* ---------------------------------------------------------
+   pecas que so existem no mobile
+   ficam escondidas por padrao: assim o desktop nao muda em
+   nada e o @media abaixo e o unico responsavel por liga-las
+   --------------------------------------------------------- */
+
+.barra-mobile,
+.fundo-menu {
+    display: none;
+}
+
+
+/* ---------------------------------------------------------
+   ponto de virada: 900px
+
+   a barra lateral come 250px fixos. Abaixo de ~900px sobra
+   menos de 650px para o conteudo, que e onde o editor de
+   notas e as grades de cartoes comecam a ficar apertados.
+   Por isso a troca de "barra lateral" para "gaveta" acontece
+   aqui, e nao nos 768px de tablet costumeiros.
+   --------------------------------------------------------- */
+
+@media (max-width: 900px) {
+
+    /* o body do navegador tem 8px de margem por padrao e
+       varias paginas nao zeram isso. No mobile esses 8px
+       sobrando de cada lado podem gerar barra de rolagem
+       horizontal quando algum filho ocupa 100% da largura */
+    body {
+        margin: 0;
+    }
+
+
+    /* ----- barra superior fixa ----- */
+
+    .barra-mobile {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 30;
+
+        height: 56px;
+        padding: 0 10px;
+
+        /* fundo translucido + blur: o conteudo passa por baixo
+           ao rolar sem virar uma mancha ilegivel */
+        background-color: rgba(246, 238, 227, 0.92);
+        backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(28, 28, 28, 0.08);
+    }
+
+    .marca-mobile {
+        font-family: "Trocchi", Georgia, serif;
+        font-size: 19px;
+        line-height: 1;
+        color: #1c1c1c;
+    }
+
+
+    /* ----- botao hamburguer ----- */
+
+    /* 44x44 e o alvo minimo recomendado para o dedo;
+       os tracos em si tem 22px, o resto e area de toque */
+    .botao-menu {
+        display: grid;
+        place-items: center;
+        flex-shrink: 0;
+
+        width: 44px;
+        height: 44px;
+        padding: 0;
+
+        border: none;
+        border-radius: 12px;
+        background-color: transparent;
+        cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
+    }
+
+    /* truque das 3 linhas com um unico elemento: a <span> e o
+       traco do meio, e ::before/::after sao os de cima e de
+       baixo, deslocados 7px para cada lado */
+    .barra-hamburguer {
+        position: relative;
+    }
+
+    .barra-hamburguer,
+    .barra-hamburguer::before,
+    .barra-hamburguer::after {
+        display: block;
+        width: 22px;
+        height: 2px;
+        border-radius: 2px;
+        background-color: #1c1c1c;
+        transition: transform 300ms cubic-bezier(0.4, 0, 0.2, 1),
+                    background-color 200ms ease;
+    }
+
+    .barra-hamburguer::before,
+    .barra-hamburguer::after {
+        content: '';
+        position: absolute;
+        left: 0;
+    }
+
+    .barra-hamburguer::before { transform: translateY(-7px); }
+    .barra-hamburguer::after  { transform: translateY(7px); }
+
+    /* menu aberto: o traco do meio fica transparente (e nao
+       com opacity: 0, que apagaria os pseudo-elementos junto,
+       porque eles sao filhos dele) e os outros dois viram X */
+    body.menu-aberto .barra-hamburguer {
+        background-color: transparent;
+    }
+
+    body.menu-aberto .barra-hamburguer::before {
+        transform: translateY(0) rotate(45deg);
+    }
+
+    body.menu-aberto .barra-hamburguer::after {
+        transform: translateY(0) rotate(-45deg);
+    }
+
+
+    /* ----- a navbar vira gaveta ----- */
+
+    .navbar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        z-index: 40;
+
+        /* 82vw impede que a gaveta cubra a tela toda em
+           celulares estreitos: sempre sobra um pedaco do veu
+           para o dedo fechar */
+        width: 264px;
+        max-width: 82vw;
+        height: 100%;
+        padding-bottom: 24px;
+
+        background-color: #F1E7D9;
+        box-shadow: 0 0 40px rgba(0, 0, 0, 0.18);
+
+        /* fluidez: animar transform (e nao `left`) mantem a
+           animacao na GPU, sem recalcular layout a cada frame */
+        transform: translateX(-100%);
+        transition: transform 320ms cubic-bezier(0.4, 0, 0.2, 1),
+                    visibility 0s linear 320ms;
+
+        /* fechada, a gaveta sai do fluxo de foco: sem isso o
+           Tab continuaria entrando nos 7 links invisiveis */
+        visibility: hidden;
+
+        overflow-y: auto;
+        overscroll-behavior: contain;
+    }
+
+    body.menu-aberto .navbar {
+        transform: translateX(0);
+        visibility: visible;
+        /* ao abrir, a visibilidade nao pode esperar os 320ms */
+        transition-delay: 0s;
+    }
+
+    /* alvos de toque maiores e cantos arredondados dentro da
+       gaveta: 8px de padding vertical vira 14px */
+    .navbar li a {
+        margin: 2px 8px;
+        padding: 14px 16px;
+        font-size: 16px;
+        border-radius: 14px;
+    }
+
+    .navbar .logo-ciceus {
+        justify-content: flex-start;
+        margin-left: 0;
+        padding: 18px 18px 0;
+    }
+
+    .navbar .titulo {
+        padding: 0 18px;
+        text-align: left;
+    }
+
+    .navbar .titulo h1 {
+        margin: 8px 0 12px;
+        font-size: 22px;
+    }
+
+
+    /* ----- veu de fundo ----- */
+
+    /* fica sempre no DOM para poder animar a opacidade;
+       `pointer-events: none` evita que ele bloqueie cliques
+       enquanto esta invisivel */
+    .fundo-menu {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 35;
+
+        background-color: rgba(28, 28, 28, 0.45);
+        opacity: 0;
+        pointer-events: none;
+        transition: opacity 300ms ease;
+    }
+
+    body.menu-aberto .fundo-menu {
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    /* travar o body enquanto a gaveta esta aberta, senao o
+       dedo rola a pagina de tras junto com o menu */
+    body.menu-aberto {
+        overflow: hidden;
+    }
+}
+
+
+/* ---------------------------------------------------------
+   quem desligou animacoes no sistema
+   --------------------------------------------------------- */
+
+@media (max-width: 900px) and (prefers-reduced-motion: reduce) {
+    .navbar,
+    .fundo-menu,
+    .barra-hamburguer,
+    .barra-hamburguer::before,
+    .barra-hamburguer::after {
+        transition-duration: 0.01ms;
+    }
+}

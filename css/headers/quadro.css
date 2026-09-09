@@ -112,3 +112,30 @@ li a:hover .icone-hover {
         transform: none;
     }
 }
+
+
+/* =========================================================
+   MOBILE (a navbar em si e tratada no css/responsivo.css)
+   ========================================================= */
+
+@media (max-width: 900px) {
+
+    /* margem da barra lateral zerada e altura livre no lugar dos
+       1000px chutados, que criavam rolagem vazia no celular */
+    .conteudos {
+        margin-left: 0;
+        height: auto;
+        min-height: 60dvh;
+        padding: 72px 16px 48px;
+    }
+
+    .conteudos h1 {
+        margin: 6px 0;
+        font-size: 27px;
+    }
+
+    .conteudos p {
+        font-size: 15px;
+        line-height: 1.6;
+    }
+}
