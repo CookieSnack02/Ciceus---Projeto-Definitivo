@@ -420,6 +420,14 @@ li a:hover .icone-hover {
         padding: 16px 18px;
     }
 
+    /* titulo ou resumo com uma palavra muito longa (um link colado,
+       por exemplo) alargaria o cartao e criaria rolagem lateral */
+    .cartao-nota h3,
+    .resumo-nota,
+    .pasta-nota {
+        overflow-wrap: anywhere;
+    }
+
 
     /* ----- o painel do editor vira folha de tela cheia ----- */
 
@@ -430,7 +438,13 @@ li a:hover .icone-hover {
 
         display: flex;
         flex-direction: column;
-        padding: 12px 14px 14px;
+
+        /* padding curto: cada pixel gasto na borda e um pixel a menos
+           de texto visivel. `overflow: hidden` garante que nenhum filho
+           empurre conteudo para fora — o painel nunca rola, nem de lado
+           nem para baixo; quem rola e o texto, dentro do editor */
+        padding: 10px 12px 12px;
+        overflow: hidden;
         background-color: #F6EEE3;
 
         /* fechada, a folha espera fora da tela, embaixo.
@@ -456,12 +470,15 @@ li a:hover .icone-hover {
     }
 
 
-    /* ----- cabecalho da folha ----- */
+    /* ----- cabecalho do painel -----
+       uma linha baixa: quanto menos altura os controles usarem,
+       mais sobra para o texto da nota */
 
     .cabecalho-painel {
         display: flex;
         align-items: center;
-        gap: 12px;
+        gap: 10px;
+        flex-shrink: 0;
         padding-bottom: 8px;
     }
 
@@ -470,9 +487,9 @@ li a:hover .icone-hover {
         align-items: center;
         gap: 8px;
 
-        /* 44px e o alvo minimo confortavel para o dedo */
-        min-height: 44px;
-        padding: 8px 16px;
+        /* 46px de altura: alvo confortavel para o dedo */
+        min-height: 46px;
+        padding: 8px 18px;
 
         font-family: inherit;
         font-size: 15px;
@@ -490,23 +507,34 @@ li a:hover .icone-hover {
     }
 
 
-    /* ----- barra de acoes dentro da folha ----- */
+    /* ----- barra de acoes dentro do painel -----
+       os dois controles dividem a linha em partes iguais */
 
     .acoes-nota {
         max-width: none;
+        flex-shrink: 0;
+        flex-wrap: nowrap;
         padding-top: 0;
-        gap: 10px;
+        gap: 8px;
     }
 
     .campo-modo {
-        flex: 1 1 130px;
+        flex: 1;
+        min-width: 0;
+    }
+
+    /* o rotulo "Modo" sai: o proprio select ja mostra
+       "Editor" / "Visualizacao" */
+    .campo-modo > span {
+        display: none;
     }
 
     /* a lista de pastas aparece por baixo do botao (o botao a
        mostra/esconde pelo nota.js). Sem o wrap, os dois
        disputariam a mesma linha e ficariam estreitos */
     .area-pasta {
-        flex: 1 1 150px;
+        flex: 1;
+        min-width: 0;
         flex-wrap: wrap;
     }
 
@@ -516,12 +544,12 @@ li a:hover .icone-hover {
 
     /* 16px nao e escolha estetica: o Safari do iPhone da zoom
        automatico ao focar campos com fonte menor que 16px, e o
-       zoom desalinha a folha inteira */
+       zoom desalinha o painel inteiro */
     .seletor-modo,
     .seletor-pasta,
     .botao-pasta {
         font-size: 16px;
-        min-height: 44px;
+        min-height: 46px;
     }
 
     .seletor-modo,
@@ -530,11 +558,19 @@ li a:hover .icone-hover {
         justify-content: center;
     }
 
+    /* nome de pasta comprido nao pode alargar o botao e empurrar
+       o resto da linha para fora da tela */
+    .botao-pasta > span {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
 
     /* ----- editor ocupando a altura que sobra ----- */
 
     /* flex: 1 + min-height: 0 e o par que faz o editor esticar
-       ate o fim da folha. Sem o min-height: 0 o conteudo interno
+       ate o fim do painel. Sem o min-height: 0 o conteudo interno
        define um piso e o flex nao consegue encolher a caixa */
     .editor-wrapper {
         max-width: none;
@@ -542,40 +578,88 @@ li a:hover .icone-hover {
         min-height: 0;
         display: flex;
         flex-direction: column;
-        padding-top: 10px;
+        padding-top: 8px;
     }
 
     #editor-texto {
         flex: 1;
         min-height: 0;
         height: auto;    /* no lugar dos 320px fixos do desktop */
+
+        /* a rolagem do texto acontece aqui dentro e nao encadeia
+           para a pagina de tras */
+        overscroll-behavior: contain;
     }
 
-    /* a barra de formatacao em UMA faixa que rola de lado.
-       Empilhada, ela ocupava 4 linhas (~160px) do celular */
+
+    /* ----- barra de formatacao: uma linha, sem rolagem lateral -----
+
+       O nota.js ja monta uma barra reduzida no celular (titulo,
+       negrito, italico, as duas listas, link e formula). Aqui os
+       botoes viram itens flex de largura igual: eles se dividem pela
+       largura disponivel, entao NUNCA sobra nada para fora da tela,
+       em nenhum tamanho de aparelho. O `flex-wrap: wrap` e so uma
+       garantia: se algum dia a barra crescer, ela quebra para uma
+       segunda linha em vez de rolar de lado. */
+
     .editor-wrapper .ql-toolbar.ql-snow {
         display: flex;
-        flex-wrap: nowrap;
-        overflow-x: auto;
-        overflow-y: hidden;
-        scrollbar-width: none;              /* Firefox */
-        -webkit-overflow-scrolling: touch;  /* rolagem com inercia no iOS */
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 4px;
+        padding: 6px;
     }
 
-    .editor-wrapper .ql-toolbar.ql-snow::-webkit-scrollbar {
-        display: none;                      /* Chrome/Safari */
-    }
-
-    /* sem isso o flex comprime cada grupo de botoes em vez de
-       deixar a faixa rolar */
+    /* o tema snow poe `margin-right: 15px` em cada grupo; aqui o
+       espacamento e o `gap` do flex acima */
     .editor-wrapper .ql-toolbar.ql-snow .ql-formats {
-        flex-shrink: 0;
-        margin-right: 12px;
+        display: flex;
+        flex: 1;
+        gap: 4px;
+        margin: 0;
+    }
+
+    /* 28x24px do padrao viram alvos de 44px de altura que ocupam
+       toda a largura que sobrar */
+    .editor-wrapper .ql-toolbar.ql-snow button {
+        flex: 1;
+        width: auto;
+        height: 44px;
+        padding: 4px;
+        border-radius: 8px;
+    }
+
+    /* icone maior dentro do botao maior */
+    .editor-wrapper .ql-toolbar.ql-snow button svg {
+        width: 22px;
+        height: 22px;
+    }
+
+    /* o primeiro grupo e o do seletor de titulo (ver a ordem em
+       configuracaoBarraMobile, no nota.js). Ele precisa de mais
+       espaco que os grupos de botoes por causa do texto que mostra
+       ("Titulo 1", "Normal"), entao pesa 1.5 contra 1 dos outros */
+    .editor-wrapper .ql-toolbar.ql-snow .ql-formats:first-child {
+        flex: 1.5;
+    }
+
+    .editor-wrapper .ql-toolbar.ql-snow .ql-picker.ql-header {
+        width: 100%;
+        height: 44px;
+        font-size: 15px;
+    }
+
+    .editor-wrapper .ql-toolbar.ql-snow .ql-picker-label {
+        display: flex;
+        align-items: center;
+        padding-left: 8px;
+        border-radius: 8px;
     }
 
     /* mesmo motivo do 16px acima, agora no texto da nota */
     .editor-wrapper .ql-editor {
         font-size: 16px;
+        padding: 14px 12px;
     }
 
     /* o balao de link/formula recebe `left` inline do proprio Quill,
@@ -583,6 +667,13 @@ li a:hover .icone-hover {
     .editor-wrapper .ql-snow .ql-tooltip {
         left: 8px !important;
         max-width: calc(100vw - 44px);
+    }
+
+    /* o campo dentro do balao tambem precisa dos 16px, senao o
+       iPhone da zoom ao editar um link */
+    .editor-wrapper .ql-snow .ql-tooltip input[type=text] {
+        width: 100%;
+        font-size: 16px;
     }
 
     /* celular nao tem Ctrl nem Alt: a legenda seria peso morto */

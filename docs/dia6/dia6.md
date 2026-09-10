@@ -52,12 +52,45 @@ O que isso exigiu:
   idêntica. No mobile ele recebe `position: fixed` e cobre a tela.
 - Um cabeçalho com botão "Voltar" e um botão fixo de nova nota, ambos com
   `display: none` por padrão e ativados apenas dentro do `@media`.
-- A barra de formatação do Quill passou a uma única faixa com rolagem
-  horizontal, no lugar das 4 linhas empilhadas.
 - A legenda de atalhos é ocultada no mobile.
 - Em `nota.js`, as funções `abrirFolha()` / `fecharFolha()` e uma checagem
   de `matchMedia` dentro de `abrirNota()`: no mobile a nota abre no painel,
   no desktop mantém o `scrollIntoView` de antes.
+
+### Barra de formatação sem rolagem lateral
+
+A lista completa de botões do Quill não cabe na largura de um celular: ou
+quebrava em 4 linhas, consumindo a altura do editor, ou exigia arrastar a
+barra para os lados. As duas coisas foram descartadas.
+
+`nota.js` passou a montar **duas configurações de barra**: a completa no
+desktop e uma reduzida no mobile (título, negrito, itálico, lista numerada,
+lista com marcadores, link e fórmula). A escolha é feita uma vez, na criação
+do editor, por `matchMedia`.
+
+No CSS, a barra virou um container flex em que cada grupo de botões recebe
+`flex: 1`. Com isso os botões **dividem a largura disponível** em vez de
+terem largura fixa: nunca sobra nada para fora da tela, em nenhum tamanho de
+aparelho, e os botões ficam com 44px de altura em vez dos 24px padrão do
+Quill. O `flex-wrap: wrap` é apenas garantia — se a barra crescer no futuro,
+ela quebra para uma segunda linha em vez de rolar.
+
+O painel também recebeu `overflow: hidden`: ele nunca rola, nem na vertical
+nem na horizontal. Quem rola é o texto, dentro do editor.
+
+### Teclado virtual
+
+`position: fixed` se apoia no *layout viewport*, que não encolhe quando o
+teclado do celular abre. No iOS o navegador rola a página inteira para
+revelar o campo em foco, e o painel fixo sobe junto: o topo sai da tela e o
+rodapé fica atrás do teclado.
+
+A correção usa a API `visualViewport`, que informa a área realmente visível
+(`height`) e o quanto ela está deslocada dentro do layout viewport
+(`offsetTop`). `nota.js` copia esses dois valores para o `top` e o `height`
+do painel nos eventos `resize` e `scroll` do `visualViewport`. O painel passa
+a acompanhar exatamente a área visível: fica parado no lugar e encolhe para
+caber acima do teclado. Ao fechar, os estilos inline são removidos.
 
 ## Ajustes por página
 
@@ -96,8 +129,12 @@ motivo.
 
 DevTools em 360px e 375px nas 7 páginas; redimensionar a janela passando por
 900px para confirmar que o menu troca de forma sem salto; na página de notas,
-abrir e fechar o painel do editor; no temporizador, arrastar o controle
-circular por toque.
+abrir e fechar o painel do editor e conferir que a barra de formatação cabe
+inteira na largura; no temporizador, arrastar o controle circular por toque.
+
+O teste do teclado virtual só vale em aparelho real: tocar no texto da nota
+e verificar que o painel continua no lugar, com a barra de formatação
+visível, em vez de subir junto com a página.
 
 Não foi possível executar as páginas aqui — não há PHP no PATH desta máquina,
 então a conferência foi de código e de cascata, não de renderização. O teste
@@ -107,9 +144,10 @@ emulador.
 
 ## Pendências
 
-- Com o teclado virtual aberto, o fim do painel de edição pode ficar coberto:
-  `position: fixed` usa a altura do layout viewport. A solução completa é a
-  API `VisualViewport`.
+- A barra de formatação é montada uma única vez, na criação do editor.
+  Redimensionar a janela do desktop para menos de 900px não troca a barra
+  completa pela reduzida — só recarregar a página. Em aparelho real isso não
+  acontece, porque a largura não muda de categoria.
 - O breakpoint de 900px está repetido em três arquivos (`responsivo.css`,
   `navbar.js`, `nota.js`), porque `var()` do CSS não funciona dentro de
   `@media`. Está anotado nos comentários dos três.
