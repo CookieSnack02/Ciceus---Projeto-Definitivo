@@ -1,19 +1,8 @@
 /* ------------------------------------------------------------------
-   largura da tela
-
-   Declarado aqui em cima porque a barra de formatacao logo abaixo ja
-   precisa saber em qual layout estamos. E o mesmo valor do @media do
-   nota.css e do responsivo.css.
-   ------------------------------------------------------------------ */
-
-var telaPequena = window.matchMedia('(max-width: 900px)');
-
-
-/* ------------------------------------------------------------------
    barra de formatacao do Quill
+   mantida minimalista: so os grupos essenciais
    ------------------------------------------------------------------ */
 
-/* desktop: os grupos essenciais */
 var configuracaoBarra = [
     ['bold', 'italic', 'underline'],
     ['blockquote', 'code-block'],
@@ -22,23 +11,6 @@ var configuracaoBarra = [
     [{ 'font': [] }],
     ['link', 'image', 'video', 'formula']
 ];
-
-/* mobile: conjunto reduzido, escolhido para caber em UMA linha da
-   tela do celular. Com a lista inteira, ou a barra quebrava em 4
-   linhas (comendo a altura do editor) ou precisava rolar de lado.
-   Os botoes que sairam continuam acessiveis por teclado externo e
-   pela versao de desktop da mesma nota. */
-var configuracaoBarraMobile = [
-    [{ 'header': [1, 2, 3, false] }],
-    ['bold', 'italic'],
-    [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-    ['link', 'formula']
-];
-
-/* a barra e montada uma unica vez, na criacao do editor: redimensionar
-   a janela no desktop nao a reconstroi. E o comportamento certo para
-   aparelho real, onde a largura nao muda de categoria */
-var barraEmUso = telaPequena.matches ? configuracaoBarraMobile : configuracaoBarra;
 
 
 /* ------------------------------------------------------------------
@@ -121,7 +93,7 @@ var atalhosFormatacao = {
 
 var quill = new Quill('#editor-texto', {
     modules: {
-        toolbar: barraEmUso,
+        toolbar: configuracaoBarra,
         keyboard: { bindings: atalhosFormatacao }
     },
     theme: 'snow',
@@ -163,131 +135,6 @@ quill.root.addEventListener('click', function (evento) {
 });
 
 aplicarModo(seletorModo.value);
-
-
-/* ------------------------------------------------------------------
-   painel do editor no mobile
-
-   No celular o editor nao fica na pagina: ele abre num painel que
-   ocupa a tela inteira. Quem posiciona e anima o painel e o css
-   (.painel-editor dentro do @media do nota.css); aqui so entra e sai
-   a classe `editor-aberto` do <body>.
-   ------------------------------------------------------------------ */
-
-var painelEditor = document.getElementById('painel-editor');
-var botaoNovaNota = document.getElementById('botao-nova-nota');
-var botaoVoltar = document.getElementById('botao-voltar');
-
-function abrirFolha() {
-    if (telaPequena.matches) {
-        document.body.classList.add('editor-aberto');
-        ajustarAoTeclado();
-    }
-}
-
-function fecharFolha() {
-    document.body.classList.remove('editor-aberto');
-    limparAjusteDoTeclado();
-}
-
-
-/* ------------------------------------------------------------------
-   teclado virtual
-
-   PROBLEMA: `position: fixed` se apoia no layout viewport, que NAO
-   encolhe quando o teclado do celular abre. No iOS o navegador rola a
-   pagina inteira para revelar o campo em foco, e o painel fixo sobe
-   junto — o topo dele sai da tela e o rodape fica atras do teclado.
-
-   SOLUCAO: a API visualViewport informa a area que o usuario esta
-   realmente vendo (`height`) e o quanto ela esta deslocada dentro do
-   layout viewport (`offsetTop`). Copiando esses dois valores para o
-   painel, ele passa a acompanhar exatamente a area visivel: fica
-   parado no lugar e encolhe para caber acima do teclado.
-
-   Nao existe fallback: em navegador sem visualViewport (bem antigo) o
-   painel simplesmente se comporta como antes.
-   ------------------------------------------------------------------ */
-
-var areaVisivel = window.visualViewport;
-
-function ajustarAoTeclado() {
-    if (!areaVisivel || !painelEditor) {
-        return;
-    }
-
-    if (!document.body.classList.contains('editor-aberto')) {
-        return;
-    }
-
-    painelEditor.style.top = areaVisivel.offsetTop + 'px';
-    painelEditor.style.bottom = 'auto';
-    painelEditor.style.height = areaVisivel.height + 'px';
-}
-
-/* ao fechar, os estilos inline saem: sem isso eles continuariam
-   valendo depois, inclusive se a janela virar desktop */
-function limparAjusteDoTeclado() {
-    if (!painelEditor) {
-        return;
-    }
-
-    painelEditor.style.top = '';
-    painelEditor.style.bottom = '';
-    painelEditor.style.height = '';
-}
-
-if (areaVisivel) {
-    /* resize: o teclado abriu ou fechou.
-       scroll: o iOS deslocou a area visivel dentro da pagina */
-    areaVisivel.addEventListener('resize', ajustarAoTeclado);
-    areaVisivel.addEventListener('scroll', ajustarAoTeclado);
-}
-
-/* nova nota: editor limpo, sem pasta, em modo de edicao */
-if (botaoNovaNota) {
-    botaoNovaNota.addEventListener('click', function () {
-        quill.setContents([]);
-        definirPasta('');
-        aplicarModo('editor');
-
-        /* nenhum cartao continua marcado como aberto */
-        var marcados = gradeNotas.querySelectorAll('.cartao-nota.nota-ativa');
-        for (var i = 0; i < marcados.length; i++) {
-            marcados[i].classList.remove('nota-ativa');
-        }
-
-        abrirFolha();
-        quill.focus();
-    });
-}
-
-if (botaoVoltar) {
-    botaoVoltar.addEventListener('click', fecharFolha);
-}
-
-/* Escape fecha a folha em quem estiver num celular com teclado */
-document.addEventListener('keydown', function (evento) {
-    if (evento.key === 'Escape') {
-        fecharFolha();
-    }
-});
-
-/* ao girar o aparelho para o modo paisagem a tela pode passar dos
-   900px: ali o layout volta a ser o de desktop, e a classe deixaria
-   o body travado sem rolagem */
-function aoTrocarLarguraNota(evento) {
-    if (!evento.matches) {
-        fecharFolha();
-    }
-}
-
-if (telaPequena.addEventListener) {
-    telaPequena.addEventListener('change', aoTrocarLarguraNota);
-} else if (telaPequena.addListener) {
-    /* Safari antigo (< 14) so tem a API velha */
-    telaPequena.addListener(aoTrocarLarguraNota);
-}
 
 
 /* ------------------------------------------------------------------
@@ -427,13 +274,7 @@ function abrirNota(indice) {
         cartoes[i].classList.toggle('nota-ativa', i === indice);
     }
 
-    if (telaPequena.matches) {
-        /* no mobile a nota abre na folha de tela cheia; rolar a pagina
-           nao faria sentido porque a folha e fixa, cobre tudo */
-        abrirFolha();
-    } else {
-        caixaEditor.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
+    caixaEditor.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 carregarNotas();
