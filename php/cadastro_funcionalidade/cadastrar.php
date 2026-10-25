@@ -50,6 +50,8 @@ if($_SERVER['REQUEST_METHOD'] === 'POST') {
                 header("Location: ../../html/acesso.php?erro=email_duplicado");
                 exit; 
             } else {
+                // o motivo real vai para o log do servidor, o usuario ve so a mensagem generica
+                error_log("Ciceus cadastro: " . $e->getMessage());
                 header("Location: ../../html/acesso.php?erro=banco");
 
             }
