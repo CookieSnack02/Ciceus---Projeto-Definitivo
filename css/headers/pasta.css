@@ -133,3 +133,11 @@
     gap: 10px;
     margin-top: 24px;
 }
+
+
+/* telas de toque nao tem hover: as acoes ficam sempre visiveis */
+@media (hover: none) {
+    .acoes {
+        opacity: 1;
+    }
+}

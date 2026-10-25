@@ -58,6 +58,11 @@ a {
     color: var(--destaque);
 }
 
+/* o atributo hidden tem que vencer o display das classes (.botao, .botao-icone...) */
+[hidden] {
+    display: none !important;
+}
+
 /* icones do phosphor: alinhados ao texto */
 .ph,
 .ph-fill {
@@ -360,11 +365,17 @@ button:focus-visible,
 }
 
 
+/* o botao de menu so existe no celular */
+.navbar-alternar {
+    display: none;
+}
+
+
 /* ------------------------------------------------------------------
-   telas estreitas: a barra lateral vira so icones
+   tablet: a barra lateral vira so icones
    ------------------------------------------------------------------ */
 
-@media (max-width: 860px) {
+@media (max-width: 1024px) and (min-width: 761px) {
     :root {
         --largura-navbar: 68px;
     }
@@ -389,7 +400,111 @@ button:focus-visible,
     }
 
     .conteudos {
-        padding: 32px 20px 64px;
+        padding: 36px 28px 72px;
+    }
+}
+
+
+/* ------------------------------------------------------------------
+   celular: barra no topo, menu abre por baixo dela
+   ------------------------------------------------------------------ */
+
+@media (max-width: 760px) {
+    .navbar {
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        width: 100%;
+        height: auto;
+        padding: 10px 16px;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0;
+        border-right: none;
+        border-bottom: 1px solid var(--borda);
+        overflow: visible;
+    }
+
+    .navbar-marca {
+        padding: 0;
+    }
+
+    .navbar-marca span {
+        font-size: 22px;
+    }
+
+    .navbar-alternar {
+        display: inline-grid;
+        place-items: center;
+        width: 42px;
+        height: 42px;
+        margin-right: -8px;
+        font-size: 24px;
+        color: var(--texto);
+        background: none;
+        border: none;
+        border-radius: var(--raio-pequeno);
+        cursor: pointer;
+    }
+
+    .navbar-alternar:hover {
+        background-color: var(--superficie-suave);
+    }
+
+    /* fechado por padrao; a classe menu-aberto (navbar.php) mostra */
+    .navbar-menu {
+        display: none;
+        flex-basis: 100%;
+        padding: 10px 0 6px;
+    }
+
+    .navbar.menu-aberto .navbar-menu {
+        display: flex;
+        animation: surge-suave 200ms ease;
+    }
+
+    /* itens maiores: area de toque confortavel para o dedo */
+    .navbar-menu a {
+        padding: 12px;
+        font-size: 16px;
+    }
+
+    .navbar-menu .item-sair {
+        margin-top: 6px;
+    }
+
+    .conteudos {
+        margin-left: 0;
+        padding: 24px 16px 64px;
+    }
+
+    .pagina-cabecalho {
+        margin-bottom: 22px;
+    }
+
+    .pagina-cabecalho h1 {
+        font-size: 32px;
+    }
+
+    .subtitulo {
+        margin-top: 36px;
+        font-size: 23px;
+    }
+
+    /* abaixo de 16px o safari do iphone da zoom ao tocar no campo */
+    .campo-entrada {
+        font-size: 16px;
+    }
+
+    .botao {
+        padding: 11px 16px;
+    }
+
+    .botao-icone {
+        width: 40px;
+        height: 40px;
     }
 }
 

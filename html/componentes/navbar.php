@@ -27,10 +27,30 @@ function itemMenu($endereco, $icone, $rotulo, $atual = false)
             <span>Ciceus</span>
         </a>
 
-        <ul class="navbar-menu">
+        <!-- so aparece no celular: abre e fecha o menu -->
+        <button type="button" class="navbar-alternar" id="navbar-alternar" aria-expanded="false" aria-controls="navbar-menu" aria-label="Abrir menu">
+            <i class="ph ph-list"></i>
+        </button>
+
+        <ul class="navbar-menu" id="navbar-menu">
 <?php foreach ($itensMenu as $chave => [$endereco, $icone, $rotulo]) {
     itemMenu($endereco, $icone, $rotulo, ($paginaAtual ?? '') === $chave);
 } ?>
             <li class="item-sair"><a href="/php/sair_funcionalidade/sair.php" title="Sair"><span class="icone"><i class="ph ph-sign-out icone-padrao"></i><i class="ph-fill ph-sign-out icone-hover"></i></span><span class="rotulo">Sair</span></a></li>
         </ul>
     </nav>
+
+    <script>
+        /* menu do celular: o botao alterna a classe que mostra a lista */
+        (function () {
+            var navbar = document.querySelector('.navbar');
+            var botao = document.getElementById('navbar-alternar');
+
+            botao.addEventListener('click', function () {
+                var aberto = navbar.classList.toggle('menu-aberto');
+                botao.setAttribute('aria-expanded', aberto);
+                botao.setAttribute('aria-label', aberto ? 'Fechar menu' : 'Abrir menu');
+                botao.innerHTML = aberto ? '<i class="ph ph-x"></i>' : '<i class="ph ph-list"></i>';
+            });
+        })();
+    </script>

@@ -1,11 +1,25 @@
 <?php
     // sem login nao entra: volta para a tela de acesso
     require_once __DIR__ . '/../../php/sessao.php';
-    exigirLogin();
+    $idUsuario = exigirLogin();
 
     $tituloPagina = 'Notas';
     $cssPagina = '/css/headers/nota.css';
     $paginaAtual = 'notas';
+
+    // pastas do usuario para o seletor da nota
+    require_once __DIR__ . '/../../php/conexao.php';
+
+    $pastas = [];
+    try {
+        $buscarPastas = $pdo->prepare("SELECT codPasta, nmPasta FROM pasta WHERE ciceus_idCiceus = :idUsuario ORDER BY nmPasta");
+        $buscarPastas->bindValue(':idUsuario', $idUsuario, PDO::PARAM_INT);
+        $buscarPastas->execute();
+        $pastas = $buscarPastas->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        // sem as pastas a nota ainda pode ser salva, so sem pasta
+        error_log("Ciceus notas (pastas): " . $e->getMessage());
+    }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
@@ -44,21 +58,26 @@
                     </label>
                 </div>
 
-                <div class="area-pasta">
-                    <button type="button" class="botao botao-secundario" id="botao-pasta">
-                        <i class="ph ph-folder"></i>
-                        <span id="rotulo-pasta">Adicionar pasta</span>
-                    </button>
-                    <select id="lista-pastas" class="campo-entrada" hidden>
+                <label class="area-pasta" title="Pasta da nota">
+                    <i class="ph ph-folder"></i>
+                    <select id="lista-pastas" class="campo-entrada" aria-label="Pasta da nota">
                         <option value="">Sem pasta</option>
-                        <option value="Matemática">Matemática</option>
-                        <option value="História">História</option>
-                        <option value="Biologia">Biologia</option>
-                        <option value="Redação">Redação</option>
+                        <?php foreach ($pastas as $pasta): ?>
+                            <option value="<?php echo (int) $pasta['codPasta']; ?>"><?php echo htmlspecialchars($pasta['nmPasta']); ?></option>
+                        <?php endforeach; ?>
                     </select>
+                </label>
+
+                <div class="botoes-nota">
+                    <span class="status-nota" id="status-nota" aria-live="polite"></span>
+                    <button type="button" class="botao-icone" id="botao-nova" title="Nova nota" aria-label="Nova nota"><i class="ph ph-plus"></i></button>
+                    <button type="button" class="botao-icone perigo" id="botao-excluir" title="Excluir nota" aria-label="Excluir nota" hidden><i class="ph ph-trash"></i></button>
+                    <button type="button" class="botao botao-principal" id="botao-salvar" title="Salvar (Ctrl + S)"><i class="ph ph-floppy-disk"></i> Salvar</button>
                 </div>
 
             </div>
+
+            <input type="text" id="titulo-nota" class="titulo-nota" placeholder="Título da nota" maxlength="45" aria-label="Título da nota">
 
             <div class="editor-wrapper">
                 <div id="editor-texto"></div>
@@ -80,6 +99,7 @@
                     <li><span>Link</span><kbd>Ctrl + K</kbd></li>
                     <li><span>Fórmula matemática</span><kbd>Ctrl + Alt + F</kbd></li>
                     <li><span>Limpar formatação</span><kbd>Ctrl + \</kbd></li>
+                    <li><span>Salvar nota</span><kbd>Ctrl + S</kbd></li>
                 </ul>
             </details>
 
