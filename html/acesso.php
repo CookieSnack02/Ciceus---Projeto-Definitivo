@@ -1,4 +1,11 @@
 <?php
+// quem ja esta logado nao precisa ver o login de novo
+require_once __DIR__ . '/../php/sessao.php';
+if (isset($_SESSION['idUsuario'])) {
+    header('Location: index.php');
+    exit;
+}
+
 $mensagemAviso = '';
 $classeAviso = 'oculto';
 

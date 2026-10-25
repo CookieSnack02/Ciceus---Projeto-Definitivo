@@ -1,26 +1,16 @@
 <?php
+require_once '../sessao.php';
 require_once '../conexao.php';
+
+// ID do usuário logado; sem sessao volta para a tela de acesso
+$idUsuario = exigirLogin();
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $nmPasta  = trim($_POST['nmPasta'] ?? '');
     $corPasta = trim($_POST['corPasta'] ?? '#a27b5b');
-    
-    // ID do usuário logado (ex: de $_SESSION['idUsuario'])
-    $idUsuario = 1; 
 
     if (!empty($nmPasta) && isset($pdo)) { //Somente se o nome da pasta existir e a conexão com o banco de dados estiver ativa
         try {
-            // Garantir que exista um usuário na tabela ciceus para respeitar a chave estrangeira (FK)
-            $checagemDeUsuario = $pdo->prepare("SELECT idCiceus FROM ciceus WHERE idCiceus = :id");
-            $checagemDeUsuario->bindValue(':id', $idUsuario, PDO::PARAM_INT);
-            $checagemDeUsuario->execute();
-
-            if (!$checagemDeUsuario->fetch()) {
-                $insercaoUsuario = $pdo->prepare("INSERT INTO ciceus (idCiceus, nmUsuario, emailUsuario, senhaUsuario, telefoneUsuario) VALUES (:id, 'Usuário Teste', 'teste@ciceus.com', '123456', '000000000')");
-                $insercaoUsuario->bindValue(':id', $idUsuario, PDO::PARAM_INT);
-                $insercaoUsuario->execute();
-            }
-
             $colocarDadosPasta = "INSERT INTO pasta (nmPasta, corPasta, ciceus_idCiceus) 
                     VALUES (:nmPasta, :corPasta, :idUsuario)";
             

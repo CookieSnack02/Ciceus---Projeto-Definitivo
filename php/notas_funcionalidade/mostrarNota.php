@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+require_once __DIR__ . '/../sessao.php';
 require_once __DIR__ . '/../conexao.php';
 
 /* este arquivo nao devolve pagina, devolve dados.
@@ -16,13 +16,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 /* o dono das notas vem da SESSAO, nunca da URL.
    se viesse do $_GET, bastava trocar o numero no endereco
    para ler as anotacoes de outro aluno */
-$idUsuario = $_SESSION['idUsuario'] ?? null;
-
-if ($idUsuario === null) {
-    http_response_code(401);
-    echo json_encode(['erro' => 'sem sessao']);
-    exit;
-}
+$idUsuario = exigirLogin(true);
 
 /* filtro opcional por pasta: mostrarNota.php?idPasta=3
    sem ele a consulta traz todas as notas do aluno */

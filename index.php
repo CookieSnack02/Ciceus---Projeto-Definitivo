@@ -1,8 +1,8 @@
 <?php
-    session_start();
+    require_once __DIR__ . '/php/sessao.php';
     if(isset($_SESSION["idUsuario"])){
-        header("Location: https://www.ciceus.com/html/index.php", true, 302);
-        //header("Location: html/index.php"); //Execução em produção
+        // caminho relativo: funciona na hospedagem e em ambiente local
+        header("Location: html/index.php", true, 302);
         exit;
     }
 

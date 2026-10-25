@@ -1,3 +1,8 @@
+<?php
+    // sem login nao entra: volta para a tela de acesso
+    require_once __DIR__ . '/../../php/sessao.php';
+    exigirLogin();
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
@@ -34,6 +39,7 @@
             <li><a href="quadro.php"><span class="icone"><i class="fa-slab-press fa-regular fa-rectangle-wide icone-padrao"></i><i class="fa-slab fa-regular fa-rectangle-wide icone-hover"></i></span>Quadro</a></li>
             <li><a href="pasta.php"><span class="icone"><i class="fa-slab-press fa-regular fa-folders icone-padrao"></i><i class="fa-slab fa-regular fa-folders icone-hover"></i></span>Pastas</a></li>
             <li><a href="tempo.php"><span class="icone"><i class="fa-slab-press fa-regular fa-stopwatch icone-padrao"></i><i class="fa-slab fa-regular fa-stopwatch icone-hover"></i></span>Temporizador</a></li>
+            <li><a href="../../php/sair_funcionalidade/sair.php"><span class="icone"><i class="fa-slab-press fa-regular fa-arrow-right-from-bracket icone-padrao"></i><i class="fa-slab fa-regular fa-arrow-right-from-bracket icone-hover"></i></span>Sair</a></li>
         </ul>
     </div>  
     <!-- fim da navbar -->
@@ -43,7 +49,8 @@
     <?php 
         require_once("../../php/conexao.php");
 
-        $idUsuario = 1;
+        // vem do exigirLogin() no topo da pagina
+        $idUsuario = $_SESSION['idUsuario'];
         $pastas = [];
 
         if (isset($pdo)) {

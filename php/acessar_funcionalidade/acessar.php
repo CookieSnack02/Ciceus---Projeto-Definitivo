@@ -17,11 +17,14 @@
                 $buscarDados = $buscarDados->fetch(PDO::FETCH_ASSOC);
 
                 if($buscarDados && password_verify($senhaUsuario, $buscarDados['senhaUsuario'])){
-                    session_start(); // cria uma sessão ou continua a sessão atual baseado em um ID de sessão passado via GET ou POST, ou passado via cookie. (https://www.php.net/manual/pt_BR/function.session-start.php) -> princípio KISS — Keep It Simple, Stupid
+                    require_once '../sessao.php'; // abre a sessao com o cookie protegido (httponly, samesite)
 
-                    //Posteriormente pode ser implementado um sistema de regeneração de ID de sessão para manter a segurança da sessão, mas por enquanto não é necessário, pois o sistema ainda não está em produção e não há risco de ataques de sequestro de sessão (session hijacking). Isso também ajudaria a previnir um Race Condition Attack, que é um ataque que ocorre quando dois processos tentam acessar o mesmo recurso ao mesmo tempo, e um deles consegue acessar antes do outro. Isso pode ser explorado por um atacante para obter acesso não autorizado a recursos do sistema.
+                    // gera um ID de sessao novo no login: um ID que alguem tenha plantado antes
+                    // no navegador da vitima deixa de valer (protege contra fixacao de sessao)
+                    session_regenerate_id(true);
 
                     $_SESSION['idUsuario'] = $buscarDados['idCiceus']; // Armazena o ID do usuário na sessão
+                    $_SESSION['nomeUsuario'] = $buscarDados['nmUsuario']; // Armazena o nome para exibir nas paginas
                     $_SESSION['emailUsuario'] = $buscarDados['emailUsuario']; // Armazena o e-mail do usuário na sessão
                     header("Location: ../../html/index.php"); 
                     exit; 
