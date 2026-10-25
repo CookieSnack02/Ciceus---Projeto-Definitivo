@@ -1,8 +1,31 @@
 <?php
 
-/* as credenciais ficam no config.php, fora do git.
-   veja o config.exemplo.php para o formato */
-$config = require __DIR__ . '/config.php';
+/* as credenciais ficam fora do git (veja o config.exemplo.php).
+   a ordem de busca e:
+   1. ciceus_config.php na pasta ACIMA da pasta publica (public_html):
+      o deploy pelo git nao apaga esse arquivo e ninguem acessa ele
+      pelo navegador. e o lugar recomendado na hospedagem
+   2. php/config.php, ao lado deste arquivo: pratico para rodar local */
+$locaisConfig = [
+    dirname($_SERVER['DOCUMENT_ROOT'] ?? __DIR__) . '/ciceus_config.php',
+    __DIR__ . '/config.php'
+];
+
+$config = null;
+foreach ($locaisConfig as $local) {
+    if (is_file($local)) {
+        $config = require $local;
+        break;
+    }
+}
+
+if (!is_array($config)) {
+    /* sem isso o require dava erro fatal e o site inteiro caia
+       com erro 500, sem dizer o motivo */
+    error_log("Ciceus: arquivo de configuracao do banco nao encontrado em: " . implode(', ', $locaisConfig));
+    http_response_code(500);
+    exit("Configuração do banco de dados não encontrada.");
+}
 
 try{
     $pdo = new PDO(
