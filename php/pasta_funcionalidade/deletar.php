@@ -1,5 +1,9 @@
 <?php
+require_once '../sessao.php';
 require_once '../conexao.php';
+
+// sem login volta para a tela de acesso
+$idUsuario = exigirLogin();
 
 if (isset($_GET['id']) && isset($pdo)) {
     $idPasta = (int) $_GET['id'];
