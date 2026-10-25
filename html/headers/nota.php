@@ -2,121 +2,99 @@
     // sem login nao entra: volta para a tela de acesso
     require_once __DIR__ . '/../../php/sessao.php';
     exigirLogin();
+
+    $tituloPagina = 'Notas';
+    $cssPagina = '/css/headers/nota.css';
+    $paginaAtual = 'notas';
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Notas</title>
-    <link rel="stylesheet" href="../../css/headers/nota.css?v=<?php echo filemtime(__DIR__ . '/../../css/headers/nota.css'); ?>"> <!-- link do css das notas -->
-    <script src="https://kit.fontawesome.com/5f10733ee6.js" crossorigin="anonymous"></script>  <!-- fontawesome -->
-
-    <!-- favicon -->
-    <link rel="icon" href="/logo/favicon/favicon.ico" sizes="any">
-    <link rel="icon" type="image/png" sizes="32x32" href="/logo/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/logo/favicon/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/logo/favicon/apple-touch-icon.png">
-    <link rel="manifest" href="/logo/favicon/site.webmanifest">
+<?php require __DIR__ . '/../componentes/cabeca.php'; ?>
 
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 
     <!-- katex: o botao de formula do quill depende dele para renderizar -->
     <link href="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.css" rel="stylesheet">
-
 </head>
 <body>
 
-    <!-- <svg fill="#000000" height="64px" width="64px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M460.994,200.379c11.845-22.438,14.678-52.681,8.38-90.043c-4.739-28.113-13.077-50.284-13.43-51.214l-5.564-14.676 l-15.64,1.357c-0.988,0.084-24.503,2.192-51.819,10.261c-27.22,8.041-48.625,19.048-63.996,32.834 c-20.823-6.88-42.001-10.493-62.926-10.493c-20.926,0-42.103,3.613-62.926,10.492c-15.371-13.787-36.775-24.792-63.996-32.834 c-27.316-8.069-50.831-10.176-51.819-10.261l-15.638-1.358l-5.564,14.678c-0.353,0.93-8.69,23.1-13.43,51.214 c-6.298,37.362-3.465,67.606,8.38,90.043C18.64,247.221,0,300.363,0,348.243v13.901l256,105.411l256-105.411v-13.901 C512,300.363,493.36,247.221,460.994,200.379z M422.144,89.39c5.543,19.659,11.341,49.214,7.903,72.711 c-20.584-21.867-43.329-39.878-67.203-53.516C381.462,98.451,404.874,92.434,422.144,89.39z M256,119.919 c44.278,0,90.657,20.589,130.26,57.192c-57.491,5.184-106.619,39.792-132.178,88.611c-27.53-46.995-77.489-79.324-135.081-82.173 C160.019,142.923,209.185,119.919,256,119.919z M89.802,89.46c7.799,1.38,17.728,3.488,28.188,6.616 c12.011,3.59,22.428,7.805,31.123,12.533c-23.884,13.648-46.635,31.672-67.221,53.552C78.369,138.741,84.129,109.392,89.802,89.46 z M256,422.662l-213.88-88.07c3.028-34.691,17.289-72.182,40.192-106.486c9.255-2.156,18.783-3.252,28.392-3.252 c59.162,0,108.818,41.469,121.437,96.865h46.357c9.912-58.826,61.202-103.784,122.801-103.784c7.674,0,15.316,0.708,22.798,2.089 c26.174,36.434,42.52,77.129,45.787,114.568L256,422.662z"></path> </g> </g> <g> <g> <circle cx="359.784" cy="300.959" r="20.757"></circle> </g> </g> <g> <g> <circle cx="152.216" cy="300.959" r="20.757"></circle> </g> </g> <g> <g> <path d="M269.838,349.394H256h-13.838c-7.643,0-13.838,6.195-13.838,13.838c0,13.838,27.676,27.676,27.676,27.676 s27.676-13.838,27.676-27.676C283.676,355.59,277.48,349.394,269.838,349.394z"></path> </g> </g> </g></svg> -->
-    <!-- navbar -->
-    <div class="navbar">
-        <div class="logo-ciceus">
-            <svg fill="#c08552" height="32px" width="32px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M460.994,200.379c11.845-22.438,14.678-52.681,8.38-90.043c-4.739-28.113-13.077-50.284-13.43-51.214l-5.564-14.676 l-15.64,1.357c-0.988,0.084-24.503,2.192-51.819,10.261c-27.22,8.041-48.625,19.048-63.996,32.834 c-20.823-6.88-42.001-10.493-62.926-10.493c-20.926,0-42.103,3.613-62.926,10.492c-15.371-13.787-36.775-24.792-63.996-32.834 c-27.316-8.069-50.831-10.176-51.819-10.261l-15.638-1.358l-5.564,14.678c-0.353,0.93-8.69,23.1-13.43,51.214 c-6.298,37.362-3.465,67.606,8.38,90.043C18.64,247.221,0,300.363,0,348.243v13.901l256,105.411l256-105.411v-13.901 C512,300.363,493.36,247.221,460.994,200.379z M422.144,89.39c5.543,19.659,11.341,49.214,7.903,72.711 c-20.584-21.867-43.329-39.878-67.203-53.516C381.462,98.451,404.874,92.434,422.144,89.39z M256,119.919 c44.278,0,90.657,20.589,130.26,57.192c-57.491,5.184-106.619,39.792-132.178,88.611c-27.53-46.995-77.489-79.324-135.081-82.173 C160.019,142.923,209.185,119.919,256,119.919z M89.802,89.46c7.799,1.38,17.728,3.488,28.188,6.616 c12.011,3.59,22.428,7.805,31.123,12.533c-23.884,13.648-46.635,31.672-67.221,53.552C78.369,138.741,84.129,109.392,89.802,89.46 z M256,422.662l-213.88-88.07c3.028-34.691,17.289-72.182,40.192-106.486c9.255-2.156,18.783-3.252,28.392-3.252 c59.162,0,108.818,41.469,121.437,96.865h46.357c9.912-58.826,61.202-103.784,122.801-103.784c7.674,0,15.316,0.708,22.798,2.089 c26.174,36.434,42.52,77.129,45.787,114.568L256,422.662z"></path> </g> </g> <g> <g> <circle cx="359.784" cy="300.959" r="20.757"></circle> </g> </g> <g> <g> <circle cx="152.216" cy="300.959" r="20.757"></circle> </g> </g> <g> <g> <path d="M269.838,349.394H256h-13.838c-7.643,0-13.838,6.195-13.838,13.838c0,13.838,27.676,27.676,27.676,27.676 s27.676-13.838,27.676-27.676C283.676,355.59,277.48,349.394,269.838,349.394z"></path> </g> </g> </g></svg>
-        </div>
-   
-        <div class="titulo">
-            <h1>Ciceus</h1>
-        </div>
-        <ul> 
-            <li><a href="../index.php"><span class="icone"><i class="fa-slab-press fa-regular fa-house icone-padrao"></i><i class="fa-slab fa-regular fa-house icone-hover"></i></span>Inicial</a></li>
-            <li><a href="nota.php"><span class="icone"><i class="fa-slab-press fa-regular fa-clipboard icone-padrao"></i><i class="fa-slab fa-regular fa-clipboard icone-hover"></i></span>Notas</a></li>
-            <li><a href="questao.php"><span class="icone"><i class="fa-slab-press fa-regular fa-question icone-padrao"></i><i class="fa-slab fa-regular fa-question icone-hover"></i></span>Questões</a></li>
-            <li><a href="cartoes.php"><span class="icone"><i class="fa-slab-press fa-regular fa-copy icone-padrao"></i><i class="fa-slab fa-regular fa-copy icone-hover"></i></span>Cartões</a></li>
-            <li><a href="quadro.php"><span class="icone"><i class="fa-slab-press fa-regular fa-rectangle-wide icone-padrao"></i><i class="fa-slab fa-regular fa-rectangle-wide icone-hover"></i></span>Quadro</a></li>
-            <li><a href="pasta.php"><span class="icone"><i class="fa-slab-press fa-regular fa-folders icone-padrao"></i><i class="fa-slab fa-regular fa-folders icone-hover"></i></span>Pastas</a></li>
-            <li><a href="tempo.php"><span class="icone"><i class="fa-slab-press fa-regular fa-stopwatch icone-padrao"></i><i class="fa-slab fa-regular fa-stopwatch icone-hover"></i></span>Temporizador</a></li>
-            <li><a href="../../php/sair_funcionalidade/sair.php"><span class="icone"><i class="fa-slab-press fa-regular fa-arrow-right-from-bracket icone-padrao"></i><i class="fa-slab fa-regular fa-arrow-right-from-bracket icone-hover"></i></span>Sair</a></li>
-        </ul>
-    </div>  
-    <!-- fim da navbar -->
+<?php require __DIR__ . '/../componentes/navbar.php'; ?>
 
     <!-- conteudos -->
-    <div class="conteudos">
-        <h1>Notas</h1>
-        <p>Aqui você pode acessar suas notas de estudo, organizá-las e revisá-las para melhorar seu aprendizado. Use esta seção para manter suas anotações e informações importantes sempre à mão.</p>
+    <main class="conteudos">
+        <div class="pagina">
 
-        <!-- barra de acoes: modo de exibicao e pasta da nota -->
-        <div class="acoes-nota">
+            <header class="pagina-cabecalho">
+                <h1>Notas</h1>
+                <p>Escreva, organize e revise suas anotações de estudo.</p>
+            </header>
 
-            <label class="campo-modo">
-                <span>Modo</span>
-                <select id="modo-nota" class="seletor-modo">
-                    <option value="editor">Editor</option>
-                    <option value="visualizacao">Visualização</option>
-                </select>
-            </label>
+            <!-- barra de acoes: modo de exibicao e pasta da nota -->
+            <div class="acoes-nota">
 
-            <div class="area-pasta">
-                <button type="button" class="botao-pasta" id="botao-pasta">
-                    <i class="fa-slab fa-regular fa-folders"></i>
-                    <span id="rotulo-pasta">Adicionar Pasta</span>
-                </button>
-                <select id="lista-pastas" class="seletor-pasta" hidden>
-                    <option value="">Sem pasta</option>
-                    <option value="Matemática">Matemática</option>
-                    <option value="História">História</option>
-                    <option value="Biologia">Biologia</option>
-                    <option value="Redação">Redação</option>
-                </select>
+                <div class="alternador-modo" role="group" aria-label="Modo de exibição">
+                    <label>
+                        <input type="radio" name="modo" value="editor" checked>
+                        <span><i class="ph ph-pencil-simple"></i> Editar</span>
+                    </label>
+                    <label>
+                        <input type="radio" name="modo" value="visualizacao">
+                        <span><i class="ph ph-eye"></i> Ler</span>
+                    </label>
+                </div>
+
+                <div class="area-pasta">
+                    <button type="button" class="botao botao-secundario" id="botao-pasta">
+                        <i class="ph ph-folder"></i>
+                        <span id="rotulo-pasta">Adicionar pasta</span>
+                    </button>
+                    <select id="lista-pastas" class="campo-entrada" hidden>
+                        <option value="">Sem pasta</option>
+                        <option value="Matemática">Matemática</option>
+                        <option value="História">História</option>
+                        <option value="Biologia">Biologia</option>
+                        <option value="Redação">Redação</option>
+                    </select>
+                </div>
+
             </div>
 
+            <div class="editor-wrapper">
+                <div id="editor-texto"></div>
+            </div>
+
+            <!-- legenda dos atalhos, senao as keybinds ficam invisiveis -->
+            <details class="atalhos">
+                <summary><i class="ph ph-keyboard"></i> Atalhos de teclado</summary>
+                <ul class="lista-atalhos">
+                    <li><span>Negrito</span><kbd>Ctrl + B</kbd></li>
+                    <li><span>Itálico</span><kbd>Ctrl + I</kbd></li>
+                    <li><span>Sublinhado</span><kbd>Ctrl + U</kbd></li>
+                    <li><span>Títulos 1 a 4</span><kbd>Ctrl + Alt + 1..4</kbd></li>
+                    <li><span>Texto normal</span><kbd>Ctrl + Alt + 0</kbd></li>
+                    <li><span>Lista numerada</span><kbd>Ctrl + Shift + 7</kbd></li>
+                    <li><span>Lista com marcadores</span><kbd>Ctrl + Shift + 8</kbd></li>
+                    <li><span>Citação</span><kbd>Ctrl + Shift + 9</kbd></li>
+                    <li><span>Bloco de código</span><kbd>Ctrl + Alt + C</kbd></li>
+                    <li><span>Link</span><kbd>Ctrl + K</kbd></li>
+                    <li><span>Fórmula matemática</span><kbd>Ctrl + Alt + F</kbd></li>
+                    <li><span>Limpar formatação</span><kbd>Ctrl + \</kbd></li>
+                </ul>
+            </details>
+
+            <!-- grade visualizadora das anotacoes -->
+            <h2 class="subtitulo">Minhas anotações</h2>
+            <div class="grade-notas" id="grade-notas"></div>
+
         </div>
-
-        <div class="editor-wrapper">
-            <div id="editor-texto"></div>
-        </div>
-
-        <!-- legenda dos atalhos, senao as keybinds ficam invisiveis -->
-        <details class="atalhos">
-            <summary>Atalhos de teclado</summary>
-            <ul class="lista-atalhos">
-                <li><span>Negrito</span><kbd>Ctrl + B</kbd></li>
-                <li><span>Itálico</span><kbd>Ctrl + I</kbd></li>
-                <li><span>Sublinhado</span><kbd>Ctrl + U</kbd></li>
-                <li><span>Títulos 1 a 4</span><kbd>Ctrl + Alt + 1..4</kbd></li>
-                <li><span>Texto normal</span><kbd>Ctrl + Alt + 0</kbd></li>
-                <li><span>Lista numerada</span><kbd>Ctrl + Shift + 7</kbd></li>
-                <li><span>Lista com marcadores</span><kbd>Ctrl + Shift + 8</kbd></li>
-                <li><span>Citação</span><kbd>Ctrl + Shift + 9</kbd></li>
-                <li><span>Bloco de código</span><kbd>Ctrl + Alt + C</kbd></li>
-                <li><span>Link</span><kbd>Ctrl + K</kbd></li>
-                <li><span>Fórmula matemática</span><kbd>Ctrl + Alt + F</kbd></li>
-                <li><span>Limpar formatação</span><kbd>Ctrl + \</kbd></li>
-            </ul>
-        </details>
-
-        <!-- grade visualizadora das anotacoes -->
-        <h2 class="subtitulo-notas">Minhas anotações</h2>
-        <div action="../../php/notas_funcionalidade/mostrarNota.php" class="grade-notas" id="grade-notas"></div>
-
-    </div>
+    </main>
     <!-- fim dos conteudos -->
 
 <!-- o katex tem que vir antes do quill, senao a formula nao registra -->
 <script src="https://cdn.jsdelivr.net/npm/katex@0.16.9/dist/katex.min.js"></script>
 <script src="https://cdn.quilljs.com/1.3.6/quill.min.js"></script>
-<script src="../../js/headers/nota.js?v=<?php echo filemtime(__DIR__ . '/../../js/headers/nota.js'); ?>"></script>
-
+<script src="<?php echo versao('/js/headers/nota.js'); ?>"></script>
 
 </body>
 </html>

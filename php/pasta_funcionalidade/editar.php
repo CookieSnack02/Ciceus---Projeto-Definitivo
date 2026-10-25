@@ -44,40 +44,50 @@ if (!$pasta) {
     exit;
 }
 ?>
+<?php
+$tituloPagina = 'Editar pasta';
+$cssPagina = '/css/headers/pasta.css';
+$paginaAtual = 'pastas';
+?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Editar Pasta</title>
-    <link rel="stylesheet" href="../../css/headers/pasta.css">
-    <script src="https://kit.fontawesome.com/5f10733ee6.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="css/editar.css">
+<?php require __DIR__ . '/../../html/componentes/cabeca.php'; ?>
 </head>
 <body>
-    <div class="conteudos" style="margin-left: 40px; padding: 30px;">
-        <div class="edit-box">
-            <h2>Editar Pasta</h2>
-            <form action="editar.php" method="POST">
-                <input type="hidden" name="codPasta" value="<?php echo $pasta['codPasta']; ?>">
-                
-                <div class="form-group">
-                    <label>Nome da Pasta:</label>
-                    <input type="text" name="nmPasta" value="<?php echo htmlspecialchars($pasta['nmPasta']); ?>" required>
+
+<?php require __DIR__ . '/../../html/componentes/navbar.php'; ?>
+
+    <main class="conteudos">
+        <div class="pagina">
+
+            <header class="pagina-cabecalho">
+                <h1>Editar pasta</h1>
+            </header>
+
+            <form class="edit-box cartao-base" action="editar.php" method="POST">
+                <input type="hidden" name="codPasta" value="<?php echo (int) $pasta['codPasta']; ?>">
+
+                <div class="form-grupo">
+                    <label for="nmPasta">Nome</label>
+                    <input class="campo-entrada" id="nmPasta" type="text" name="nmPasta" maxlength="255" value="<?php echo htmlspecialchars($pasta['nmPasta']); ?>" required>
                 </div>
 
-                <div class="form-group">
-                    <label>Cor da Pasta:</label>
-                    <input type="color" name="corPasta" value="<?php echo htmlspecialchars($pasta['corPasta'] ?? '#a27b5b'); ?>">
+                <div class="form-grupo">
+                    <label for="corPasta">Cor</label>
+                    <span class="seletor-cor">
+                        <input id="corPasta" type="color" name="corPasta" value="<?php echo htmlspecialchars($pasta['corPasta'] ?? '#C08552'); ?>">
+                    </span>
                 </div>
 
-                <div class="edit-actions">
-                    <button type="submit" class="btn-salvar"><i class="fa-solid fa-check"></i> Salvar</button>
-                    <a href="../../html/headers/pasta.php" class="btn-cancelar">Cancelar</a>
+                <div class="edit-acoes">
+                    <button type="submit" class="botao botao-principal"><i class="ph ph-check"></i> Salvar</button>
+                    <a href="../../html/headers/pasta.php" class="botao botao-secundario">Cancelar</a>
                 </div>
             </form>
+
         </div>
-    </div>
+    </main>
+
 </body>
 </html>
-

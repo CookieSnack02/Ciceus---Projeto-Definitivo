@@ -1,0 +1,403 @@
+/* ------------------------------------------------------------------
+   base compartilhada por todas as paginas internas.
+   cada pagina carrega este arquivo e, depois, o css proprio dela
+   so com o que for especifico
+   ------------------------------------------------------------------ */
+
+/* paleta e medidas num lugar so: trocar uma cor aqui troca no site inteiro */
+:root {
+    --fundo: #FAF9F5;
+    --superficie: #ffffff;
+    --superficie-suave: #f4f1ea;
+    --borda: #ebe6da;
+    --borda-forte: #e2dcd0;
+
+    --texto: #2b2620;
+    --texto-suave: #6f685d;
+    --texto-fraco: #a09889;
+
+    --destaque: #C08552;
+    --destaque-escuro: #a06d41;
+    --destaque-claro: rgba(192, 133, 82, 0.12);
+
+    --perigo: #b4462f;
+    --perigo-claro: rgba(180, 70, 47, 0.1);
+
+    --raio: 12px;
+    --raio-pequeno: 9px;
+    --sombra: 0 1px 2px rgba(43, 38, 32, 0.04);
+    --sombra-elevada: 0 8px 24px rgba(43, 38, 32, 0.08);
+
+    --largura-navbar: 232px;
+    --fonte-texto: 'DM Sans', Helvetica, sans-serif;
+    --fonte-titulo: 'Instrument Serif', Georgia, serif;
+    --transicao: 200ms ease;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--fonte-texto);
+    font-size: 15px;
+    line-height: 1.5;
+    background-color: var(--fundo);
+    color: var(--texto);
+}
+
+a {
+    color: var(--destaque);
+}
+
+/* icones do phosphor: alinhados ao texto */
+.ph,
+.ph-fill {
+    line-height: 1;
+}
+
+
+/* ------------------------------------------------------------------
+   barra lateral
+   ------------------------------------------------------------------ */
+
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: var(--largura-navbar);
+    height: 100vh;
+    padding: 24px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 28px;
+    background-color: var(--superficie);
+    border-right: 1px solid var(--borda);
+    overflow-y: auto;
+}
+
+.navbar-marca {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 0 10px;
+    color: var(--destaque);
+    text-decoration: none;
+}
+
+.navbar-marca svg {
+    fill: currentColor;
+    flex-shrink: 0;
+}
+
+.navbar-marca span {
+    font-family: var(--fonte-titulo);
+    font-size: 24px;
+    letter-spacing: 0.04em;
+    color: var(--texto);
+}
+
+/* a lista ocupa o espaco que sobra, e o "sair" desce para o rodape */
+.navbar-menu {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.navbar-menu .item-sair {
+    margin-top: auto;
+    padding-top: 12px;
+    border-top: 1px solid var(--borda);
+}
+
+.navbar-menu a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 9px 12px;
+    border-radius: var(--raio-pequeno);
+    color: var(--texto-suave);
+    font-size: 14.5px;
+    text-decoration: none;
+    transition: background-color var(--transicao), color var(--transicao);
+}
+
+.navbar-menu a:hover {
+    background-color: var(--superficie-suave);
+    color: var(--texto);
+}
+
+/* pagina em que o usuario esta */
+.navbar-menu a[aria-current="page"] {
+    background-color: var(--destaque-claro);
+    color: var(--destaque-escuro);
+    font-weight: 500;
+}
+
+.navbar-menu .item-sair a:hover {
+    background-color: var(--perigo-claro);
+    color: var(--perigo);
+}
+
+/* os dois icones (contorno e preenchido) ficam na mesma celula do
+   grid, um por cima do outro; no hover e na pagina atual trocam */
+.icone {
+    display: inline-grid;
+    place-items: center;
+    font-size: 19px;
+}
+
+.icone i {
+    grid-area: 1 / 1;
+    transition: opacity var(--transicao), transform 300ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.icone .icone-hover {
+    opacity: 0;
+}
+
+.navbar-menu a:hover .icone-padrao,
+.navbar-menu a[aria-current="page"] .icone-padrao {
+    opacity: 0;
+}
+
+.navbar-menu a:hover .icone-hover,
+.navbar-menu a[aria-current="page"] .icone-hover {
+    opacity: 1;
+}
+
+.navbar-menu a:hover .icone i {
+    transform: translateY(-1px) scale(1.08);
+}
+
+
+/* ------------------------------------------------------------------
+   area de conteudo
+   ------------------------------------------------------------------ */
+
+.conteudos {
+    margin-left: var(--largura-navbar);
+    padding: 48px 40px 80px;
+}
+
+/* coluna central: linhas longas demais cansam a leitura */
+.pagina {
+    max-width: 860px;
+    margin: 0 auto;
+}
+
+.pagina-cabecalho {
+    margin-bottom: 32px;
+}
+
+.pagina-cabecalho h1 {
+    margin: 0 0 6px;
+    font-family: var(--fonte-titulo);
+    font-size: 38px;
+    font-weight: 400;
+    line-height: 1.1;
+    letter-spacing: -0.01em;
+}
+
+.pagina-cabecalho p {
+    margin: 0;
+    max-width: 560px;
+    color: var(--texto-suave);
+}
+
+.subtitulo {
+    margin: 48px 0 16px;
+    font-family: var(--fonte-titulo);
+    font-size: 26px;
+    font-weight: 400;
+}
+
+
+/* ------------------------------------------------------------------
+   componentes reutilizaveis
+   ------------------------------------------------------------------ */
+
+.cartao-base {
+    background-color: var(--superficie);
+    border: 1px solid var(--borda);
+    border-radius: var(--raio);
+    box-shadow: var(--sombra);
+}
+
+.botao {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 10px 18px;
+    font-family: inherit;
+    font-size: 14.5px;
+    font-weight: 500;
+    border: 1px solid transparent;
+    border-radius: var(--raio-pequeno);
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color var(--transicao), color var(--transicao), border-color var(--transicao);
+}
+
+.botao-principal {
+    background-color: var(--destaque);
+    color: #ffffff;
+}
+
+.botao-principal:hover {
+    background-color: var(--destaque-escuro);
+}
+
+.botao-secundario {
+    background-color: var(--superficie);
+    border-color: var(--borda-forte);
+    color: var(--texto);
+}
+
+.botao-secundario:hover {
+    background-color: var(--superficie-suave);
+}
+
+.botao:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* botao so com icone (editar, excluir...) */
+.botao-icone {
+    display: inline-grid;
+    place-items: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 8px;
+    color: var(--texto-fraco);
+    font-size: 17px;
+    text-decoration: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    transition: background-color var(--transicao), color var(--transicao);
+}
+
+.botao-icone:hover {
+    background-color: var(--superficie-suave);
+    color: var(--texto);
+}
+
+.botao-icone.perigo:hover {
+    background-color: var(--perigo-claro);
+    color: var(--perigo);
+}
+
+.campo-entrada {
+    padding: 10px 13px;
+    font-family: inherit;
+    font-size: 15px;
+    color: var(--texto);
+    background-color: var(--superficie);
+    border: 1px solid var(--borda-forte);
+    border-radius: var(--raio-pequeno);
+    transition: border-color var(--transicao), box-shadow var(--transicao);
+}
+
+.campo-entrada::placeholder {
+    color: var(--texto-fraco);
+}
+
+.campo-entrada:focus {
+    outline: none;
+    border-color: var(--destaque);
+    box-shadow: 0 0 0 3px var(--destaque-claro);
+}
+
+/* foco visivel para quem navega pelo teclado */
+a:focus-visible,
+button:focus-visible,
+[tabindex]:focus-visible {
+    outline: 2px solid var(--destaque);
+    outline-offset: 2px;
+}
+
+/* caixa de aviso: lista vazia, erro de carregamento... */
+.aviso {
+    grid-column: 1 / -1;
+    margin: 0;
+    padding: 28px;
+    border: 1px dashed var(--borda-forte);
+    border-radius: var(--raio);
+    text-align: center;
+    color: var(--texto-suave);
+}
+
+.aviso.erro {
+    border-style: solid;
+    border-color: rgba(180, 70, 47, 0.3);
+    background-color: var(--perigo-claro);
+    color: var(--perigo);
+}
+
+/* entrada suave dos cartoes. "backwards" segura o estado inicial
+   durante o atraso e devolve o transform ao css no fim, senao o
+   :hover deixaria de funcionar */
+@keyframes surge-suave {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+}
+
+
+/* ------------------------------------------------------------------
+   telas estreitas: a barra lateral vira so icones
+   ------------------------------------------------------------------ */
+
+@media (max-width: 860px) {
+    :root {
+        --largura-navbar: 68px;
+    }
+
+    .navbar {
+        padding: 20px 10px;
+        align-items: center;
+    }
+
+    .navbar-marca {
+        padding: 0;
+    }
+
+    .navbar-marca span,
+    .navbar-menu .rotulo {
+        display: none;
+    }
+
+    .navbar-menu a {
+        justify-content: center;
+        padding: 10px;
+    }
+
+    .conteudos {
+        padding: 32px 20px 64px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}

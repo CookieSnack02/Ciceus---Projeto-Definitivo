@@ -1,250 +1,61 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=SN+Pro:ital,wght@0,200..900;1,200..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Caacupe+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Neuton:ital,wght@0,200;0,300;0,400;0,700;0,800;1,400&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Sour+Gummy:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Lilita+One&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Port+Lligat+Slab&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Trocchi&display=swap');
-
-
-body{ 
-    font-family: 'DM Sans', sans-serif;
-    background-color: #F6EEE3;
-}
-
-.titulo{
-    padding-left: 16px;
-    font-family: "Trocchi", serif;
-    font-size: 20px;
-    /* font-weight: 400; */ 
-    text-align: center;
-}
-
-/* logo ciceus */ 
-
-.logo-ciceus {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 25px;
-    padding-top: 20px;
-}
-
-/* barra lateral */
-
-.navbar {
-    display: block;
-    width: 250px;
-    position: fixed;
-    height: 100%;
-    top: 0;
-    left: 0;
-    overflow: auto;
-}
-
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-li a{
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #1c1c1c;
-    padding: 8px 16px;
-    text-decoration: none;
-    transition: background-color 0.35s ease, color 0.35s ease;
-}
-
-li a:hover{
-    background-color: #c08552;
-    border-radius: 25px;
-    color: #151618;
-}
-
-/* area de conteudo, ao lado da navbar */
-
-/* a margem esquerda reserva a largura da navbar fixa;
-   o resto do espaco vira uma coluna centralizada */
-.conteudos{
-    margin-left: 250px;
-    padding: 40px 32px 80px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-/* caixa do texto de boas-vindas: largura limitada para
-   a linha nao ficar comprida demais de ler */
-.apresentacao {
-    max-width: 700px;
-    text-align: center;
-}
-
-#bem-vindo {
-    font-family: 'Trocchi', serif;
-    font-size: 42px;
-    margin: 0 0 18px;
-    padding-top: 20px;
-}
-
-.apresentacao p {
-    margin: 0;
-    font-size: 19px;
-    line-height: 1.75;
-    color: #4a4038;
-}
-
-
-/* icones da navbar */
-
-/* o span empilha os dois icones na MESMA celula do grid,
-   entao um fica exatamente por cima do outro */
-.icone {
-    display: inline-grid;
-    place-items: center;
-    width: 1.25em;
-    line-height: 1;
-}
-
-.icone-padrao,
-.icone-hover {
-    grid-area: 1 / 1;
-    transition: opacity 0.2s ease,
-                transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-/* estado de repouso: so o fa-slab-press aparece */
-.icone-hover {
-    opacity: 0;
-}
-
-/* no hover os dois trocam de lugar (cross-fade) */
-li a:hover .icone-padrao {
-    opacity: 0;
-}
-
-li a:hover .icone-hover {
-    opacity: 1;
-}
-
-/* o "pop": levanta e cresce. o cubic-bezier passa de 1 e volta,
-   e isso que da a sensacao de salto */
-li a:hover .icone-padrao,
-li a:hover .icone-hover {
-    transform: translateY(-4px) scale(1.15);
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .icone-padrao,
-    .icone-hover {
-        transition-duration: 0.01ms;
-    }
-
-    li a:hover .icone-padrao,
-    li a:hover .icone-hover {
-        transform: none;
-    }
-}
-
-
-/* grade de cartoes das paginas */
+/* tela inicial. o comum (navbar, cores, botoes) esta no base.css */
 
 /* auto-fit + minmax deixa a grade decidir quantas colunas cabem:
    3 em tela larga, 2 ou 1 conforme o espaco diminui */
 .grade-paginas {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-    gap: 24px;
-    width: 100%;
-    max-width: 780px;
-    margin-top: 56px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
 }
 
 .cartao-pagina {
     display: block;
-    padding: 24px;
-    border-radius: 12px;
-    background-color: #fffdf9;
-    border: 1px solid rgba(28, 28, 28, 0.07);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-    color: #1c1c1c;
+    padding: 22px;
+    color: var(--texto);
     text-decoration: none;
-    transition: transform 0.25s ease,
-                box-shadow 0.25s ease,
-                border-color 0.25s ease;
-
-    /* entrada da pagina. o fill-mode "backwards" segura o estado
-       inicial durante o delay, mas devolve o controle do transform
-       ao CSS quando termina, senao o :hover abaixo nao funcionaria */
-    animation: surge-suave 400ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+    transition: transform var(--transicao), border-color var(--transicao), box-shadow var(--transicao);
+    animation: surge-suave 360ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
 }
 
 /* escalonamento: cada cartao entra um pouco depois do anterior */
-.cartao-pagina:nth-child(1) { animation-delay: 60ms; }
-.cartao-pagina:nth-child(2) { animation-delay: 120ms; }
-.cartao-pagina:nth-child(3) { animation-delay: 180ms; }
-.cartao-pagina:nth-child(4) { animation-delay: 240ms; }
-.cartao-pagina:nth-child(5) { animation-delay: 300ms; }
-.cartao-pagina:nth-child(6) { animation-delay: 360ms; }
-
-@keyframes surge-suave {
-    from {
-        opacity: 0;
-        transform: translateY(16px);
-    }
-}
+.cartao-pagina:nth-child(1) { animation-delay: 40ms; }
+.cartao-pagina:nth-child(2) { animation-delay: 80ms; }
+.cartao-pagina:nth-child(3) { animation-delay: 120ms; }
+.cartao-pagina:nth-child(4) { animation-delay: 160ms; }
+.cartao-pagina:nth-child(5) { animation-delay: 200ms; }
+.cartao-pagina:nth-child(6) { animation-delay: 240ms; }
 
 .cartao-pagina:hover {
-    transform: translateY(-4px);
-    border-color: #c08552;
-    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.13);
+    transform: translateY(-2px);
+    border-color: var(--destaque);
+    box-shadow: var(--sombra-elevada);
 }
-
-/* icone dentro do cartao */
 
 .icone-cartao {
     display: inline-grid;
     place-items: center;
-    width: 44px;
-    height: 44px;
-    border-radius: 50%;
-    background-color: rgba(192, 133, 82, 0.16);
-    color: #8a6446;
-    font-size: 18px;
-    transition: background-color 0.25s ease, color 0.25s ease;
+    width: 40px;
+    height: 40px;
+    border-radius: 10px;
+    background-color: var(--destaque-claro);
+    color: var(--destaque-escuro);
+    font-size: 20px;
+    transition: background-color var(--transicao), color var(--transicao);
 }
 
 .cartao-pagina:hover .icone-cartao {
-    background-color: #c08552;
-    color: #f6eee3;
+    background-color: var(--destaque);
+    color: #ffffff;
 }
 
-.cartao-pagina h4 {
-    margin: 16px 0 6px;
-    font-family: 'Trocchi', serif;
-    font-size: 18px;
-    font-weight: 400;
+.cartao-pagina h2 {
+    margin: 14px 0 4px;
+    font-size: 16px;
+    font-weight: 600;
 }
 
 .cartao-pagina p {
     margin: 0;
-    font-size: 15px;
-    line-height: 1.6;
-    color: #5c5149;
+    font-size: 14px;
+    color: var(--texto-suave);
 }
-
-@media (prefers-reduced-motion: reduce) {
-    .cartao-pagina {
-        animation: none;
-    }
-
-    .cartao-pagina:hover {
-        transform: none;
-    }
-}
-
