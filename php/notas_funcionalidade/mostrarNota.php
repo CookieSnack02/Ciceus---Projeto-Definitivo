@@ -25,8 +25,10 @@ $filtrarPorPasta = $idPasta !== '';
 
 try {
 
-    /* LEFT JOIN e nao INNER: a nota pode nao estar em pasta nenhuma,
-       e com INNER essas notas sumiriam da lista */
+    /* a ligacao nota-pasta fica na tabela nota_has_pasta.
+       LEFT JOIN e nao INNER: a nota pode nao estar em pasta nenhuma,
+       e com INNER essas notas sumiriam da lista. a tela so permite
+       uma pasta por nota, entao cada nota volta uma vez so */
     $consultarNotas = "SELECT  n.idNotas,
                                n.tituloNotas,
                                n.conteudoNotas,
@@ -34,14 +36,15 @@ try {
                                p.codPasta,
                                p.nmPasta
                        FROM nota n
-                       LEFT JOIN pasta p ON p.codPasta = n.pasta_codPasta
+                       LEFT JOIN nota_has_pasta np ON np.nota_idNotas = n.idNotas
+                       LEFT JOIN pasta p ON p.codPasta = np.pasta_codPasta
                        WHERE n.ciceus_idCiceus = :idUsuario";
 
     if ($filtrarPorPasta) {
-        $consultarNotas .= " AND n.pasta_codPasta = :idPasta";
+        $consultarNotas .= " AND np.pasta_codPasta = :idPasta";
     }
 
-    $consultarNotas .= " ORDER BY n.dtCriacaoNota DESC";
+    $consultarNotas .= " ORDER BY n.dtCriacaoNota DESC, n.idNotas DESC";
 
     $stmt = $pdo->prepare($consultarNotas);
     $stmt->bindValue(':idUsuario', $idUsuario, PDO::PARAM_INT);

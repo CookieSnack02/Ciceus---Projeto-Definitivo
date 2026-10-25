@@ -53,7 +53,7 @@ ENGINE = InnoDB;
 CREATE TABLE IF NOT EXISTS `nota` (
   `idNotas` INT NOT NULL AUTO_INCREMENT,
   `tituloNotas` VARCHAR(45) NULL,
-  `conteudoNotas` TEXT NULL,
+  `conteudoNotas` MEDIUMTEXT NULL, -- MEDIUMTEXT (16 MB): imagens coladas no editor vem embutidas no HTML
   `ciceus_idCiceus` INT NOT NULL,
   `dtCriacaoNota` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (`idNotas`),

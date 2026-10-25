@@ -50,10 +50,65 @@
     outline-offset: 2px;
 }
 
+/* seletor de pasta com o icone dentro da caixa */
 .area-pasta {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 10px;
+}
+
+.area-pasta i {
+    position: absolute;
+    left: 12px;
+    color: var(--texto-suave);
+    pointer-events: none;
+}
+
+.area-pasta select {
+    padding-left: 34px;
+    max-width: 220px;
+    cursor: pointer;
+}
+
+/* salvar, nova e excluir ficam juntos a direita */
+.botoes-nota {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-left: auto;
+}
+
+.status-nota {
+    margin-right: 6px;
+    font-size: 13px;
+    color: var(--texto-fraco);
+}
+
+.status-nota.pendente { color: var(--destaque-escuro); }
+.status-nota.ok { color: #4f7a52; }
+.status-nota.erro { color: var(--perigo); }
+
+/* titulo: sem caixa, parece o titulo do documento */
+.titulo-nota {
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 6px 2px;
+    font-family: var(--fonte-titulo);
+    font-size: 30px;
+    color: var(--texto);
+    background: none;
+    border: none;
+    border-bottom: 1px solid transparent;
+    transition: border-color var(--transicao);
+}
+
+.titulo-nota::placeholder {
+    color: var(--texto-fraco);
+}
+
+.titulo-nota:focus {
+    outline: none;
+    border-bottom-color: var(--destaque);
 }
 
 /* editor */
@@ -203,4 +258,56 @@
     margin-top: 12px;
     font-size: 12px;
     color: var(--texto-fraco);
+}
+
+
+/* ------------------------------------------------------------------
+   celular
+   ------------------------------------------------------------------ */
+
+@media (max-width: 760px) {
+    /* modo e pasta dividem a primeira linha; os botoes vao para a de baixo */
+    .acoes-nota {
+        gap: 8px;
+    }
+
+    .area-pasta {
+        flex: 1;
+    }
+
+    .area-pasta select {
+        width: 100%;
+        max-width: none;
+    }
+
+    .botoes-nota {
+        width: 100%;
+    }
+
+    .status-nota {
+        margin-right: auto;
+    }
+
+    .titulo-nota {
+        font-size: 26px;
+    }
+
+    /* a barra do quill quebra em linhas; botoes um pouco maiores para o dedo */
+    .editor-wrapper .ql-toolbar.ql-snow {
+        padding: 6px;
+    }
+
+    .editor-wrapper .ql-snow.ql-toolbar button {
+        width: 32px;
+        height: 30px;
+    }
+
+    #editor-texto {
+        height: 55vh;
+        min-height: 280px;
+    }
+
+    .lista-atalhos {
+        grid-template-columns: 1fr;
+    }
 }

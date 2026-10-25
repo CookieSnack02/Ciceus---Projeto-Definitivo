@@ -27,11 +27,20 @@
     color: var(--texto-suave);
 }
 
+/* encolhe junto com a tela, sempre quadrado */
 .circular-slider {
     position: relative;
-    width: 280px;
-    height: 280px;
+    width: min(280px, 100%);
+    aspect-ratio: 1;
     margin: 20px auto;
+}
+
+.slider-svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    /* sem isso o arraste com o dedo rolaria a pagina */
+    touch-action: none;
 }
 
 /* as cores do circulo ficam aqui e nao no svg, para seguirem a paleta */
@@ -110,6 +119,7 @@
 
 .drag-handle {
     display: none;
+    touch-action: none;
     height: 24px;
     margin-bottom: 8px;
     place-items: center;
@@ -145,7 +155,7 @@
 @container timer (max-width: 280px) {
     .circular-slider {
         width: 100%;
-        height: auto;
+        aspect-ratio: auto;
         margin: 8px 0 14px;
     }
 
@@ -173,5 +183,34 @@
 
     h1 {
         display: none;
+    }
+}
+
+
+/* celular */
+
+@media (max-width: 760px) {
+    .conteudos {
+        min-height: auto;
+        display: block;
+    }
+
+    .timer-container {
+        max-width: none;
+        padding: 24px 18px;
+    }
+
+    .timer-display p {
+        font-size: 42px;
+    }
+
+    .controls .botao {
+        flex: 1;
+    }
+
+    .timer-container.is-popup {
+        width: min(300px, calc(100vw - 24px));
+        right: 12px;
+        bottom: 12px;
     }
 }

@@ -175,10 +175,16 @@ popupCheckbox.addEventListener('change', (e) => {
 let isDraggingPopup = false;
 let startXPopup, startYPopup, initialLeft, initialTop;
 
-dragHandle.addEventListener('mousedown', (e) => {
+// mouse e toque usam o mesmo codigo: o toque so muda de onde vem a posicao
+function posicaoDoEvento(e) {
+    return e.touches ? e.touches[0] : e;
+}
+
+function comecarArrastePopup(e) {
+    const ponto = posicaoDoEvento(e);
     isDraggingPopup = true;
-    startXPopup = e.clientX;
-    startYPopup = e.clientY;
+    startXPopup = ponto.clientX;
+    startYPopup = ponto.clientY;
     const rect = timerContainer.getBoundingClientRect();
     initialLeft = rect.left;
     initialTop = rect.top;
@@ -188,16 +194,25 @@ dragHandle.addEventListener('mousedown', (e) => {
     timerContainer.style.right = 'auto';
     timerContainer.style.left = initialLeft + 'px';
     timerContainer.style.top = initialTop + 'px';
-});
+}
 
-window.addEventListener('mousemove', (e) => {
+function arrastarPopup(e) {
     if (!isDraggingPopup) return;
-    const dx = e.clientX - startXPopup;
-    const dy = e.clientY - startYPopup;
+    e.preventDefault();
+    const ponto = posicaoDoEvento(e);
+    const dx = ponto.clientX - startXPopup;
+    const dy = ponto.clientY - startYPopup;
     timerContainer.style.left = (initialLeft + dx) + 'px';
     timerContainer.style.top = (initialTop + dy) + 'px';
-});
+}
 
-window.addEventListener('mouseup', () => {
+function soltarPopup() {
     isDraggingPopup = false;
-});
+}
+
+dragHandle.addEventListener('mousedown', comecarArrastePopup);
+dragHandle.addEventListener('touchstart', comecarArrastePopup, {passive: false});
+window.addEventListener('mousemove', arrastarPopup);
+window.addEventListener('touchmove', arrastarPopup, {passive: false});
+window.addEventListener('mouseup', soltarPopup);
+window.addEventListener('touchend', soltarPopup);
