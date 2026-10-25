@@ -35,7 +35,6 @@ if (isset($_GET['sucesso']) && $_GET['sucesso'] === 'cadastro') {
     <title>Acesso</title>
 
     <link rel="stylesheet" href="../css/acesso.css?v=<?php echo filemtime(__DIR__ . '/../css/acesso.css'); ?>"> <!-- link do css do acesso -->
-    <script src="https://kit.fontawesome.com/5f10733ee6.js" crossorigin="anonymous"></script>  <!-- fontawesome -->
 
     <!-- favicon -->
     <link rel="icon" href="/logo/favicon/favicon.ico" sizes="any">

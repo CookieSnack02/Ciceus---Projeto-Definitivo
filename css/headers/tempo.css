@@ -1,83 +1,54 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Trocchi&display=swap');
-
-body {
-    font-family: 'Nunito', sans-serif;
-    background-color: #F6EEE3;
-    margin: 0;
-    padding: 0;
-}
-
-/* logo ciceus */
-
-.logo-ciceus {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 25px;
-    padding-top: 20px;
-}
-
-.titulo{
-    padding-left: 16px;
-    font-family: "Trocchi", serif;
-    font-size: 20px;
-    text-align: center;
-}
-
-.navbar {
-    width: 250px;
-    position: fixed;
-    height: 100%;
-    top: 0;
-    left: 0;
-    overflow: auto;
-}
-
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-li a{ 
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #1c1c1c;
-    padding: 8px 16px;
-    text-decoration: none;
-    transition: background-color 0.35s ease, color 0.35s ease;
-
-}
-
-li a:hover{ 
-    background-color: #C08552;
-    border-radius: 25px;
-    color: white; 
-}
+/* aba do temporizador. o comum (navbar, cores, botoes) esta no base.css */
 
 .conteudos {
-    margin-left: 260px;
-    padding: 1px 16px;
-    height: 100vh;
+    min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
 .timer-container {
-    background-color: white;
-    padding: 40px;
-    border-radius: 2.5em;
+    width: 100%;
+    max-width: 400px;
+    padding: 32px;
     text-align: center;
+}
+
+.timer-container h1 {
+    margin: 0;
+    font-family: var(--fonte-titulo);
+    font-size: 32px;
+    font-weight: 400;
+}
+
+.timer-dica {
+    margin: 4px 0 0;
+    font-size: 13.5px;
+    color: var(--texto-suave);
 }
 
 .circular-slider {
     position: relative;
-    width: 300px;
-    height: 300px;
+    width: 280px;
+    height: 280px;
     margin: 20px auto;
+}
+
+/* as cores do circulo ficam aqui e nao no svg, para seguirem a paleta */
+.bg-circle {
+    stroke: var(--superficie-suave);
+}
+
+.progress-circle {
+    stroke: var(--destaque);
+    transition: stroke-dashoffset 300ms ease;
+}
+
+.slider-thumb {
+    fill: var(--superficie);
+    stroke: var(--destaque);
+    cursor: grab;
+    filter: drop-shadow(0 1px 2px rgba(43, 38, 32, 0.2));
 }
 
 .timer-display {
@@ -85,52 +56,49 @@ li a:hover{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 45px;
-    font-weight: 900;
-    font-family: 'SN Pro', sans-serif;
-    color: #1c1c1c;
+    pointer-events: none;
+}
+
+.timer-display p {
+    margin: 0;
+    font-size: 48px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    /* numeros com a mesma largura: o relogio nao "treme" ao contar */
+    font-variant-numeric: tabular-nums;
 }
 
 .controls {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+}
+
+.popup-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
     margin-top: 20px;
-}
-
-.controls button {
-    background-color: #C08552;
-    color: white;
-    border: none;
-    padding: 12px 24px;
-    margin: 5px;
-    border-radius: 25px;
+    font-size: 13.5px;
+    color: var(--texto-suave);
     cursor: pointer;
-    font-family: 'Nunito', sans-serif;
-    font-size: 16px;
-    font-weight: bold;
-    transition: 0.3s;
 }
 
-.controls button:hover {
-    background-color: #8a6649;
-    transform: scale(1.05);
+.popup-toggle input {
+    accent-color: var(--destaque);
 }
 
-.controls button:disabled {
-    background-color: #ccc;
-    cursor: not-allowed;
-    transform: none;
-}
+/* janela flutuante */
 
-/* Estilos para o Pop-up flutuante */
 .timer-container.is-popup {
     position: fixed;
     bottom: 20px;
     right: 20px;
-    width: 350px;
-    height: auto;
-    min-width: 180px;
+    width: 340px;
+    min-width: 200px;
     min-height: 150px;
-    padding: 20px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+    padding: 16px 20px 20px;
+    box-shadow: 0 16px 48px rgba(43, 38, 32, 0.18);
     z-index: 1000;
     resize: both;
     overflow: hidden;
@@ -138,138 +106,72 @@ li a:hover{
     container-name: timer;
     display: flex;
     flex-direction: column;
-    margin: 0;
 }
 
 .drag-handle {
     display: none;
-    width: 100%;
-    height: 30px;
-    background: #f0f0f0;
+    height: 24px;
+    margin-bottom: 8px;
+    place-items: center;
+    border-radius: 8px;
+    font-size: 20px;
+    color: var(--texto-fraco);
     cursor: grab;
-    text-align: center;
-    line-height: 30px;
-    border-radius: 10px;
-    margin-bottom: 10px;
-    font-weight: bold;
-    color: #888;
     user-select: none;
     flex-shrink: 0;
 }
 
+.drag-handle:hover {
+    background-color: var(--superficie-suave);
+}
+
 .timer-container.is-popup .drag-handle {
-    display: block;
+    display: grid;
 }
 
 .drag-handle:active {
     cursor: grabbing;
 }
 
-.popup-toggle {
-    margin-top: 20px;
-    font-family: 'Nunito', sans-serif;
-    color: #1c1c1c;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-/* Base styles for the title when in popup */
 .timer-container.is-popup h1 {
-    font-size: 20px;
-    margin: 5px 0;
+    font-size: 22px;
 }
 
-/* Container query for when it shrinks */
+.timer-container.is-popup .timer-dica {
+    display: none;
+}
+
+/* janela flutuante pequena: some o circulo, fica so o relogio */
 @container timer (max-width: 280px) {
     .circular-slider {
         width: 100%;
         height: auto;
-        margin: 10px 0;
+        margin: 8px 0 14px;
     }
-    
+
     .slider-svg {
-        display: none; /* Esconde o SVG quando for pequeno */
-    }
-    
-    .timer-display {
-        position: relative;
-        top: auto;
-        left: auto;
-        transform: none;
-        font-size: 32px;
-        margin-bottom: 15px;
-    }
-    
-    .controls {
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        margin-top: 0;
-    }
-    
-    .controls button {
-        padding: 8px 12px;
-        font-size: 14px;
-        margin: 0;
-    }
-    
-    .popup-toggle {
-        font-size: 12px;
-        margin-top: 10px;
-    }
-    
-    h1 {
         display: none;
     }
-}
 
-/* icones da navbar */
-
-/* o span empilha os dois icones na MESMA celula do grid,
-   entao um fica exatamente por cima do outro */
-.icone {
-    display: inline-grid;
-    place-items: center;
-    width: 1.25em;
-    line-height: 1;
-}
-
-.icone-padrao,
-.icone-hover {
-    grid-area: 1 / 1;
-    transition: opacity 0.2s ease,
-                transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-/* estado de repouso: so o fa-slab-press aparece */
-.icone-hover {
-    opacity: 0;
-}
-
-/* no hover os dois trocam de lugar (cross-fade) */
-li a:hover .icone-padrao {
-    opacity: 0;
-}
-
-li a:hover .icone-hover {
-    opacity: 1;
-}
-
-/* o "pop": levanta e cresce. o cubic-bezier passa de 1 e volta,
-   e isso que da a sensacao de salto */
-li a:hover .icone-padrao,
-li a:hover .icone-hover {
-    transform: translateY(-4px) scale(1.15);
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .icone-padrao,
-    .icone-hover {
-        transition-duration: 0.01ms;
+    .timer-display {
+        position: static;
+        transform: none;
     }
 
-    li a:hover .icone-padrao,
-    li a:hover .icone-hover {
-        transform: none;
+    .timer-display p {
+        font-size: 34px;
+    }
+
+    .controls {
+        flex-wrap: wrap;
+    }
+
+    .popup-toggle {
+        font-size: 12px;
+        margin-top: 12px;
+    }
+
+    h1 {
+        display: none;
     }
 }

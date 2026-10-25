@@ -1,100 +1,54 @@
-@import url('https://fonts.googleapis.com/css2?family=Nunito:ital,wght@0,200..1000;1,200..1000&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=SN+Pro:ital,wght@0,200..900;1,200..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Trocchi&display=swap');
-
-body{ 
-    font-family: 'Nunito', sans-serif;
-    background-color: #F6EEE3;
-}
-
-/* logo ciceus */
-
-.logo-ciceus {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-left: 25px;
-    padding-top: 20px;
-}
-
-.titulo{
-    padding-left: 16px;
-    font-family: "Trocchi", serif;
-    font-size: 20px;
-    text-align: center;
-}
-
-.navbar {
-    width: 250px;
-    position: fixed;
-    height: 100%;
-    top: 0;
-    left: 0;
-    overflow: auto;
-}
-
-ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-}
-
-li a{ 
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    color: #1c1c1c;
-    padding: 8px 16px;
-    text-decoration: none;
-    transition: background-color 0.35s ease, color 0.35s ease;
-
-}
-
-li a:hover{ 
-    background-color: #C08552;
-    border-radius: 25px;
-    color: white; 
-}
-
-/* a altura fixa saiu porque a grade de anotacoes
-   faz a pagina crescer sozinha */
-.conteudos{
-    margin-left: 260px;
-    padding: 1px 16px 80px;
-}
+/* aba de notas. o comum (navbar, cores, botoes) esta no base.css */
 
 /* barra de acoes da nota */
 
 .acoes-nota {
-    max-width: 800px;
-    margin: 0 auto;
-    padding-top: 16px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-    gap: 16px;
+    gap: 12px;
+    margin-bottom: 14px;
 }
 
-.campo-modo {
-    display: flex;
+/* alternador editar / ler: dois radios com cara de botao segmentado */
+.alternador-modo {
+    display: inline-flex;
+    gap: 4px;
+    padding: 4px;
+    background-color: var(--superficie-suave);
+    border-radius: 10px;
+}
+
+.alternador-modo input {
+    position: absolute;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.alternador-modo span {
+    display: inline-flex;
     align-items: center;
-    gap: 8px;
-    font-size: 15px;
+    gap: 6px;
+    padding: 7px 14px;
+    border-radius: 7px;
+    font-size: 14px;
+    font-weight: 500;
+    color: var(--texto-suave);
+    cursor: pointer;
+    transition: background-color var(--transicao), color var(--transicao);
 }
 
-.seletor-modo,
-.seletor-pasta {
-    font-family: inherit;
-    font-size: 15px;
-    padding: 7px 10px;
-    border-radius: 8px;
-    border: 1px solid rgba(28, 28, 28, 0.15);
-    background-color: #fffdf9;
-    color: #1c1c1c;
+.alternador-modo input:checked + span {
+    background-color: var(--superficie);
+    color: var(--texto);
+    box-shadow: 0 1px 2px rgba(43, 38, 32, 0.08);
 }
 
-/* botao de pasta */
+.alternador-modo input:focus-visible + span {
+    outline: 2px solid var(--destaque);
+    outline-offset: 2px;
+}
 
 .area-pasta {
     display: flex;
@@ -102,76 +56,77 @@ li a:hover{
     gap: 10px;
 }
 
-.botao-pasta {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-family: inherit;
-    font-size: 15px;
-    padding: 8px 14px;
-    border-radius: 25px;
-    border: 1px solid rgba(192, 133, 82, 0.45);
-    background-color: rgba(192, 133, 82, 0.12);
-    color: #8a6446;
-    cursor: pointer;
-    transition: background-color 0.25s ease, color 0.25s ease;
-}
-
-.botao-pasta:hover {
-    background-color: #C08552;
-    color: white;
-}
-
 /* editor */
 
-.editor-wrapper {
-    max-width: 800px;
-    margin: 0 auto;
-    padding-top: 20px;
-}
-
 #editor-texto {
-    height: 320px;
-    background-color: white;
+    height: 360px;
+    font-family: var(--fonte-texto);
+    font-size: 15px;
+    background-color: var(--superficie);
 }
 
-.editor-wrapper .ql-toolbar {
-    border-radius: 10px 10px 0 0;
-    background-color: #fffdf9;
+.editor-wrapper .ql-toolbar.ql-snow {
+    border-color: var(--borda);
+    border-radius: var(--raio) var(--raio) 0 0;
+    background-color: var(--superficie);
 }
 
-.editor-wrapper .ql-container {
-    border-radius: 0 0 10px 10px;
+.editor-wrapper .ql-container.ql-snow {
+    border-color: var(--borda);
+    border-radius: 0 0 var(--raio) var(--raio);
 }
 
-/* modo visualizacao: a barra de formatacao some e a nota
-   fica so como leitura */
+/* os botoes da barra do quill pegam a cor de destaque no hover e quando ativos */
+.editor-wrapper .ql-snow .ql-toolbar button:hover .ql-stroke,
+.editor-wrapper .ql-snow.ql-toolbar button:hover .ql-stroke,
+.editor-wrapper .ql-snow.ql-toolbar button.ql-active .ql-stroke {
+    stroke: var(--destaque);
+}
+
+.editor-wrapper .ql-snow.ql-toolbar button:hover .ql-fill,
+.editor-wrapper .ql-snow.ql-toolbar button.ql-active .ql-fill {
+    fill: var(--destaque);
+}
+
+/* modo leitura: a barra de formatacao some e a nota fica so como leitura */
 .editor-wrapper.modo-visualizacao .ql-toolbar {
     display: none;
 }
 
-.editor-wrapper.modo-visualizacao #editor-texto {
-    border-radius: 10px;
-    background-color: #fffdf9;
+.editor-wrapper.modo-visualizacao .ql-container.ql-snow {
+    border-radius: var(--raio);
 }
 
 /* legenda dos atalhos */
 
 .atalhos {
-    max-width: 800px;
-    margin: 20px auto 0;
-    font-size: 15px;
+    margin-top: 14px;
+    font-size: 14px;
 }
 
 .atalhos summary {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--texto-suave);
     cursor: pointer;
-    color: #8a6446;
+    list-style: none;
+}
+
+.atalhos summary::-webkit-details-marker {
+    display: none;
+}
+
+.atalhos summary:hover {
+    color: var(--texto);
 }
 
 .lista-atalhos {
-    margin-top: 12px;
+    list-style: none;
+    margin: 12px 0 0;
+    padding: 0;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 0 24px;
 }
 
@@ -180,169 +135,72 @@ li a:hover{
     align-items: center;
     justify-content: space-between;
     gap: 12px;
-    padding: 5px 0;
-    border-bottom: 1px solid rgba(28, 28, 28, 0.08);
+    padding: 6px 0;
+    border-bottom: 1px solid var(--borda);
+    color: var(--texto-suave);
 }
 
 .lista-atalhos kbd {
-    font-family: 'Courier New', monospace;
-    font-size: 13px;
+    font-family: ui-monospace, 'Courier New', monospace;
+    font-size: 12px;
     padding: 2px 7px;
+    border: 1px solid var(--borda);
     border-radius: 5px;
-    background-color: rgba(28, 28, 28, 0.06);
+    background-color: var(--superficie);
+    color: var(--texto);
 }
 
 /* grade visualizadora das anotacoes */
 
-.subtitulo-notas {
-    max-width: 800px;
-    margin: 56px auto 0;
-    font-family: "Trocchi", serif;
-    font-size: 24px;
-    font-weight: 400;
-}
-
 .grade-notas {
-    max-width: 800px;
-    margin: 20px auto 0;
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-    gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 14px;
 }
 
 .cartao-nota {
-    padding: 20px;
-    border-radius: 12px;
-    background-color: #fffdf9;
-    border: 1px solid rgba(28, 28, 28, 0.07);
-    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.07);
+    padding: 18px;
     cursor: pointer;
-    transition: transform 0.25s ease,
-                box-shadow 0.25s ease,
-                border-color 0.25s ease;
-
-    /* "backwards" segura o estado inicial durante o atraso mas
-       devolve o transform ao css no fim, senao o :hover nao funciona */
-    animation: surge-suave 400ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
-}
-
-@keyframes surge-suave {
-    from {
-        opacity: 0;
-        transform: translateY(16px);
-    }
+    transition: transform var(--transicao), border-color var(--transicao), box-shadow var(--transicao);
+    animation: surge-suave 360ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
 }
 
 .cartao-nota:hover,
 .cartao-nota:focus-visible {
-    transform: translateY(-4px);
-    border-color: #C08552;
-    box-shadow: 0 14px 32px rgba(0, 0, 0, 0.12);
+    transform: translateY(-2px);
+    border-color: var(--destaque);
+    box-shadow: var(--sombra-elevada);
 }
 
 /* nota que esta aberta no editor */
 .cartao-nota.nota-ativa {
-    border-color: #C08552;
+    border-color: var(--destaque);
+    background-color: #fffcf8;
 }
 
 .pasta-nota {
     display: inline-flex;
     align-items: center;
-    gap: 6px;
-    font-size: 13px;
-    color: #8a6446;
+    gap: 5px;
+    font-size: 12.5px;
+    color: var(--destaque-escuro);
 }
 
 .cartao-nota h3 {
-    margin: 10px 0 6px;
-    font-family: "Trocchi", serif;
-    font-size: 17px;
-    font-weight: 400;
+    margin: 8px 0 4px;
+    font-size: 15.5px;
+    font-weight: 600;
 }
 
 .resumo-nota {
     margin: 0;
     font-size: 14px;
-    line-height: 1.6;
-    color: #5c5149;
+    color: var(--texto-suave);
 }
 
 .data-nota {
     display: block;
     margin-top: 12px;
     font-size: 12px;
-    color: #8b8078;
-}
-
-/* mensagem de grade vazia ou de erro no carregamento */
-.aviso-notas {
-    grid-column: 1 / -1;
-    margin: 0;
-    padding: 24px;
-    border-radius: 12px;
-    border: 1px dashed rgba(28, 28, 28, 0.18);
-    text-align: center;
-    color: #5c5149;
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .cartao-nota {
-        animation: none;
-    }
-
-    .cartao-nota:hover,
-    .cartao-nota:focus-visible {
-        transform: none;
-    }
-}
-
-/* icones da navbar */
-
-/* o span empilha os dois icones na MESMA celula do grid,
-   entao um fica exatamente por cima do outro */
-.icone {
-    display: inline-grid;
-    place-items: center;
-    width: 1.25em;
-    line-height: 1;
-}
-
-.icone-padrao,
-.icone-hover {
-    grid-area: 1 / 1;
-    transition: opacity 0.2s ease,
-                transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
-}
-
-/* estado de repouso: so o fa-slab-press aparece */
-.icone-hover {
-    opacity: 0;
-}
-
-/* no hover os dois trocam de lugar (cross-fade) */
-li a:hover .icone-padrao {
-    opacity: 0;
-}
-
-li a:hover .icone-hover {
-    opacity: 1;
-}
-
-/* o "pop": levanta e cresce. o cubic-bezier passa de 1 e volta,
-   e isso que da a sensacao de salto */
-li a:hover .icone-padrao,
-li a:hover .icone-hover {
-    transform: translateY(-4px) scale(1.15);
-}
-
-@media (prefers-reduced-motion: reduce) {
-    .icone-padrao,
-    .icone-hover {
-        transition-duration: 0.01ms;
-    }
-
-    li a:hover .icone-padrao,
-    li a:hover .icone-hover {
-        transform: none;
-    }
+    color: var(--texto-fraco);
 }

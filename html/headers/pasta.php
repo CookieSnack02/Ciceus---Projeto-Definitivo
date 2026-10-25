@@ -1,110 +1,83 @@
 <?php
     // sem login nao entra: volta para a tela de acesso
     require_once __DIR__ . '/../../php/sessao.php';
-    exigirLogin();
+    $idUsuario = exigirLogin();
+
+    $tituloPagina = 'Pastas';
+    $cssPagina = '/css/headers/pasta.css';
+    $paginaAtual = 'pastas';
+
+    require_once __DIR__ . '/../../php/conexao.php';
+
+    $pastas = [];
+    $erroBanco = false;
+
+    try {
+        $capturaDados = $pdo->prepare("SELECT * FROM pasta WHERE ciceus_idCiceus = :idUsuario ORDER BY dtCriacaoPasta DESC");
+        $capturaDados->bindValue(':idUsuario', $idUsuario, PDO::PARAM_INT);
+        $capturaDados->execute();
+        $pastas = $capturaDados->fetchAll(PDO::FETCH_ASSOC);
+    } catch (PDOException $e) {
+        // o detalhe vai para o log; na tela aparece so um aviso
+        error_log("Ciceus pastas: " . $e->getMessage());
+        $erroBanco = true;
+    }
 ?>
 <!DOCTYPE html>
 <html lang="pt-br">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pastas</title>
-    <link rel="stylesheet" href="../../css/headers/pasta.css?v=<?php echo filemtime(__DIR__ . '/../../css/headers/pasta.css'); ?>"> <!-- link do css das pastas -->
-    <script src="https://kit.fontawesome.com/5f10733ee6.js" crossorigin="anonymous"></script>  <!-- fontawesome -->
-
-    <!-- favicon -->
-    <link rel="icon" href="/logo/favicon/favicon.ico" sizes="any">
-    <link rel="icon" type="image/png" sizes="32x32" href="/logo/favicon/favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="/logo/favicon/favicon-16x16.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="/logo/favicon/apple-touch-icon.png">
-    <link rel="manifest" href="/logo/favicon/site.webmanifest">
+<?php require __DIR__ . '/../componentes/cabeca.php'; ?>
 </head>
 <body>
 
-    <!-- <svg fill="#000000" height="64px" width="64px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M460.994,200.379c11.845-22.438,14.678-52.681,8.38-90.043c-4.739-28.113-13.077-50.284-13.43-51.214l-5.564-14.676 l-15.64,1.357c-0.988,0.084-24.503,2.192-51.819,10.261c-27.22,8.041-48.625,19.048-63.996,32.834 c-20.823-6.88-42.001-10.493-62.926-10.493c-20.926,0-42.103,3.613-62.926,10.492c-15.371-13.787-36.775-24.792-63.996-32.834 c-27.316-8.069-50.831-10.176-51.819-10.261l-15.638-1.358l-5.564,14.678c-0.353,0.93-8.69,23.1-13.43,51.214 c-6.298,37.362-3.465,67.606,8.38,90.043C18.64,247.221,0,300.363,0,348.243v13.901l256,105.411l256-105.411v-13.901 C512,300.363,493.36,247.221,460.994,200.379z M422.144,89.39c5.543,19.659,11.341,49.214,7.903,72.711 c-20.584-21.867-43.329-39.878-67.203-53.516C381.462,98.451,404.874,92.434,422.144,89.39z M256,119.919 c44.278,0,90.657,20.589,130.26,57.192c-57.491,5.184-106.619,39.792-132.178,88.611c-27.53-46.995-77.489-79.324-135.081-82.173 C160.019,142.923,209.185,119.919,256,119.919z M89.802,89.46c7.799,1.38,17.728,3.488,28.188,6.616 c12.011,3.59,22.428,7.805,31.123,12.533c-23.884,13.648-46.635,31.672-67.221,53.552C78.369,138.741,84.129,109.392,89.802,89.46 z M256,422.662l-213.88-88.07c3.028-34.691,17.289-72.182,40.192-106.486c9.255-2.156,18.783-3.252,28.392-3.252 c59.162,0,108.818,41.469,121.437,96.865h46.357c9.912-58.826,61.202-103.784,122.801-103.784c7.674,0,15.316,0.708,22.798,2.089 c26.174,36.434,42.52,77.129,45.787,114.568L256,422.662z"></path> </g> </g> <g> <g> <circle cx="359.784" cy="300.959" r="20.757"></circle> </g> </g> <g> <g> <circle cx="152.216" cy="300.959" r="20.757"></circle> </g> </g> <g> <g> <path d="M269.838,349.394H256h-13.838c-7.643,0-13.838,6.195-13.838,13.838c0,13.838,27.676,27.676,27.676,27.676 s27.676-13.838,27.676-27.676C283.676,355.59,277.48,349.394,269.838,349.394z"></path> </g> </g> </g></svg> -->
-    <!-- navbar -->
-    <div class="navbar">
-        <div class="logo-ciceus">
-            <svg fill="#c08552" height="32px" width="32px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <g> <g> <path d="M460.994,200.379c11.845-22.438,14.678-52.681,8.38-90.043c-4.739-28.113-13.077-50.284-13.43-51.214l-5.564-14.676 l-15.64,1.357c-0.988,0.084-24.503,2.192-51.819,10.261c-27.22,8.041-48.625,19.048-63.996,32.834 c-20.823-6.88-42.001-10.493-62.926-10.493c-20.926,0-42.103,3.613-62.926,10.492c-15.371-13.787-36.775-24.792-63.996-32.834 c-27.316-8.069-50.831-10.176-51.819-10.261l-15.638-1.358l-5.564,14.678c-0.353,0.93-8.69,23.1-13.43,51.214 c-6.298,37.362-3.465,67.606,8.38,90.043C18.64,247.221,0,300.363,0,348.243v13.901l256,105.411l256-105.411v-13.901 C512,300.363,493.36,247.221,460.994,200.379z M422.144,89.39c5.543,19.659,11.341,49.214,7.903,72.711 c-20.584-21.867-43.329-39.878-67.203-53.516C381.462,98.451,404.874,92.434,422.144,89.39z M256,119.919 c44.278,0,90.657,20.589,130.26,57.192c-57.491,5.184-106.619,39.792-132.178,88.611c-27.53-46.995-77.489-79.324-135.081-82.173 C160.019,142.923,209.185,119.919,256,119.919z M89.802,89.46c7.799,1.38,17.728,3.488,28.188,6.616 c12.011,3.59,22.428,7.805,31.123,12.533c-23.884,13.648-46.635,31.672-67.221,53.552C78.369,138.741,84.129,109.392,89.802,89.46 z M256,422.662l-213.88-88.07c3.028-34.691,17.289-72.182,40.192-106.486c9.255-2.156,18.783-3.252,28.392-3.252 c59.162,0,108.818,41.469,121.437,96.865h46.357c9.912-58.826,61.202-103.784,122.801-103.784c7.674,0,15.316,0.708,22.798,2.089 c26.174,36.434,42.52,77.129,45.787,114.568L256,422.662z"></path> </g> </g> <g> <g> <circle cx="359.784" cy="300.959" r="20.757"></circle> </g> </g> <g> <g> <circle cx="152.216" cy="300.959" r="20.757"></circle> </g> </g> <g> <g> <path d="M269.838,349.394H256h-13.838c-7.643,0-13.838,6.195-13.838,13.838c0,13.838,27.676,27.676,27.676,27.676 s27.676-13.838,27.676-27.676C283.676,355.59,277.48,349.394,269.838,349.394z"></path> </g> </g> </g></svg>
-        </div>
-   
-        <div class="titulo">
-            <h1>Ciceus</h1>
-        </div>
-        <ul> 
-            <li><a href="../index.php"><span class="icone"><i class="fa-slab-press fa-regular fa-house icone-padrao"></i><i class="fa-slab fa-regular fa-house icone-hover"></i></span>Inicial</a></li>
-            <li><a href="nota.php"><span class="icone"><i class="fa-slab-press fa-regular fa-clipboard icone-padrao"></i><i class="fa-slab fa-regular fa-clipboard icone-hover"></i></span>Notas</a></li>
-            <li><a href="questao.php"><span class="icone"><i class="fa-slab-press fa-regular fa-question icone-padrao"></i><i class="fa-slab fa-regular fa-question icone-hover"></i></span>Questões</a></li>
-            <li><a href="cartoes.php"><span class="icone"><i class="fa-slab-press fa-regular fa-copy icone-padrao"></i><i class="fa-slab fa-regular fa-copy icone-hover"></i></span>Cartões</a></li>
-            <li><a href="quadro.php"><span class="icone"><i class="fa-slab-press fa-regular fa-rectangle-wide icone-padrao"></i><i class="fa-slab fa-regular fa-rectangle-wide icone-hover"></i></span>Quadro</a></li>
-            <li><a href="pasta.php"><span class="icone"><i class="fa-slab-press fa-regular fa-folders icone-padrao"></i><i class="fa-slab fa-regular fa-folders icone-hover"></i></span>Pastas</a></li>
-            <li><a href="tempo.php"><span class="icone"><i class="fa-slab-press fa-regular fa-stopwatch icone-padrao"></i><i class="fa-slab fa-regular fa-stopwatch icone-hover"></i></span>Temporizador</a></li>
-            <li><a href="../../php/sair_funcionalidade/sair.php"><span class="icone"><i class="fa-slab-press fa-regular fa-arrow-right-from-bracket icone-padrao"></i><i class="fa-slab fa-regular fa-arrow-right-from-bracket icone-hover"></i></span>Sair</a></li>
-        </ul>
-    </div>  
-    <!-- fim da navbar -->
+<?php require __DIR__ . '/../componentes/navbar.php'; ?>
 
     <!-- aba de pastas -->
+    <main class="conteudos">
+        <div class="pagina">
 
-    <?php 
-        require_once("../../php/conexao.php");
+            <header class="pagina-cabecalho">
+                <h1>Pastas</h1>
+                <p>Organize suas notas, questões e cartões por matéria.</p>
+            </header>
 
-        // vem do exigirLogin() no topo da pagina
-        $idUsuario = $_SESSION['idUsuario'];
-        $pastas = [];
+            <?php if ($erroBanco): ?>
+                <p class="aviso erro">Não foi possível carregar suas pastas. Tente novamente.</p>
+            <?php endif; ?>
 
-        if (isset($pdo)) {
-            try {
-                $capturaDados = $pdo->prepare("SELECT * FROM pasta WHERE ciceus_idCiceus = :idUsuario ORDER BY dtCriacaoPasta DESC");
-                $capturaDados->bindValue(':idUsuario', $idUsuario, PDO::PARAM_INT);
-                $capturaDados->execute();
-                $pastas = $capturaDados->fetchAll(PDO::FETCH_ASSOC);
-            } catch (PDOException $e) {
-                $erroBanco = $e->getMessage();
-            }
-        }
-    ?>
+            <!-- formulario para criar pasta -->
+            <form action="../../php/pasta_funcionalidade/criar.php" method="POST" class="form-pasta cartao-base">
+                <label class="seletor-cor" title="Cor da pasta">
+                    <input type="color" name="corPasta" value="#C08552" aria-label="Cor da pasta">
+                </label>
+                <input class="campo-entrada" type="text" name="nmPasta" placeholder="Nome da nova pasta" maxlength="255" required>
+                <button class="botao botao-principal" type="submit"><i class="ph ph-plus"></i> Criar</button>
+            </form>
 
-    <div class="pastas">
-        <h1>Pastas</h1>
-        <p>Organize suas notas e questões em pastas para facilitar o acesso e a organização do seu conteúdo.</p>
+            <!-- lista de pastas -->
+            <div class="lista-pastas">
+                <?php if (empty($pastas) && !$erroBanco): ?>
+                    <p class="aviso">Nenhuma pasta ainda. Crie a primeira acima.</p>
+                <?php endif; ?>
 
-        <?php if (isset($erroBanco)): ?>
-            <div style="background-color: #f8d7da; color: #721c24; padding: 10px; border-radius: 8px; margin-bottom: 15px;">
-                Erro ao carregar pastas: <?php echo htmlspecialchars($erroBanco); ?>
-            </div>
-        <?php endif; ?>
-
-        <!-- Formulário para criar pasta -->
-        <form action="../../php/pasta_funcionalidade/criar.php" method="POST" class="form-pasta">
-            <input type="text" name="nmPasta" placeholder="Nome da Pasta" required>
-            <input type="color" name="corPasta" value="#a27b5b">
-            <button type="submit"><i class="fa-solid fa-plus"></i> Criar Pasta</button>
-        </form>
-
-        <!-- Lista de pastas -->
-        <div class="lista-pastas">
-            <?php if (empty($pastas)): ?>
-                <p style="color: #666; margin-top: 20px;">Nenhuma pasta encontrada. Crie sua primeira pasta acima!</p>
-            <?php else: ?>
                 <?php foreach ($pastas as $pasta): ?>
-                    <div class="pasta-card" style="border-left: 8px solid <?php echo htmlspecialchars($pasta['corPasta'] ?? '#a27b5b'); ?>;">
+                    <?php $cor = htmlspecialchars($pasta['corPasta'] ?? '#C08552'); ?>
+                    <div class="pasta-card cartao-base" style="--cor-pasta: <?php echo $cor; ?>;">
                         <div class="pasta-info">
-                            <i class="fa-solid fa-folder" style="color: <?php echo htmlspecialchars($pasta['corPasta'] ?? '#a27b5b'); ?>; font-size: 24px;"></i>
+                            <span class="pasta-icone"><i class="ph-fill ph-folder"></i></span>
                             <h2><?php echo htmlspecialchars($pasta['nmPasta']); ?></h2>
                         </div>
                         <div class="acoes">
-                            <a href="../../php/pasta_funcionalidade/editar.php?id=<?php echo $pasta['codPasta']; ?>" title="Editar"><i class="fa-solid fa-pen-to-square"></i></a>
-                            <a href="../../php/pasta_funcionalidade/deletar.php?id=<?php echo $pasta['codPasta']; ?>" onclick="return confirm('Tem certeza que deseja excluir esta pasta?');" title="Excluir"><i class="fa-solid fa-trash"></i></a>
+                            <a class="botao-icone" href="../../php/pasta_funcionalidade/editar.php?id=<?php echo (int) $pasta['codPasta']; ?>" title="Editar" aria-label="Editar pasta"><i class="ph ph-pencil-simple"></i></a>
+                            <a class="botao-icone perigo" href="../../php/pasta_funcionalidade/deletar.php?id=<?php echo (int) $pasta['codPasta']; ?>" onclick="return confirm('Tem certeza que deseja excluir esta pasta?');" title="Excluir" aria-label="Excluir pasta"><i class="ph ph-trash"></i></a>
                         </div>
                     </div>
                 <?php endforeach; ?>
-            <?php endif; ?> 
-        </div>
-    </div>
-    <!-- fim das pastas -->
+            </div>
 
-<script src="../../js/headers/pasta.js?v=<?php echo filemtime(__DIR__ . '/../../js/headers/pasta.js'); ?>"></script>
+        </div>
+    </main>
+    <!-- fim das pastas -->
 
 </body>
 </html>

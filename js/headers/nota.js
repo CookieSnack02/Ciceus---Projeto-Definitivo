@@ -106,7 +106,11 @@ var quill = new Quill('#editor-texto', {
    ------------------------------------------------------------------ */
 
 var caixaEditor = document.querySelector('.editor-wrapper');
-var seletorModo = document.getElementById('modo-nota');
+var opcoesModo = document.querySelectorAll('input[name="modo"]');
+
+function modoAtual() {
+    return document.querySelector('input[name="modo"]:checked').value;
+}
 
 /* no modo visualizacao a classe esconde a barra de formatacao
    pelo css e o quill fica somente leitura */
@@ -116,25 +120,27 @@ function aplicarModo(modo) {
     caixaEditor.classList.toggle('modo-visualizacao', visualizando);
     quill.enable(!visualizando);
 
-    if (seletorModo.value !== modo) {
-        seletorModo.value = modo;
-    }
+    opcoesModo.forEach(function (opcao) {
+        opcao.checked = opcao.value === modo;
+    });
 }
 
-seletorModo.addEventListener('change', function () {
-    aplicarModo(seletorModo.value);
+opcoesModo.forEach(function (opcao) {
+    opcao.addEventListener('change', function () {
+        aplicarModo(opcao.value);
+    });
 });
 
 /* tres cliques seguidos na nota devolvem o modo de edicao.
    o proprio evento de clique ja conta a sequencia em event.detail */
 quill.root.addEventListener('click', function (evento) {
-    if (evento.detail === 3 && seletorModo.value === 'visualizacao') {
+    if (evento.detail === 3 && modoAtual() === 'visualizacao') {
         aplicarModo('editor');
         quill.focus();
     }
 });
 
-aplicarModo(seletorModo.value);
+aplicarModo(modoAtual());
 
 
 /* ------------------------------------------------------------------
@@ -159,7 +165,7 @@ listaPastas.addEventListener('change', function () {
 
 function definirPasta(pasta) {
     listaPastas.value = pasta;
-    rotuloPasta.textContent = pasta === '' ? 'Adicionar Pasta' : pasta;
+    rotuloPasta.textContent = pasta === '' ? 'Adicionar pasta' : pasta;
 }
 
 
@@ -198,7 +204,7 @@ function mostrarAviso(mensagem) {
     gradeNotas.innerHTML = '';
 
     var aviso = document.createElement('p');
-    aviso.className = 'aviso-notas';
+    aviso.className = 'aviso';
     aviso.textContent = mensagem;
 
     gradeNotas.appendChild(aviso);
@@ -215,7 +221,7 @@ function renderizarNotas() {
     notasDoAluno.forEach(function (nota, indice) {
 
         var cartao = document.createElement('article');
-        cartao.className = 'cartao-nota';
+        cartao.className = 'cartao-nota cartao-base';
         cartao.tabIndex = 0;
         /* o atraso vem daqui e nao do css porque a quantidade
            de anotacoes e variavel */
@@ -223,7 +229,7 @@ function renderizarNotas() {
 
         var pasta = document.createElement('span');
         pasta.className = 'pasta-nota';
-        pasta.innerHTML = '<i class="fa-slab fa-regular fa-folders"></i>';
+        pasta.innerHTML = '<i class="ph ph-folder"></i>';
         pasta.appendChild(document.createTextNode(nota.pasta));
 
         var titulo = document.createElement('h3');
