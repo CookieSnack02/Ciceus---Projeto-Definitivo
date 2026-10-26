@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<adaptive-icon xmlns:android="http://schemas.android.com/apk/res/android">
+    <background android:drawable="@color/ciceus_fundo" />
+    <foreground android:drawable="@drawable/ic_launcher_foreground" />
+    <!-- icone tematico do android 13+ (segue a cor do papel de parede) -->
+    <monochrome android:drawable="@drawable/ic_launcher_foreground" />
+</adaptive-icon>

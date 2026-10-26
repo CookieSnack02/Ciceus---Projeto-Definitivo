@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Ciceus</string>
+    <string name="sem_conexao_titulo">Sem conexão</string>
+    <string name="sem_conexao_texto">Não foi possível abrir o Ciceus. Verifique sua internet e tente de novo.</string>
+    <string name="tentar_novamente">Tentar novamente</string>
+    <string name="escolher_arquivo">Escolher arquivo</string>
+</resources>

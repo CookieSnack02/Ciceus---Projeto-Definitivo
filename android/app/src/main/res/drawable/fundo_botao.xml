@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- botao "tentar novamente": mesmo estilo do .botao-principal do site -->
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#33FFFFFF">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@color/ciceus_destaque" />
+            <corners android:radius="9dp" />
+        </shape>
+    </item>
+</ripple>
