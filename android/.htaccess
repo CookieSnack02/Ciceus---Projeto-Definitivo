@@ -1,0 +1,3 @@
+# o codigo do app android vai junto no deploy do site, mas nao deve ser
+# acessivel pelo navegador
+Require all denied

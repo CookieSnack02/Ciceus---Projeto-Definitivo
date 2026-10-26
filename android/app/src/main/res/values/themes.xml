@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- sem barra de titulo: quem desenha o topo e a navbar do proprio site.
+         o fundo creme aparece enquanto a pagina carrega, sem flash branco -->
+    <style name="Theme.Ciceus" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/ciceus_destaque</item>
+        <item name="colorPrimaryDark">@color/ciceus_destaque_escuro</item>
+        <item name="colorAccent">@color/ciceus_destaque</item>
+        <item name="android:windowBackground">@color/ciceus_fundo</item>
+    </style>
+</resources>

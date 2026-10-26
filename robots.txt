@@ -2,5 +2,6 @@ User-agent: *
 Disallow: /php/
 Disallow: /richtexteditor/
 Disallow: /docs/
+Disallow: /android/
 
 Sitemap: https://www.ciceus.com/sitemap.xml

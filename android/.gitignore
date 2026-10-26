@@ -1,0 +1,16 @@
+# gerados pelo gradle e pelo android studio
+.gradle/
+build/
+app/build/
+local.properties
+.idea/
+*.iml
+.kotlin/
+captures/
+.externalNativeBuild/
+.cxx/
+
+# chave de assinatura da versao de loja: nunca vai para o repositorio
+*.jks
+*.keystore
+keystore.properties

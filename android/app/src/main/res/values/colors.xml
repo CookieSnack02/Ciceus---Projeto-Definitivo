@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- mesma paleta do css/base.css do site -->
+<resources>
+    <color name="ciceus_fundo">#FAF9F5</color>
+    <color name="ciceus_superficie">#FFFFFF</color>
+    <color name="ciceus_texto">#2B2620</color>
+    <color name="ciceus_texto_suave">#6F685D</color>
+    <color name="ciceus_destaque">#C08552</color>
+    <color name="ciceus_destaque_escuro">#A06D41</color>
+</resources>
